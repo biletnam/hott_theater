@@ -280,7 +280,7 @@ div.hott_kids{
 /********************* WHOS HOTT ************************************************/
 
 .whos_hott-hp {
-    background: url(../images/whos_hott-bg.png) no-repeat;
+    background: url(../images/whos_hott-bg.png) repeat;
 }
 
 .whos_hott-hp img {
