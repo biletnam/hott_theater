@@ -280,7 +280,7 @@ div.hott_kids{
 /********************* WHOS HOTT ************************************************/
 
 .whos_hott-hp {
-    background: url(../images/whos_hott-bg.png) repeat;
+    background: url(../images/whos_hott-bg.png) no-repeat;
 }
 
 .whos_hott-hp img {
@@ -329,6 +329,9 @@ div.hott_kids{
     /*background: url(../images/whos_hott_content_bg.png) no-repeat;*/
 }
 
+.whos_hott-hp fieldset {
+    border: none!important;
+}
 
 .whos_hott-hp fieldset img {
     display:block;
