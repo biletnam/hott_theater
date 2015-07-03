@@ -1,0 +1,98 @@
+/* ---------------------------------------------------- */  
+/* SLIDESHOW 
+/* ---------------------------------------------------- */  
+#slideshow {  
+	margin: 0;
+	padding: 0;
+	background: #FFF url(../images/tradlight/slideshow_bg.png) repeat-x bottom);
+	position: relative;
+	font-family: Verdana, Geneva, sans-serif;
+	z-index: 1000;
+}
+
+#slideshow ul {  
+	margin: 0;  
+	padding: 0;  
+	list-style-type: none;  
+	height: 1%; /* IE fix */
+}  
+
+#slideshow ul:after {  
+	content: ".";  
+	clear: both;  
+	display: block;  
+	height: 0;  
+	visibility: hidden;
+}              
+/* ---------------------------------------------------- */  
+/* SLIDESHOW > SLIDES 
+/* ---------------------------------------------------- */  
+#slideshow .slides { 
+	margin:0 0 0 8px;
+	padding: 0;
+	float: right;
+	overflow: hidden;
+	border-top: 1px solid #81bbc4;
+	border-bottom: 1px solid #81bbc4;
+	border-left: 1px solid #81bbc4;
+	position: relative;
+} 
+
+#slideshow .slides ul {  
+list-style: none;
+margin: 0;
+padding: 0;
+
+}
+
+#slideshow .slides li {  
+	float: left;  
+	padding: 22px 73px 16px 22px;
+} 
+
+  
+/* ---------------------------------------------------- */  
+/* SLIDESHOW > NAVIGATION 
+/* ---------------------------------------------------- */  
+#slideshow .slides-nav {
+	width: 200px;
+	margin: 16px 0 0 0;
+	padding: 0;
+	list-style: none;
+	float: left;
+}
+
+#slideshow .slides-nav li {
+	width: 154px;
+	height: 47px;
+	line-height: 47px;
+	margin: 0 0 9px 0;
+	padding: 0 0 0 46px;
+	background-image:url(../images/tradlight/nav_bg_active.png);
+	background-repeat:no-repeat;
+}
+
+#slideshow .slides-nav li a {
+	display: block;
+	color: #333333;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.js #slideshow .slides-nav li.on{
+	background-image:url(../images/tradlight/nav_bg.png);
+	
+}
+
+#slideshow #cycle_next{
+	height: 49px;
+	width: 30px;
+	position: absolute;
+	right: 7px;
+	top: 35%;
+	background-image: url(../images/tradlight/arrow_next.png);
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+	cursor: pointer;
+	z-index: 10000;
+}

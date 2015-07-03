@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="2.5"
+	client="site"
+	method="upgrade">
+	<name>JSlideShow</name> 
+	<author>Jan Sangill</author> 
+	<creationDate>2012-03-18</creationDate> 
+	<copyright>All rights reserved by Jan Sangill 2009.</copyright> 
+	<license>GPL 2.0</license> 
+	<authorEmail>jansangill@hotmail.com</authorEmail> 
+	<authorUrl>joomla.jansangill.dk</authorUrl> 
+	<version>1.0.0</version> 
+	<description>Provides a selection of articles in a slideshow</description>
+	<files>
+		<filename module="mod_jslideshow">mod_jslideshow.php</filename>
+		<filename>mod_jslideshow.xml</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+		<folder>css</folder>
+		<folder>js</folder>
+		<folder>images</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+	
+			
+				<field
+					name="type"
+					type="list"
+					default="article"
+					label="Type"
+					description="Select what type of slideshow">
+					<option value="article">Article Slideshow</option>
+					<option value="image">Image Slideshow</option>
+				</field>
+				
+					<field
+					name="path"
+					type="text"
+					label="Path"
+					default=""
+					description="Path.Only applicable if Image Slideshow is chosen" />
+
+				
+				<field
+					name="loadjquery"
+					type="list"
+					default="1"
+					label="Load Jquery"
+					description="Load jquery.If set to no, you already have it on your site.">
+					<option
+						value="1">Yes</option>
+					<option
+						value="0">No</option>
+				</field>
+
+				
+				
+				<field
+					name="catid"
+					type="category"
+					extension="com_content"
+					multiple="true"
+					size="10"
+					default=""
+					label="JCATEGORY"
+					description="MOD_LATEST_NEWS_FIELD_CATEGORY_DESC" >
+					<option value="">JOPTION_ALL_CATEGORIES</option>
+				</field>
+				
+				<field
+					name="count"
+					type="text"
+					default="5"
+					label="MOD_LATEST_NEWS_FIELD_COUNT_LABEL"
+					description="MOD_LATEST_NEWS_FIELD_COUNT_DESC" />
+
+				<field
+					name="show_featured"
+					type="list"
+					default=""
+					label="MOD_LATEST_NEWS_FIELD_FEATURED_LABEL"
+					description="MOD_LATEST_NEWS_FIELD_FEATURED_DESC">
+					<option
+						value="">JSHOW</option>
+					<option
+						value="0">JHIDE</option>
+					<option
+						value="1">MOD_LATEST_NEWS_VALUE_ONLY_SHOW_FEATURED</option>
+				</field>
+
+				<field
+					name="ordering"
+					type="list"
+					default="published"
+					label="MOD_LATEST_NEWS_FIELD_ORDERING_LABEL"
+					description="MOD_LATEST_NEWS_FIELD_ORDERING_DESC">
+					<option
+						value="c_dsc">MOD_LATEST_NEWS_VALUE_RECENT_ADDED</option>
+					<option
+						value="m_dsc">MOD_LATEST_NEWS_VALUE_RECENT_MODIFIED</option>
+					<option
+						value="p_dsc">MOD_LATEST_NEWS_VALUE_RECENT_PUBLISHED</option>
+					<option
+						value="mc_dsc">MOD_LATEST_NEWS_VALUE_RECENT_TOUCHED</option>
+				</field>
+
+				<field
+					name="user_id"
+					type="list"
+					default="0"
+					label="MOD_LATEST_NEWS_FIELD_USER_LABEL"
+					description="MOD_LATEST_NEWS_FIELD_USER_DESC">
+					<option
+						value="0">MOD_LATEST_NEWS_VALUE_ANYONE</option>
+					<option
+						value="by_me">MOD_LATEST_NEWS_VALUE_ADDED_BY_ME</option>
+					<option
+						value="not_me">MOD_LATEST_NEWS_VALUE_NOTADDED_BY_ME</option>
+				</field>
+				
+				<field
+					name="navigation_type"
+					type="list"
+					default="numbers"
+					label="Navigation type"
+					description="Navigation type">
+					<option value="numbers">Numbers</option>
+					<option value="titles">Titles</option>
+				</field>
+				
+				<field
+					name="width"
+					type="text"
+					label="Width"
+					default="500"
+					description="Width" />
+				
+				<field
+					name="height"
+					type="text"
+					label="Height"
+					default="200"
+					description="Height" />
+				
+				
+				<field
+					name="readmore"
+					type="list"
+					default="0"
+					label="Read more link"
+					description="Read more link">
+					<option value="0">No</option>
+
+					<option value="1">Yes</option>
+				</field>
+				
+				
+				<field
+					name="fx"
+					type="list"
+					default="fade"
+					label="Fx"
+					description="The way the articles change from one another">
+					<option value="fade">Fade</option>
+					<option value="scrollLeft">ScrollLeft</option>
+					<option value="scrollRight">ScrollRight</option>
+					<option value="scrollUp">ScrollUp</option>
+					<option value="scrollDown">ScrollDown</option>
+					<option value="shuffle">Shuffle</option>
+					<option value="zoom">Zoom</option>
+					<option value="turnDown">TurnDown</option>
+					<option value="curtainX">CurtainX</option>
+					<option value="blindX">BlindX</option>
+					<option value="blindY">BlindY</option>
+					<option value="blindZ">BlindZ</option>
+					<option value="growX">GrowX</option>
+					<option value="growY">GrowY</option>
+				</field>
+
+				<field
+					name="timeout"
+					type="text"
+					label="Timeout"
+					default="200"
+					description="Timeout" />
+				
+				<field
+					name="slideSpeed"
+					type="text"
+					label="SlideSpeed"
+					default="1500"
+					description="SlideSpeed" />
+				
+				<field
+					name="tabSpeed"
+					type="text"
+					label="tabSpeed"
+					default="300"
+					description="TabSpeed" />
+				
+				<field
+					name="navigate"
+					type="list"
+					default="1"
+					label="Navigate"
+					description="Navigate">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				
+				<field
+					name="bg_yes"
+					type="list"
+					default="0"
+					label="BackgroundImage used"
+					description="If you are using a backgroudimage in your slider, then set this to yes. Fixes bug in IE.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				
+				<field
+					name="prev_next"
+					type="list"
+					default="0"
+					label="Prev/Next"
+					description="Use of previous and next buttons">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				
+				<field
+					name="pause_resume"
+					type="list"
+					default="0"
+					label="Pause/Resume"
+					description="Use of pause and resume buttons">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+
+
+			</fieldset>
+
+			<fieldset
+				name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+				<field
+					name="moduleclass_sfx"
+					type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+				<field
+					name="cache"
+					type="list"
+					default="0"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC">
+					<option
+						value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,488 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 31, 2015, 12:01:44 AM
+    Author     : KJohnston
+*/
+
+/************************** MEGA MENU **************************************/
+
+.mega_menu-nav ul{
+    background: transparent!important;
+    margin: -25px 20px 0!important;
+    width: 100%;
+    @import "hott-custom.css";
+    z-index: 20001 !important;
+}
+
+@media only screen and (max-width: 640px) {
+	.mega_menu-nav ul{
+    		margin-top: 30px!important;
+			position: relative!important;
+	}
+}
+
+.mega_menu-nav  li a {
+	font-family: 'Titillium Web', sans-serif!important;
+	font-size: 14px!important;
+	font-weight: 400!important;
+	text-shadow: 0px!important;
+	line-height: 20px!important;
+	color: #fff!important;
+	letter-spacing: 1.2px;
+	text-transform: uppercase!important;
+	text-align: left!important;
+	width: auto!important;
+}	margin: 0 17px!important;
+
+.mega_menu-nav li ul a {
+	color: #444!important;
+}
+
+.mega_menu-nav a:hover{
+	color: #f0e6d1!important;
+	text-decoration: none!important;
+	/*border-bottom: 5px solid #fff!important;*/
+	
+}	
+
+@media (max-width:48.000em){
+	
+	.mega_menu-nav { display: none; }
+	.anchor-link, #mobile-nav { display: block; }
+
+  .mega_menu-nav { 
+    background-color: #333;
+    box-shadow: 2px 2px 3px #444444;
+    display: block;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 5px;
+    top: 100%;
+    width: 70%;
+    z-index: 500; 
+	}
+	.mega_menu-nav. li a{ display: block; list-style: none; text-align: center; }
+	.mega_menu-nav li a { display: block; padding: 20px 10px; border-bottom: 1px solid #ccc; text-decoration: none; }
+	.mega_menu-nav li a:hover { background-color: #ccc; color: #fff; }
+	
+}
+
+/*************************** USER MENU ************************************************************/
+.user_menu-nav  ul{
+	background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0 !important;
+	display: inline-block;
+	margin: 15px;
+	position: fixed;
+	z-index: 1;
+	float: right!important;
+	width: 100%;
+	padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .user_menu-nav  ul  {
+	background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0 !important;
+    position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+  }
+}
+.user_menu-nav  li a {
+	font-family: 'Titillium Web', sans-serif!important;
+	font-size: 14px!important;
+	font-weight: 400!important;
+	text-shadow: 1px 1px #666!important;
+	line-height: 20px!important;
+	color: #fff!important;
+	letter-spacing: 1.2px;
+	text-transform: uppercase!important;
+	text-align: left!important;
+	width: auto!important;
+	margin: 0 17px;
+	float: left;
+}
+
+@media (max-width: 600px) {
+  .user_menu-nav  li a  {
+    float: left;
+	margin: 10px;
+	line-height: 10px;
+	font-size: 10px!important;
+  }
+}	
+
+.user_menu-nav li ul a {
+	color: #444!important;
+}
+
+.user_menu-nav a:hover{
+	color: #f0e6d1!important;
+	text-decoration: none!important;
+	/*border-bottom: 5px solid #fff!important;*/
+	
+}	
+
+@media only screen and (max-width: 640px) {
+	.user_menu-nav {
+    		height: auto;
+	}
+}
+
+/****************************** HERO SLIDESHOW *****************************************************/
+
+.hott_slideshow {
+	position: relative;
+	margin-top: -80px;
+	width: 100%;
+}
+
+.hott_slideshow img{
+	width: auto;
+}
+
+.hott_slideshow h1 {
+	font-size: 3em;
+	color: #fff;
+	font-family:'Titillium Web', sans-serif;
+}
+
+/********************************* TAGLINE ***********************************************************/
+
+.tagline {
+	left: 17%;
+    position: relative;
+    width: 50%;
+}
+
+.tagline p {
+	color: #fff;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	letter-spacing: 1.7px;
+	text-transform: uppercase;
+}
+/************************************* CCK CUSTOM STYLES *************************************************/
+
+#hott_content {
+    width: auto;
+	padding: 0!important;
+	background: #fff!important;
+}
+
+div.hott_content {
+	width: 900px;
+}
+
+.hott_content ul {
+	width: 100%;
+}
+
+.hott_content li {
+	width: 100%;
+	margin: 50px 0;
+	list-style-type: none;
+	color: #585858;
+    font-family: "Titillium Web",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    width: auto;
+}
+
+.hott_content h1,h2,h3{
+	font-family: 'Titillium Web', sans-serif!important;
+	letter-spacing: 2.1px;
+	text-transform: uppercase;
+}
+
+.hott_content h1{
+	color: #585858;
+	font-size: 3em;
+	line-height: 2em;
+}
+
+.hott_content h2{
+color: #585858;
+	font-size: 1.5em;
+	line-height: 1.2em;
+}
+
+.hott_content h3{
+	color: #164D9E;
+	font-size: 0.9em;
+	line-height: 0.8em;
+	margin: 12px 0;
+}
+
+.hott_content p, title{
+	color: #585858;
+    font-family: "Titillium Web",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    width: auto;
+}
+
+
+
+/****************************** HOT KIDS ****************************************/
+
+
+div.hott_kids{
+	/*margin-left: 30px;
+    width: 1200px;*/
+}
+
+.hott_kids h1{
+	font-family: 'Titillium Web', sans-serif!important;
+	font-size: 3em;
+	line-height: 2em;
+	color: #585858;
+	letter-spacing: 2.1px;
+	text-transform: uppercase;
+}
+
+.hott_kids img{
+	max-width: 250px;
+}
+
+.hott_kids ul {
+	width: 100%;
+}
+
+.hott_kids li {
+	list-style-type: none;
+	color: #585858;
+    font-family: "Titillium Web",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    padding: 0 35px;
+    width: auto;
+}
+
+/********************* WHOS HOTT ************************************************/
+div.whos_hott {
+	background: #999;
+}
+
+.whos_hott ul {
+	width: 100%;
+}
+
+.whos_hott li {
+	width: 100%;
+	margin: 50px 0;
+	list-style-type: none;
+	color: #585858;
+    font-family: "Titillium Web",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    width: auto;
+}
+
+.whos_hott h1,h2,h3{
+	font-family: 'Titillium Web', sans-serif!important;
+	letter-spacing: 2.1px;
+	text-transform: uppercase;
+}
+
+.whos_hott h1{
+	color: #fff;
+	font-size: 3em;
+	line-height: 2em;
+
+}
+
+.whos_hott h2{
+	color: #fff;
+	font-size: 1.5em;
+	line-height: 1.2em;
+	text-align: center;
+}
+
+.whos_hott h3{
+	color: #fff;
+	font-weight: 700;
+	font-size: 1.0em;
+	line-height: 0.8em;
+	text-align: center;
+	margin: 12px 0;
+}
+
+.whos_hott p, title{
+	color: #fff;
+    font-family: "Titillium Web",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    width: auto;
+	text-transform:normal;
+	float: right;
+}
+
+.whos_hott img {
+	float: right;
+}
+
+
+
+
+/********************* CASTING CALL ********************************************/
+
+div.hott_casting {
+	/*width: 800px;
+	margin: 0 180px;*/
+}
+
+.hott_casting ul {
+	width: 100%;
+}
+
+.hott_casting li {
+	width: 100%;
+	margin: 50px 0;
+	list-style-type: none;
+	color: #585858;
+    font-family: "Titillium Web",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    width: auto;
+}
+
+.hott_casting h1,h2,h3{
+	font-family: 'Titillium Web', sans-serif!important;
+	letter-spacing: 2.1px;
+	text-transform: uppercase;
+}
+
+.hott_casting h1{
+	color: #585858;
+	font-size: 3em;
+	line-height: 2em;
+
+}
+
+.hott_casting h2{
+	color: #585858;
+	font-size: 1.5em;
+	line-height: 1.2em;
+	text-align: center;
+}
+
+.hott_casting h3{
+	color: #164D9E;
+	font-weight: 700;
+	font-size: 1.0em;
+	line-height: 0.8em;
+	text-align: center;
+	margin: 12px 0;
+}
+
+.hott_casting p, title{
+	color: #585858;
+    font-family: "Titillium Web",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    width: auto;
+	text-transform:normal;
+	float: right;
+}
+
+.hott_casting label {
+	font-weight: 600;
+}
+
+
+/********************* CONTACT MAP *********************************************/
+
+
+div.hott_contact {
+	/*width: 800px;*/
+	/*margin: 0 180px;*/
+}
+
+.hott_contact h1,h2,h3{
+	font-family: 'Titillium Web', sans-serif!important;
+	letter-spacing: 2.1px;
+	text-transform: uppercase;
+}
+
+.hott_contact h1{
+	color: #585858;
+	font-size: 3em;
+	line-height: 2em;
+}
+
+.hott_contact h2{
+	color: #585858;
+	font-size: 1.5em;
+	line-height: 1.2em;
+	text-align: center;
+}
+
+.hott_contact h3{
+	color: #164D9E;
+	font-size: 0.9em;
+	line-height: 0.8em;
+	text-align: left;
+	margin: 7px 0;
+}
+
+.hott_contact ul {
+	width: 100%;
+}
+
+.hott_contact li {
+	width: 100%;
+	list-style-type: none;
+	margin-bottom: 50px;
+}
+
+
+/***************** COPYRIGHT *****************************/
+
+.hott_copyright p {
+        font-family: 'Titillium Web', sans-serif!important;
+	font-size: 14px!important;
+	font-weight: 400!important;
+	text-shadow: 1px 1px #666!important;
+	line-height: 20px!important;
+	color: #fff!important;
+	letter-spacing: 1.2px;
+	text-transform: uppercase!important;
+	text-align: left!important;
+	width: auto!important;
+        text-align: center;
+    
+}
+
+#hott_copyright p {
+        font-family: 'Titillium Web', sans-serif!important;
+	font-size: 14px!important;
+	font-weight: 400!important;
+	text-shadow: 1px 1px #666!important;
+	line-height: 20px!important;
+	color: #fff!important;
+	letter-spacing: 1.2px;
+	text-transform: uppercase!important;
+	text-align: left!important;
+	width: auto!important;
+        text-align: center;
+    
+}
+
+

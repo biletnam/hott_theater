@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="template" version="1.7.0" method="upgrade">
+	
+	<name>seblod_slider_nivo</name>
+	<author>Nithin Prathapan</author>
+	<creationDate>February 2012</creationDate>
+	<authorEmail>mail@website.com</authorEmail>
+	<authorUrl>http://www.webiste.com</authorUrl>
+	<copyright>Copyright (C) 2011 Nithin Prathapan. All Rights Reserved.</copyright>
+	<license>GNU General Public License version 2 or later.</license>
+	<description>Front End Image Slide Show for SEBLOD - Based on Nivo Slider V. 2</description>	
+	<version>2.0.0</version>
+	
+	
+	<files>
+		<folder>css</folder>
+		<folder>fields</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>includes</folder>
+		<folder>positions</folder>
+		<folder>variations</folder>
+		
+		<filename>config.php</filename>
+		<filename>index.php</filename>
+		<filename>template_preview.png</filename>
+		<filename>template_thumbnail.png</filename>
+		<filename>params.ini</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>index.html</filename>
+	</files>
+	
+	<languages folder="languages">
+	</languages>
+	
+	<positions>
+		<position>mainbody</position>
+	</positions>
+	
+</extension>
