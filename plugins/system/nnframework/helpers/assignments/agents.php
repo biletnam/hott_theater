@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Agents
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsAgents extends nnFrameworkAssignment
+class NNFrameworkAssignmentsAgents extends NNFrameworkAssignment
 {
 	/**
 	 * passBrowsers
@@ -374,7 +374,7 @@ class nnFrameworkAssignmentsAgents extends nnFrameworkAssignment
 			'Hudl'              => 'Hudl HT7S3',
 			// http://www.telstra.com.au/home-phone/thub-2/
 			'TelstraTablet'     => 'T-Hub2',
-			'GenericTablet'     => 'Android.*\b97D\b|Tablet(?!.*PC)|BNTV250A|MID-WCDMA|LogicPD Zoom2|\bA7EB\b|CatNova8|A1_07|CT704|CT1002|\bM721\b|rk30sdk|\bEVOTAB\b|M758A|ET904|ALUMIUM10|Smartfren Tab|Endeavour 1010|Tablet-PC-4|Tagi Tab|\bM6pro\b|CT1020W|arc 10HD|\bJolla\b'
+			'GenericTablet'     => 'Android.*\b97D\b|Tablet(?!.*PC)|BNTV250A|MID-WCDMA|LogicPD Zoom2|\bA7EB\b|CatNova8|A1_07|CT704|CT1002|\bM721\b|rk30sdk|\bEVOTAB\b|M758A|ET904|ALUMIUM10|Smartfren Tab|Endeavour 1010|Tablet-PC-4|Tagi Tab|\bM6pro\b|CT1020W|arc 10HD|\bJolla\b',
 		);
 
 		/* List of mobile Operating Systems. */

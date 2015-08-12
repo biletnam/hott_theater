@@ -3,7 +3,7 @@
  * Element: Ajax
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Ajax extends nnFormField
+class JFormFieldNN_Ajax extends NNFormField
 {
 	public $type = 'Ajax';
 
@@ -26,7 +26,7 @@ class JFormFieldNN_Ajax extends nnFormField
 
 		JHtml::_('jquery.framework');
 
-		nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/script.min.js');
+		NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/script.min.js');
 
 		$loading = "jQuery(\"#" . $this->id . "\").find(\"span\").attr(\"class\", \"icon-refresh icon-spin\")";
 		$success = "jQuery(\"#" . $this->id . "\").find(\"span\").attr(\"class\", \"icon-ok\")";

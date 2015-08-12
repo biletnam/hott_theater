@@ -2,7 +2,7 @@
  * Popup stylesheet
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,4 +27,18 @@ body.nnpopup .page-title {
 body.nnpopup .header {
   margin-left: 0;
   margin-right: 0;
+}
+body.nnpopup label > span[class^="nnicon"] {
+  padding: 1px 0 3px;
+}
+body.nnpopup .nn_overlay {
+  background-color: #000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5000;
+  opacity: .2;
+  cursor: wait;
 }

@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once __DIR__ . '/cache.php';
 
-class nnFrameworkAssignment
+class NNFrameworkAssignment
 {
 	public $request = null;
 	public $date = null;
@@ -29,7 +29,7 @@ class nnFrameworkAssignment
 	{
 		$this->request = $request;
 		$this->date = $date;
-		$this->db = JFactory::getDBO();
+		$this->db = JFactory::getDbo();
 	}
 
 	public function init()
@@ -123,9 +123,9 @@ class nnFrameworkAssignment
 	{
 		$hash = md5('getMenuItemParams_' . $id);
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$query = $this->db->getQuery(true)
@@ -135,9 +135,10 @@ class nnFrameworkAssignment
 		$this->db->setQuery($query);
 		$params = $this->db->loadResult();
 
-		$parameters = nnParameters::getInstance();
+		$parameters = NNParameters::getInstance();
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$parameters->getParams($params)
 		);
 	}
@@ -151,9 +152,9 @@ class nnFrameworkAssignment
 
 		$hash = md5('getParentIds_' . $id . '_' . $table . '_' . $parent . '_' . $child);
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$parent_ids = array();
@@ -167,15 +168,17 @@ class nnFrameworkAssignment
 			$this->db->setQuery($query);
 			$id = $this->db->loadResult();
 
-			if (!$id)
+			// Break if no parent is found or parent already found before for some reason
+			if (!$id || in_array($id, $parent_ids))
 			{
-				continue;
+				break;
 			}
 
 			$parent_ids[] = $id;
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$parent_ids
 		);
 	}
@@ -189,9 +192,9 @@ class nnFrameworkAssignment
 
 		$hash = md5('makeArray_' . json_encode($array) . '_' . $onlycommas . '_' . $trim);
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$array = $this->mixedDataToArray($array, $onlycommas);
@@ -216,7 +219,8 @@ class nnFrameworkAssignment
 			$array[$k] = trim($v);
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$array
 		);
 	}
@@ -277,7 +281,6 @@ class nnFrameworkAssignment
 				}
 
 				$text = trim($text . ' ' . $item->{$field});
-
 			}
 		}
 

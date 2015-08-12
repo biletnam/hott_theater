@@ -83,6 +83,17 @@ class RokSprocket_Layout_Sliders extends RokSprocket_AbstractLayout
 		$js[] = "window.addEvent('domready', function(){";
 		$js[] = "	RokSprocket.instances.sliders.attach(" . $id . ", '" . $options . "');";
 		$js[] = "});";
+        $js[] = "window.addEvent('load', function(){";
+        $js[] = "   var overridden = false;";
+        $js[] = "   if (!overridden && window.G5 && window.G5.offcanvas){";
+        $js[] = "       var mod = document.getElement('[data-accoridon=\"" . $id . "\"]');";
+        $js[] = "       mod.addEvents({";
+        $js[] = "           touchstart: function(){ window.G5.offcanvas.detach(); },";
+        $js[] = "           touchend: function(){ window.G5.offcanvas.attach(); }";
+        $js[] = "       });";
+        $js[] = "       overridden = true;";
+        $js[] = "   };";
+        $js[] = "});";
 		RokCommon_Header::addInlineScript(implode("\n", $js) . "\n");
 	}
 

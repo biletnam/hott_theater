@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.combobox');
 JHtml::_('formbehavior.chosen', 'select');
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
@@ -67,8 +67,8 @@ if (JFactory::getUser()->authorise('core.admin'))
 }
 
 JFactory::getDocument()->addScriptDeclaration($script);
-nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/script.min.js');
-nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/toggler.min.js');
+NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/script.min.js');
+NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/toggler.min.js');
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_advancedmodules&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="module-form" class="form-validate">
@@ -161,7 +161,7 @@ nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js
 					'published',
 					'access',
 					'ordering',
-					'note'
+					'note',
 				);
 				?>
 				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
@@ -241,9 +241,11 @@ nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js
 		<?php echo JHtml::_('form.token'); ?>
 		<?php echo $this->form->getInput('module'); ?>
 		<?php echo $this->form->getInput('client_id'); ?>
+
+		<?php if ($this->config->show_switch) : ?>
+			<div style="text-align:right">
+				<a href="<?php echo JRoute::_('index.php?option=com_modules&force=1&task=module.edit&id=' . (int) $this->item->id); ?>"><?php echo JText::_('AMM_SWITCH_TO_CORE'); ?></a>
+			</div>
+		<?php endif; ?>
 	</div>
 </form>
-
-<?php if ($this->config->show_switch) : ?>
-	<div style="text-align:right"><a href="<?php echo JRoute::_('index.php?option=com_modules&force=1&task=module.edit&id=' . (int) $this->item->id); ?>"><?php echo JText::_('AMM_SWITCH_TO_CORE'); ?></a></div>
-<?php endif; ?>

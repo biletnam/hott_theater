@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ defined('_JEXEC') or die;
 /**
  * Module model.
  *
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesModelSelect extends JModelList
 {
@@ -28,8 +28,10 @@ class AdvancedModulesModelSelect extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
+	 * @param   string $ordering  An optional ordering field.
+	 * @param   string $direction An optional direction (asc|desc).
+	 *
+	 * @return  void
 	 *
 	 * @since   1.6
 	 */
@@ -38,8 +40,8 @@ class AdvancedModulesModelSelect extends JModelList
 		$app = JFactory::getApplication('administrator');
 
 		// Load the filter state.
-		$clientId = $app->getUserState('com_advancedmodules.modules.client_id', 0);
-		$this->setState('stfilter.client_id', (int) $clientId);
+		$clientId = $app->getUserState('com_advancedmodules.modules.filter.client_id', 0);
+		$this->setState('filter.client_id', (int) $clientId);
 
 		// Load the parameters.
 		$params = JComponentHelper::getParams('com_advancedmodules');
@@ -59,14 +61,14 @@ class AdvancedModulesModelSelect extends JModelList
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  A prefix for the store id.
+	 * @param   string $id A prefix for the store id.
 	 *
 	 * @return  string    A store id.
 	 */
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
-		$id .= ':' . $this->getState('stfilter.client_id');
+		$id .= ':' . $this->getState('filter.client_id');
 
 		return parent::getStoreId($id);
 	}
@@ -79,7 +81,7 @@ class AdvancedModulesModelSelect extends JModelList
 	protected function getListQuery()
 	{
 		$db = $this->getDbo();
-		$clientId = $this->getState('stfilter.client_id');
+		$clientId = $this->getState('filter.client_id');
 
 		$query = $db->getQuery(true)
 			// Select the required fields from the table.
@@ -90,16 +92,12 @@ class AdvancedModulesModelSelect extends JModelList
 				)
 			)
 			->from('#__extensions AS a')
-
 			// Filter by module
 			->where('a.type = ' . $db->quote('module'))
-
 			// Filter by client.
 			->where('a.client_id = ' . (int) $clientId)
-
 			// Filter by enabled
 			->where('a.enabled = 1')
-
 			// Add the list ordering clause.
 			->order($db->escape($this->getState('list.ordering', 'a.ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
 
@@ -116,7 +114,7 @@ class AdvancedModulesModelSelect extends JModelList
 		// Get the list of items from the database.
 		$items = parent::getItems();
 
-		$client = JApplicationHelper::getClientInfo($this->getState('stfilter.client_id', 0));
+		$client = JApplicationHelper::getClientInfo($this->getState('filter.client_id', 0));
 		$lang = JFactory::getLanguage();
 
 		// Loop through the results to add the XML metadata,
@@ -137,7 +135,7 @@ class AdvancedModulesModelSelect extends JModelList
 			// 1.5 Format; Core files or language packs then
 			// 1.6 3PD Extension Support
 			$lang->load($item->module . '.sys', $client->path, null, false, true)
-				|| $lang->load($item->module . '.sys', $client->path . '/modules/' . $item->module, null, false, true);
+			|| $lang->load($item->module . '.sys', $client->path . '/modules/' . $item->module, null, false, true);
 			$item->name = JText::_($item->name);
 
 			if (isset($item->xml) && $text = trim($item->xml->description))

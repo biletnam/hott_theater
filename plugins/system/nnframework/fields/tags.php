@@ -4,7 +4,7 @@
  * Displays a select box of backend group levels
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Tags extends nnFormField
+class JFormFieldNN_Tags extends NNFormField
 {
 	public $type = 'Tags';
 
@@ -42,7 +42,7 @@ class JFormFieldNN_Tags extends nnFormField
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';
 
-		return nnHtml::selectlist($options, $this->name, $this->value, $this->id, $size, 1);
+		return NNHtml::selectlist($options, $this->name, $this->value, $this->id, $size, 1);
 	}
 
 	protected function getTags()

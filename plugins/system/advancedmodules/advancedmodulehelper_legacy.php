@@ -3,7 +3,7 @@
  * Plugin Module Helper File
  *
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ jimport('joomla.filesystem.file');
  * ModuleHelper methods
  */
 
-class plgSystemAdvancedModuleHelper
+class PlgSystemAdvancedModuleHelper
 {
 	public function onRenderModule(&$module)
 	{
@@ -133,10 +133,10 @@ class plgSystemAdvancedModuleHelper
 		jimport('joomla.filesystem.file');
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = nnParameters::getInstance();
+		$parameters = NNParameters::getInstance();
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignments.php';
-		$assignments = new nnFrameworkAssignmentsHelper;
+		$assignments = new NNFrameworkAssignmentsHelper;
 
 		$xmlfile_assignments = JPATH_ADMINISTRATOR . '/components/com_advancedmodules/assignments.xml';
 
@@ -155,6 +155,10 @@ class plgSystemAdvancedModuleHelper
 			}
 
 			$module->advancedparams = json_decode($module->advancedparams);
+			if (is_null($module->advancedparams))
+			{
+				$module->advancedparams = new stdClass;
+			}
 			if (
 				!isset($module->advancedparams->assignto_menuitems)
 				|| isset($module->advancedparams->assignto_urls_selection_sef)
@@ -191,9 +195,7 @@ class plgSystemAdvancedModuleHelper
 			{
 				$count = 0;
 				while ($count++ < 10
-					&& isset($module->advancedparams->mirror_module)
-					&& $module->advancedparams->mirror_module
-					&& isset($module->advancedparams->mirror_moduleid)
+					&& !empty($module->advancedparams->mirror_module)
 					&& !empty($module->advancedparams->mirror_moduleid)
 				)
 				{
@@ -317,22 +319,30 @@ class plgSystemAdvancedModuleHelper
 		}
 	}
 
+	/**
+	 * Function that gets the config settings
+	 *
+	 * @return    Object
+	 */
 	private function getConfig()
 	{
 		static $instance;
-		if (!is_object($instance))
+
+		if (is_object($instance))
 		{
-			require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-			$parameters = nnParameters::getInstance();
-			$instance = $parameters->getComponentParams('advancedmodules');
+			return $instance;
 		}
+
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
+		$parameters = NNParameters::getInstance();
+		$instance = $parameters->getComponentParams('advancedmodules');
 
 		return $instance;
 	}
 
 	private function getAdvancedParams($id)
 	{
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true)
 			->select('a.params')
 			->from('#__advancedmodules AS a')

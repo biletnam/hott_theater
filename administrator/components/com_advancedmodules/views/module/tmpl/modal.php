@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,17 +16,17 @@
 
 defined('_JEXEC') or die;
 ?>
-<div class="btn-toolbar">
-	<div class="btn-group">
-		<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('module.save');">
-		<?php echo JText::_('JSAVE');?></button>
+	<div class="btn-toolbar">
+		<div class="btn-group">
+			<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('module.save');">
+				<?php echo JText::_('JSAVE'); ?></button>
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn" onclick="Joomla.submitbutton('module.cancel');">
+				<?php echo JText::_('JCANCEL'); ?></button>
+		</div>
+		<div class="clear"></div>
 	</div>
-	<div class="btn-group">
-		<button type="button" class="btn" onclick="Joomla.submitbutton('module.cancel');">
-		<?php echo JText::_('JCANCEL');?></button>
-	</div>
-	<div class="clearfix"></div>
-</div>
 
 <?php
 $this->setLayout('edit');

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ defined('_JEXEC') or die;
 /**
  * Modules manager master display controller.
  *
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesController extends JControllerLegacy
 {
@@ -32,11 +32,11 @@ class AdvancedModulesController extends JControllerLegacy
 	/**
 	 * Method to display a view.
 	 *
-	 * @param   boolean         $cachable       If true, the view output will be cached
-	 * @param   array|boolean   $urlparams      An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}
-	.
+	 * @param   boolean       $cachable  If true, the view output will be cached
+	 * @param   array|boolean $urlparams An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}
 	 *
-	 * @return  JController        This object to support chaining.
+	 * @return  JController    This object to support chaining.
+	 *
 	 * @since   1.5
 	 */
 	public function display($cachable = false, $urlparams = false)
@@ -73,7 +73,7 @@ class AdvancedModulesController extends JControllerLegacy
 			return $view->display();
 		}
 
-		require_once JPATH_COMPONENT.'/helpers/modules.php';
+		require_once JPATH_COMPONENT . '/helpers/modules.php';
 
 		// Load the submenu.
 		ModulesHelper::addSubmenu($this->input->get('view', 'modules'));

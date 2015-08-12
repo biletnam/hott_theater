@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -22,8 +22,8 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_modules'))
 	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
-JFactory::getLanguage()->load('com_modules', JPATH_ADMINISTRATOR);
-JFactory::getLanguage()->load('com_advancedmodules', JPATH_ADMINISTRATOR);
+NNFrameworkFunctions::loadLanguage('com_modules', JPATH_ADMINISTRATOR);
+NNFrameworkFunctions::loadLanguage('com_advancedmodules');
 
 jimport('joomla.filesystem.file');
 
@@ -33,6 +33,7 @@ if (!JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php'))
 	$msg = JText::_('AMM_NONUMBER_FRAMEWORK_NOT_INSTALLED')
 		. ' ' . JText::sprintf('AMM_EXTENSION_CAN_NOT_FUNCTION', JText::_('COM_ADVANCEDMODULES'));
 	JFactory::getApplication()->enqueueMessage($msg, 'error');
+
 	return;
 }
 
@@ -46,7 +47,7 @@ if (!isset($nnep->name))
 }
 
 // load the NoNumber Framework language file
-JFactory::getLanguage()->load('plg_system_nnframework', JPATH_ADMINISTRATOR);
+NNFrameworkFunctions::loadLanguage('plg_system_nnframework');
 
 $controller = JControllerLegacy::getInstance('AdvancedModules');
 $controller->execute(JFactory::getApplication()->input->get('task'));

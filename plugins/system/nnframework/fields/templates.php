@@ -4,7 +4,7 @@
  * Displays a select box of templates
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Templates extends nnFormField
+class JFormFieldNN_Templates extends NNFormField
 {
 	public $type = 'Templates';
 
@@ -52,7 +52,7 @@ class JFormFieldNN_Templates extends nnFormField
 		$value = str_replace('::', '--', $value);
 		$value = (array) json_decode($value, true);
 
-		return nnHtml::selectlist($options, $this->name, $value, $this->id, $size, $multiple);
+		return NNHtml::selectlist($options, $this->name, $value, $this->id, $size, $multiple);
 	}
 
 	protected function getTemplates()

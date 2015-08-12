@@ -3,7 +3,7 @@
  * Adds slide in and out functionality to elements based on an elements value
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -152,9 +152,9 @@
 				if (
 					values != null && values.length
 					&& (
-					(vals == '*' && values != '')
-					|| (vals.toString().substr(0, 1) === '!' && !nnScripts.in_array(vals.toString().substr(1), values))
-					|| nnScripts.in_array(vals, values)
+						(vals == '*' && values != '')
+						|| (vals.toString().substr(0, 1) === '!' && !nnScripts.in_array(vals.toString().substr(1), values))
+						|| nnScripts.in_array(vals, values)
 					)
 				) {
 					if (toggler.method == 'or') {
@@ -204,7 +204,13 @@
 		setElements: function() {
 			var self = this;
 			$.each($('input, select'), function(i, el) {
-				el_name = el.name.replace('@', '_').replace('[]', '').replace(/(?:jform\[params\]|jform|params|advancedparams)\[(.*?)\]/g, '\$1').trim();
+				el_name = el.name
+					.replace('@', '_')
+					.replace('[]', '')
+					.replace(/^(?:jform\[params\]|jform|params|advancedparams)\[(.*?)\]/g, '\$1')
+					.replace(/^(.*?)\[(.*?)\]/g, '\$1_\$2')
+					.trim();
+
 				if (el_name !== '') {
 					if (typeof( self.elements[el_name]) != "undefined") {
 						self.elements[el_name].elements.push(el);

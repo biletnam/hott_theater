@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,26 +19,26 @@ defined('_JEXEC') or die;
 /**
  * JHtml module helper class.
  *
- * @since       1.6
+ * @since  1.6
  */
 abstract class JHtmlModules
 {
 	/**
 	 * Builds an array of template options
 	 *
-	 * @param   integer  $clientId  The client id.
-	 * @param   string   $state     The state of the template.
+	 * @param   integer $clientId The client id.
+	 * @param   string  $state    The state of the template.
 	 *
 	 * @return  array
 	 */
 	public static function templates($clientId = 0, $state = '')
 	{
-		$options   = array();
+		$options = array();
 		$templates = ModulesHelper::getTemplates($clientId, $state);
 
 		foreach ($templates as $template)
 		{
-			$options[]	= JHtml::_('select.option', $template->element, $template->name);
+			$options[] = JHtml::_('select.option', $template->element, $template->name);
 		}
 
 		return $options;
@@ -75,10 +75,10 @@ abstract class JHtmlModules
 	/**
 	 * Returns a published state on a grid
 	 *
-	 * @param   integer  $value     The state value.
-	 * @param   integer  $i         The row index
-	 * @param   boolean  $enabled   An optional setting for access control on the action.
-	 * @param   string   $checkbox  An optional prefix for checkboxes.
+	 * @param   integer $value    The state value.
+	 * @param   integer $i        The row index
+	 * @param   boolean $enabled  An optional setting for access control on the action.
+	 * @param   string  $checkbox An optional prefix for checkboxes.
 	 *
 	 * @return  string        The Html code
 	 *
@@ -87,24 +87,24 @@ abstract class JHtmlModules
 	 */
 	public static function state($value, $i, $enabled = true, $checkbox = 'cb')
 	{
-		$states	= array(
-			1 => array(
+		$states = array(
+			1  => array(
 				'unpublish',
 				'COM_MODULES_EXTENSION_PUBLISHED_ENABLED',
 				'COM_MODULES_HTML_UNPUBLISH_ENABLED',
 				'COM_MODULES_EXTENSION_PUBLISHED_ENABLED',
 				true,
 				'publish',
-				'publish'
+				'publish',
 			),
-			0 => array(
+			0  => array(
 				'publish',
 				'COM_MODULES_EXTENSION_UNPUBLISHED_ENABLED',
 				'COM_MODULES_HTML_PUBLISH_ENABLED',
 				'COM_MODULES_EXTENSION_UNPUBLISHED_ENABLED',
 				true,
 				'unpublish',
-				'unpublish'
+				'unpublish',
 			),
 			-1 => array(
 				'unpublish',
@@ -113,7 +113,7 @@ abstract class JHtmlModules
 				'COM_MODULES_EXTENSION_PUBLISHED_DISABLED',
 				true,
 				'warning',
-				'warning'
+				'warning',
 			),
 			-2 => array(
 				'publish',
@@ -122,7 +122,7 @@ abstract class JHtmlModules
 				'COM_MODULES_EXTENSION_UNPUBLISHED_DISABLED',
 				true,
 				'unpublish',
-				'unpublish'
+				'unpublish',
 			),
 		);
 
@@ -132,9 +132,9 @@ abstract class JHtmlModules
 	/**
 	 * Display a batch widget for the module position selector.
 	 *
-	 * @param   integer  $clientId          The client ID.
-	 * @param   integer  $state             The state of the module (enabled, unenabled, trashed).
-	 * @param   string   $selectedPosition  The currently selected position for the module.
+	 * @param   integer $clientId         The client ID.
+	 * @param   integer $state            The state of the module (enabled, unenabled, trashed).
+	 * @param   string  $selectedPosition The currently selected position for the module.
 	 *
 	 * @return  string   The necessary positions for the widget.
 	 *
@@ -144,7 +144,7 @@ abstract class JHtmlModules
 	public static function positions($clientId, $state = 1, $selectedPosition = '')
 	{
 		require_once JPATH_ADMINISTRATOR . '/components/com_templates/helpers/templates.php';
-		$templates      = array_keys(ModulesHelper::getTemplates($clientId, $state));
+		$templates = array_keys(ModulesHelper::getTemplates($clientId, $state));
 		$templateGroups = array();
 
 		// Add an empty value to be able to deselect a module position
@@ -199,7 +199,7 @@ abstract class JHtmlModules
 		// Create the copy/move options.
 		$options = array(
 			JHtml::_('select.option', 'c', JText::_('JLIB_HTML_BATCH_COPY')),
-			JHtml::_('select.option', 'm', JText::_('JLIB_HTML_BATCH_MOVE'))
+			JHtml::_('select.option', 'm', JText::_('JLIB_HTML_BATCH_MOVE')),
 		);
 
 		echo JHtml::_('select.radiolist', $options, 'batch[move_copy]', '', 'value', 'text', 'm');
@@ -208,7 +208,7 @@ abstract class JHtmlModules
 	/**
 	 * Method to get the field options.
 	 *
-	 * @param   integer  $clientId  The client ID
+	 * @param   integer $clientId The client ID
 	 *
 	 * @return  array  The field option objects.
 	 *
@@ -216,8 +216,8 @@ abstract class JHtmlModules
 	 */
 	public static function positionList($clientId = 0)
 	{
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true)
 			->select('DISTINCT(position) as value')
 			->select('position as text')
 			->from($db->quoteName('#__modules'))

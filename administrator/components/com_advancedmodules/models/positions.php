@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,14 +19,14 @@ defined('_JEXEC') or die;
 /**
  * Modules Component Positions Model
  *
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesModelPositions extends JModelList
 {
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
 	 * @since   1.6
@@ -49,8 +49,10 @@ class AdvancedModulesModelPositions extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
+	 * @param   string $ordering  An optional ordering field.
+	 * @param   string $direction An optional direction (asc|desc).
+	 *
+	 * @return  void
 	 *
 	 * @since   1.6
 	 */
@@ -66,7 +68,7 @@ class AdvancedModulesModelPositions extends JModelList
 		$this->setState('filter.published', $published);
 
 		$clientId = $app->input->getInt('client_id', 0);
-		$this->setState('stfilter.client_id', $clientId);
+		$this->setState('filter.client_id', $clientId);
 
 		$template = $this->getUserStateFromRequest($this->context . '.filter.template', 'filter_template', '', 'string');
 		$this->setState('filter.template', $template);
@@ -96,7 +98,7 @@ class AdvancedModulesModelPositions extends JModelList
 			$lang = JFactory::getLanguage();
 			$search = trim($this->getState('filter.search'));
 			$state = $this->getState('filter.state');
-			$clientId = $this->getState('stfilter.client_id');
+			$clientId = $this->getState('filter.client_id');
 			$filter_template = $this->getState('filter.template');
 			$type = $this->getState('filter.type');
 			$ordering = $this->getState('list.ordering');
@@ -230,7 +232,7 @@ class AdvancedModulesModelPositions extends JModelList
 	/**
 	 * Method to get the total number of items.
 	 *
-	 * @return  int	The total number of items.
+	 * @return  int    The total number of items.
 	 *
 	 * @since   1.6
 	 */

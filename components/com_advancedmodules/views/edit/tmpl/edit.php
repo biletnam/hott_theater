@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 
 JHtml::_('bootstrap.framework');
-JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.combobox');
 JHtml::_('formbehavior.chosen', 'select');
 
@@ -63,10 +63,10 @@ if (JFactory::getUser()->authorise('core.admin'))
 }
 
 JFactory::getDocument()->addScriptDeclaration($script);
-nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/script.min.js');
-nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/toggler.min.js');
+NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/script.min.js');
+NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/toggler.min.js');
 
-JFactory::getDocument()->addStyleSheetVersion(JURI::root(true) . '/media/nnframework/css/frontend.min.css');
+JFactory::getDocument()->addStyleSheetVersion(JUri::root(true) . '/media/nnframework/css/frontend.min.css');
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_advancedmodules&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="module-form" class="form-validate">
@@ -144,7 +144,7 @@ JFactory::getDocument()->addStyleSheetVersion(JURI::root(true) . '/media/nnframe
 						'published',
 						'access',
 						'ordering',
-						'note'
+						'note',
 					);
 					?>
 					<?php echo str_replace('form-vertical', 'form-horizontal', JLayoutHelper::render('joomla.edit.global', $this)); ?>
@@ -205,7 +205,6 @@ JFactory::getDocument()->addStyleSheetVersion(JURI::root(true) . '/media/nnframe
 		</div>
 		<!-- End Content -->
 	</div>
-
 
 	<?php echo $this->hidden_fields; ?>
 

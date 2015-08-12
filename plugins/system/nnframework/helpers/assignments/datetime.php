@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: DateTime
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsDateTime extends nnFrameworkAssignment
+class NNFrameworkAssignmentsDateTime extends NNFrameworkAssignment
 {
 	function passDate()
 	{
@@ -27,8 +27,8 @@ class nnFrameworkAssignmentsDateTime extends nnFrameworkAssignment
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
 
-		nnText::fixDate($this->params->publish_up);
-		nnText::fixDate($this->params->publish_down);
+		NNText::fixDate($this->params->publish_up);
+		NNText::fixDate($this->params->publish_down);
 
 		$now = strtotime($this->date->format('Y-m-d H:i:s', true));
 

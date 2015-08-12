@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Parameters
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,16 +15,7 @@ defined('_JEXEC') or die;
 
 require_once __DIR__ . '/cache.php';
 
-$classes = get_declared_classes();
-if (!in_array('NNePparameters', $classes))
-{
-	class NNePparameters extends nnParameters
-	{
-		// for backward compatibility
-	}
-}
-
-class nnParameters
+class NNParameters
 {
 	public static $instance = null;
 
@@ -32,7 +23,7 @@ class nnParameters
 	{
 		if (!self::$instance)
 		{
-			self::$instance = new nnFrameworkParameters;
+			self::$instance = new NNFrameworkParameters;
 		}
 
 		return self::$instance;
@@ -45,22 +36,23 @@ class nnParameters
 	}
 }
 
-class nnFrameworkParameters
+class NNFrameworkParameters
 {
 	function getParams($params, $path = '', $default = '')
 	{
 		$hash = md5('getParams_' . json_encode($params) . '_' . $path . '_' . $default);
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$xml = $this->loadXML($path, $default);
 
 		if (empty($params))
 		{
-			return nnCache::set($hash,
+			return NNCache::set(
+				$hash,
 				(object) $xml
 			);
 		}
@@ -68,6 +60,10 @@ class nnFrameworkParameters
 		if (!is_object($params))
 		{
 			$params = json_decode($params);
+			if (is_null($xml))
+			{
+				$xml = new stdClass;
+			}
 		}
 		elseif (method_exists($params, 'toObject'))
 		{
@@ -76,14 +72,16 @@ class nnFrameworkParameters
 
 		if (!$params)
 		{
-			return nnCache::set($hash,
+			return NNCache::set(
+				$hash,
 				(object) $xml
 			);
 		}
 
 		if (empty($xml))
 		{
-			return nnCache::set($hash,
+			return NNCache::set(
+				$hash,
 				$params
 			);
 		}
@@ -98,7 +96,8 @@ class nnFrameworkParameters
 			$params->$key = $val;
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$params
 		);
 	}
@@ -109,9 +108,9 @@ class nnFrameworkParameters
 
 		$hash = md5('getComponentParams_' . $name . '_' . json_encode($params));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		if (empty($params))
@@ -119,7 +118,8 @@ class nnFrameworkParameters
 			$params = JComponentHelper::getParams($name);
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$this->getParams($params, JPATH_ADMINISTRATOR . '/components/' . $name . '/config.xml')
 		);
 	}
@@ -130,9 +130,9 @@ class nnFrameworkParameters
 
 		$hash = md5('getModuleParams_' . $name . '_' . json_encode($params));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		if (empty($params))
@@ -140,7 +140,8 @@ class nnFrameworkParameters
 			$params = null;
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$this->getParams($params, ($admin ? JPATH_ADMINISTRATOR : JPATH_SITE) . '/modules/' . $name . '/' . $name . '.xml')
 		);
 	}
@@ -149,9 +150,9 @@ class nnFrameworkParameters
 	{
 		$hash = md5('getPluginParams_' . $name . '_' . $type . '_' . json_encode($params));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		if (empty($params))
@@ -160,7 +161,8 @@ class nnFrameworkParameters
 			$params = (is_object($plugin) && isset($plugin->params)) ? $plugin->params : null;
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$this->getParams($params, JPATH_PLUGINS . '/' . $type . '/' . $name . '/' . $name . '.xml')
 		);
 	}
@@ -175,9 +177,9 @@ class nnFrameworkParameters
 	{
 		$hash = md5('loadXML_' . $path . '_' . $default);
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		jimport('joomla.filesystem.file');
@@ -186,7 +188,8 @@ class nnFrameworkParameters
 			|| !$file = JFile::read($path)
 		)
 		{
-			return nnCache::set($hash,
+			return NNCache::set(
+				$hash,
 				array()
 			);
 		}
@@ -226,7 +229,8 @@ class nnFrameworkParameters
 			$xml[$field['attributes']['NAME']] = $field['attributes']['DEFAULT'];
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$xml
 		);
 	}
@@ -235,9 +239,9 @@ class nnFrameworkParameters
 	{
 		$hash = md5('getObjectFromXML_' . json_encode($xml));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		if (!is_array($xml))
@@ -262,7 +266,8 @@ class nnFrameworkParameters
 			$object->$key = $val;
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$object
 		);
 	}

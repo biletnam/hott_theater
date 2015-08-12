@@ -4,7 +4,7 @@
  * Displays a textfield with a color picker
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -24,13 +24,13 @@ class JFormFieldNN_Color extends JFormField
 
 	protected function getInput()
 	{
-		$field = new nnFieldColor;
+		$field = new NNFieldColor;
 
 		return $field->getInput($this->name, $this->id, $this->value, $this->element->attributes());
 	}
 }
 
-class nnFieldColor
+class NNFieldColor
 {
 	function getInput($name, $id, $value, $params)
 	{
@@ -42,7 +42,8 @@ class nnFieldColor
 		$class = trim('nn_color minicolors ' . $this->get('class'));
 		$disabled = $this->get('disabled') ? ' disabled="disabled"' : '';
 
-		nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/color.min.js');
+		JHtml::stylesheet('nnframework/color.min.css', false, true);
+		NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/color.min.js');
 
 		$this->value = strtolower(strtoupper(preg_replace('#[^a-z0-9]#si', '', $this->value)));
 

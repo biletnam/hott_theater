@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,7 +18,7 @@ jimport('joomla.filesystem.file');
 /**
  * Plugin that shows active modules in menu item edit view
  */
-class plgSystemAdvancedModules extends JPlugin
+class PlgSystemAdvancedModules extends JPlugin
 {
 	private $_alias = 'advancedmodules';
 	private $_title = 'ADVANCED_MODULE_MANAGER';
@@ -92,18 +92,18 @@ class plgSystemAdvancedModules extends JPlugin
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (!nnProtect::isComponentInstalled($this->_alias))
+		if (!NNProtect::isComponentInstalled($this->_alias))
 		{
 			return false;
 		}
 
-		if (nnProtect::isProtectedPage($this->_alias))
+		if (NNProtect::isProtectedPage($this->_alias))
 		{
 			return false;
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = nnFrameworkHelper::getPluginHelper($this);
+		$this->_helper = NNFrameworkHelper::getPluginHelper($this);
 
 		return $this->_helper;
 	}
@@ -166,7 +166,7 @@ class plgSystemAdvancedModules extends JPlugin
 		}
 
 		// load the admin language file
-		JFactory::getLanguage()->load('plg_' . $this->_type . '_' . $this->_name, JPATH_ADMINISTRATOR);
+		JFactory::getLanguage()->load('plg_' . $this->_type . '_' . $this->_name, JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name);
 
 		$text = JText::_($text) . ' ' . JText::sprintf($this->_lang_prefix . '_EXTENSION_CAN_NOT_FUNCTION', JText::_($this->_title));
 

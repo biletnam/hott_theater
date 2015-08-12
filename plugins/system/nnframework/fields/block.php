@@ -4,7 +4,7 @@
  * Displays a block with optionally a title and description
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Block extends nnFormField
+class JFormFieldNN_Block extends NNFormField
 {
 	public $type = 'Block';
 
@@ -58,21 +58,11 @@ class JFormFieldNN_Block extends nnFormField
 			}
 			if ($title)
 			{
-				$title = nnText::html_entity_decoder(JText::_($title));
-				$html[] = '<h4>' . $title . '</h4>';
+				$html[] = '<h4>' . $this->prepareText($title) . '</h4>';
 			}
 			if ($description)
 			{
-				// variables
-				$v1 = JText::_($this->get('var1'));
-				$v2 = JText::_($this->get('var2'));
-				$v3 = JText::_($this->get('var3'));
-				$v4 = JText::_($this->get('var4'));
-				$v5 = JText::_($this->get('var5'));
-
-				$description = nnText::html_entity_decoder(trim(JText::sprintf($description, $v1, $v2, $v3, $v4, $v5)));
-				$description = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $description);
-				$html[] = '<div>' . $description . '</div>';
+				$html[] = '<div>' . $this->prepareText($description) . '</div>';
 			}
 			$html[] = '<div><div>';
 		}

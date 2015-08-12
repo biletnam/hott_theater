@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,13 +18,13 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 /**
  * Helper NoNumber Quick Page stuf (nn_qp=1 in url)
  */
-class plgSystemNNFrameworkHelper
+class PlgSystemNNFrameworkHelper
 {
 	function render()
 	{
 		$url = JFactory::getApplication()->input->getString('url', '');
 
-		$func = new nnFrameworkFunctions;
+		$func = new NNFrameworkFunctions;
 
 		if ($url)
 		{
@@ -34,6 +34,20 @@ class plgSystemNNFrameworkHelper
 		}
 
 		$allowed = array(
+			'administrator/components/com_dbreplacer/ajax.php',
+			'administrator/modules/mod_addtomenu/popup.php',
+			'media/rereplacer/images/popup.php',
+			'plugins/editors-xtd/articlesanywhere/popup.php',
+			'plugins/editors-xtd/contenttemplater/popup.php',
+			'plugins/editors-xtd/dummycontent/popup.php',
+			'plugins/editors-xtd/modals/popup.php',
+			'plugins/editors-xtd/modulesanywhere/popup.php',
+			'plugins/editors-xtd/sliders/popup.php',
+			'plugins/editors-xtd/snippets/popup.php',
+			'plugins/editors-xtd/sourcerer/popup.php',
+			'plugins/editors-xtd/tabs/popup.php',
+			'plugins/editors-xtd/tooltips/popup.php',
+			// old filenames
 			'administrator/components/com_dbreplacer/dbreplacer.inc.php',
 			'administrator/components/com_nonumbermanager/details.inc.php',
 			'administrator/modules/mod_addtomenu/addtomenu.inc.php',
@@ -43,7 +57,7 @@ class plgSystemNNFrameworkHelper
 			'plugins/editors-xtd/dummycontent/dummycontent.inc.php',
 			'plugins/editors-xtd/modulesanywhere/modulesanywhere.inc.php',
 			'plugins/editors-xtd/snippets/snippets.inc.php',
-			'plugins/editors-xtd/sourcerer/sourcerer.inc.php'
+			'plugins/editors-xtd/sourcerer/sourcerer.inc.php',
 		);
 
 		$file = JFactory::getApplication()->input->getString('file', '');
@@ -67,12 +81,12 @@ class plgSystemNNFrameworkHelper
 		}
 
 		$_REQUEST['tmpl'] = 'component';
-		JFactory::getApplication()->input->set('option', '1');
+		JFactory::getApplication()->input->set('option', 'com_content');
 
 		header('Content-Type: text/html; charset=utf-8');
 		JHtml::_('bootstrap.framework');
-		JFactory::getDocument()->addScript(JURI::root(true) . '/administrator/templates/isis/js/template.js');
-		JFactory::getDocument()->addStyleSheet(JURI::root(true) . '/administrator/templates/isis/css/template.css');
+		JFactory::getDocument()->addScript(JUri::root(true) . '/administrator/templates/isis/js/template.js');
+		JFactory::getDocument()->addStyleSheet(JUri::root(true) . '/administrator/templates/isis/css/template.css');
 
 		JHtml::stylesheet('nnframework/popup.min.css', false, true);
 
@@ -89,7 +103,7 @@ class plgSystemNNFrameworkHelper
 
 		JFactory::getDocument()->setBuffer($html, 'component');
 
-		nnApplication::render();
+		NNApplication::render();
 
 		$html = JResponse::toString(JFactory::getApplication()->getCfg('gzip'));
 		$html = preg_replace('#\s*<' . 'link [^>]*href="[^"]*templates/system/[^"]*\.css[^"]*"[^>]* />#s', '', $html);
@@ -102,7 +116,7 @@ class plgSystemNNFrameworkHelper
 	}
 }
 
-class nnApplication
+class NNApplication
 {
 	static function render()
 	{

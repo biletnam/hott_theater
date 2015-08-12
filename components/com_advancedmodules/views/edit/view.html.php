@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -25,7 +25,7 @@ class AdvancedModulesViewEdit extends AdvancedModulesViewModule
 	/**
 	 * Display the view
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  void
 	 */
@@ -43,7 +43,20 @@ class AdvancedModulesViewEdit extends AdvancedModulesViewModule
 	 */
 	protected function addToolbar()
 	{
-		return ;
+		return;
+	}
+
+	/**
+	 * Method to get the record form.
+	 *
+	 * @param   array   $data     Data for the form.
+	 * @param   boolean $loadData True if the form is to load its own data (default case), false if not.
+	 *
+	 * @return  JForm  A JForm object on success, false on failure
+	 */
+	public function getForm($data = array(), $loadData = true)
+	{
+		return $this->getModel()->getForm($data, $loadData);
 	}
 
 }

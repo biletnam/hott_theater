@@ -3,7 +3,7 @@
  * Element: MijoShop
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/groupfield.php';
 
-class JFormFieldNN_MijoShop extends nnFormGroupField
+class JFormFieldNN_MijoShop extends NNFormGroupField
 {
 	public $type = 'MijoShop';
 	public $store_id = 0;

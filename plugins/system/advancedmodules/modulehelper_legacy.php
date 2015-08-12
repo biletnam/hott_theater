@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,7 +21,7 @@
  * @package     Joomla.Libraries
  * @subpackage  Module
  *
- * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -39,8 +39,8 @@ abstract class JModuleHelper
 	/**
 	 * Get module by name (real, eg 'Breadcrumbs' or folder, eg 'mod_breadcrumbs')
 	 *
-	 * @param   string  $name   The name of the module
-	 * @param   string  $title  The title of the module, optional
+	 * @param   string $name  The name of the module
+	 * @param   string $title The title of the module, optional
 	 *
 	 * @return  object  The Module object
 	 *
@@ -70,15 +70,16 @@ abstract class JModuleHelper
 		// If we didn't find it, and the name is mod_something, create a dummy object
 		if (is_null($result) && substr($name, 0, 4) == 'mod_')
 		{
-			$result            = new stdClass;
-			$result->id        = 0;
-			$result->title     = '';
-			$result->module    = $name;
-			$result->position  = '';
-			$result->content   = '';
-			$result->showtitle = 0;
-			$result->control   = '';
-			$result->params    = '';
+			$result = (object) array(
+				'id'        => 0,
+				'title'     => '',
+				'module'    => $name,
+				'position'  => '',
+				'content'   => '',
+				'showtitle' => 0,
+				'control'   => '',
+				'params'    => '',
+			);
 		}
 
 		return $result;
@@ -87,7 +88,7 @@ abstract class JModuleHelper
 	/**
 	 * Get modules by position
 	 *
-	 * @param   string  $position  The position of the module
+	 * @param   string $position The position of the module
 	 *
 	 * @return  array  An array of module objects
 	 *
@@ -97,7 +98,7 @@ abstract class JModuleHelper
 	{
 		$position = strtolower($position);
 		$result = array();
-		$input  = JFactory::getApplication()->input;
+		$input = JFactory::getApplication()->input;
 
 		$modules =& static::load();
 
@@ -131,7 +132,7 @@ abstract class JModuleHelper
 	 * the current menu item or all items, and the user meets the access level
 	 * requirements.
 	 *
-	 * @param   string  $module  The module name
+	 * @param   string $module The module name
 	 *
 	 * @return  boolean See description for conditions.
 	 *
@@ -147,8 +148,8 @@ abstract class JModuleHelper
 	/**
 	 * Render the module.
 	 *
-	 * @param   object  $module   A module object.
-	 * @param   array   $attribs  An array of attributes for the module (probably from the XML).
+	 * @param   object $module  A module object.
+	 * @param   array  $attribs An array of attributes for the module (probably from the XML).
 	 *
 	 * @return  string  The HTML content of the module output.
 	 *
@@ -200,8 +201,8 @@ abstract class JModuleHelper
 			$lang = JFactory::getLanguage();
 
 			// 1.5 or Core then 1.6 3PD
-			$lang->load($module->module, JPATH_BASE, null, false, true) ||
-				$lang->load($module->module, dirname($path), null, false, true);
+			$lang->load($module->module, JPATH_BASE, null, false, true)
+			|| $lang->load($module->module, dirname($path), null, false, true);
 
 			$content = '';
 			ob_start();
@@ -267,7 +268,7 @@ abstract class JModuleHelper
 
 		foreach (explode(' ', $attribs['style']) as $style)
 		{
-			$chromeMethod = 'modChrome_' . $style;
+			$chromeMethod = 'ModChrome_' . $style;
 
 			// Apply chrome and render module
 			if (function_exists($chromeMethod))
@@ -295,8 +296,8 @@ abstract class JModuleHelper
 	/**
 	 * Get the path to a layout for a module
 	 *
-	 * @param   string  $module  The name of the module
-	 * @param   string  $layout  The name of the module layout. If alternative layout, in the form template:filename.
+	 * @param   string $module The name of the module
+	 * @param   string $layout The name of the module layout. If alternative layout, in the form template:filename.
 	 *
 	 * @return  string  The path to the module layout
 	 *
@@ -358,7 +359,7 @@ abstract class JModuleHelper
 	 *
 	 * @return  array
 	 *
-	 * @since   1.5
+	 * @since       1.5
 	 * @deprecated  4.0  Use JModuleHelper::load() instead
 	 */
 	protected static function &_load()
@@ -542,9 +543,9 @@ abstract class JModuleHelper
 	 * 'safeuri'     Id created from $cacheparams->modeparams array,
 	 * 'id'          Module sets own cache id's
 	 *
-	 * @param   object  $module        Module object
-	 * @param   object  $moduleparams  Module parameters
-	 * @param   object  $cacheparams   Module cache parameters - id or url parameters, depending on the module cache mode
+	 * @param   object $module       Module object
+	 * @param   object $moduleparams Module parameters
+	 * @param   object $cacheparams  Module cache parameters - id or url parameters, depending on the module cache mode
 	 *
 	 * @return  string
 	 *
@@ -624,8 +625,10 @@ abstract class JModuleHelper
 
 			case 'static':
 				$ret = $cache->get(
-					array($cacheparams->class,
-						$cacheparams->method),
+					array(
+						$cacheparams->class,
+						$cacheparams->method,
+					),
 					$cacheparams->methodparams,
 					$module->module . md5(serialize($cacheparams->methodparams)),
 					$wrkarounds,

@@ -58,6 +58,10 @@
 			<option value="1">JYES</option>
 		</field>
 		<field name="@notice_show_extra" type="nn_plaintext" label="AMM_SHOW_EXTRA_FIELDS" description="AMM_SHOW_EXTRA_FIELDS_DESC" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		<field name="use_admin_from_frontend" type="radio" class="btn-group btn-group-yesno" default="0" label="AMM_USE_ADMIN_FROM_FRONTEND" description="AMM_USE_ADMIN_FROM_FRONTEND_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="show_update_notification" type="radio" class="btn-group btn-group-yesno" default="1" label="NN_SHOW_UPDATE_NOTIFICATION" description="NN_SHOW_UPDATE_NOTIFICATION_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
@@ -87,6 +91,7 @@
 			<option value="1">JYES</option>
 		</field>
 		<field name="@notice_show_assignto_ips" type="nn_plaintext" label="NN_IPS" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_geo" type="nn_plaintext" label="NN_GEO" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
 		<field name="show_assignto_templates" type="radio" class="btn-group btn-group-yesno" default="1" label="NN_TEMPLATES" description="AMM_SHOW_PUBLISHING_OPTION">
 			<option value="0">JNO</option>
@@ -117,16 +122,27 @@
 			<option value="1">JYES</option>
 		</field>
 		<field name="@notice_show_assignto_easyblog" type="nn_plaintext" label="NN_EASYBLOG" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_flexicontent" type="nn_plaintext" label="NN_FLEXICONTENT" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_form2content" type="nn_plaintext" label="NN_FORM2CONTENT" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_k2" type="nn_plaintext" label="NN_K2" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_zoo" type="nn_plaintext" label="NN_ZOO" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_akeebasubs" type="nn_plaintext" label="NN_AKEEBASUBS" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_hikashop" type="nn_plaintext" label="NN_HIKASHOP" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_mijoshop" type="nn_plaintext" label="NN_MIJOSHOP" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_redshop" type="nn_plaintext" label="NN_REDSHOP" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_virtuemart" type="nn_plaintext" label="NN_VIRTUEMART" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_cookieconfirm" type="nn_plaintext" label="NN_COOKIECONFIRM" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
+		
 		<field name="@notice_show_assignto_php" type="nn_plaintext" label="NN_PHP" description="AMM_SHOW_PUBLISHING_OPTION" default="NN_ONLY_AVAILABLE_IN_PRO" />
 	</fieldset>
 

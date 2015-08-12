@@ -3,7 +3,7 @@
  * Element: Users
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Users extends nnFormField
+class JFormFieldNN_Users extends NNFormField
 {
 	public $type = 'Users';
 
@@ -35,7 +35,7 @@ class JFormFieldNN_Users extends nnFormField
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';
 
-		return nnHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
+		return NNHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
 	}
 
 	function getUsers()

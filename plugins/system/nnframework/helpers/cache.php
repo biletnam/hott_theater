@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Cache
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,7 +13,7 @@
 
 defined('_JEXEC') or die;
 
-class nnCache
+class NNCache
 {
 	static $cache = array();
 

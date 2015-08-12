@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: URLs
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsURLs extends nnFrameworkAssignment
+class NNFrameworkAssignmentsURLs extends NNFrameworkAssignment
 {
 	function passURLs()
 	{
@@ -31,14 +31,14 @@ class nnFrameworkAssignmentsURLs extends nnFrameworkAssignment
 			$this->selection = explode("\n", $this->selection['0']);
 		}
 
-		$url = JURI::getInstance();
+		$url = JUri::getInstance();
 		$url = $url->toString();
 
 		$urls = array(
 			html_entity_decode(urldecode($url), ENT_COMPAT, 'UTF-8'),
 			urldecode($url),
 			html_entity_decode($url, ENT_COMPAT, 'UTF-8'),
-			$url
+			$url,
 		);
 		$urls = array_unique($urls);
 

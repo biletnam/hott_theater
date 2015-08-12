@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -20,7 +20,7 @@ require_once __DIR__ . '/functions.php';
  * Assignments
  * $assignment = no / include / exclude / none
  */
-class nnFrameworkAssignmentsHelper
+class NNFrameworkAssignmentsHelper
 {
 	var $db = null;
 	var $params = null;
@@ -31,20 +31,20 @@ class nnFrameworkAssignmentsHelper
 
 	public function __construct()
 	{
-		$this->db = JFactory::getDBO();
+		$this->db = JFactory::getDbo();
 
 		$this->has = array();
-		$this->has['easyblog'] = nnFrameworkFunctions::extensionInstalled('easyblog');
-		$this->has['flexicontent'] = nnFrameworkFunctions::extensionInstalled('flexicontent');
-		$this->has['form2content'] = nnFrameworkFunctions::extensionInstalled('form2content');
-		$this->has['k2'] = nnFrameworkFunctions::extensionInstalled('k2');
-		$this->has['zoo'] = nnFrameworkFunctions::extensionInstalled('zoo');
-		$this->has['akeebasubs'] = nnFrameworkFunctions::extensionInstalled('akeebasubs');
-		$this->has['hikashop'] = nnFrameworkFunctions::extensionInstalled('hikashop');
-		$this->has['mijoshop'] = nnFrameworkFunctions::extensionInstalled('mijoshop');
-		$this->has['redshop'] = nnFrameworkFunctions::extensionInstalled('redshop');
-		$this->has['virtuemart'] = nnFrameworkFunctions::extensionInstalled('virtuemart');
-		$this->has['cookieconfirm'] = nnFrameworkFunctions::extensionInstalled('cookieconfirm');
+		$this->has['easyblog'] = NNFrameworkFunctions::extensionInstalled('easyblog');
+		$this->has['flexicontent'] = NNFrameworkFunctions::extensionInstalled('flexicontent');
+		$this->has['form2content'] = NNFrameworkFunctions::extensionInstalled('form2content');
+		$this->has['k2'] = NNFrameworkFunctions::extensionInstalled('k2');
+		$this->has['zoo'] = NNFrameworkFunctions::extensionInstalled('zoo');
+		$this->has['akeebasubs'] = NNFrameworkFunctions::extensionInstalled('akeebasubs');
+		$this->has['hikashop'] = NNFrameworkFunctions::extensionInstalled('hikashop');
+		$this->has['mijoshop'] = NNFrameworkFunctions::extensionInstalled('mijoshop');
+		$this->has['redshop'] = NNFrameworkFunctions::extensionInstalled('redshop');
+		$this->has['virtuemart'] = NNFrameworkFunctions::extensionInstalled('virtuemart');
+		$this->has['cookieconfirm'] = NNFrameworkFunctions::extensionInstalled('cookieconfirm');
 
 		$this->types = array(
 			'menuitems'             => 'Menu',
@@ -100,7 +100,7 @@ class nnFrameworkAssignmentsHelper
 			'virtuemartcats'        => 'VirtueMart.Categories',
 			'virtuemartproducts'    => 'VirtueMart.Products',
 			'cookieconfirm'         => 'CookieConfirm',
-			'php'                   => 'PHP'
+			'php'                   => 'PHP',
 		);
 		$this->thirdparty = array(
 			'EasyBlog',
@@ -113,10 +113,10 @@ class nnFrameworkAssignmentsHelper
 			'MijoShop',
 			'RedShop',
 			'VirtueMart',
-			'CookieConfirm'
+			'CookieConfirm',
 		);
 		$this->nonarray = array(
-			'PHP'
+			'PHP',
 		);
 
 		$this->setIdNames();
@@ -176,14 +176,13 @@ class nnFrameworkAssignmentsHelper
 					$this->request->option = 'com_content';
 				}
 				break;
-
 		}
 
 		$option = strtolower(str_replace('com_', '', $this->request->option));
 		if (JFile::exists(__DIR__ . '/assignments/' . $option . '.php'))
 		{
 			require_once __DIR__ . '/assignments/' . $option . '.php';
-			$class = 'nnFrameworkAssignments' . $option;
+			$class = 'NNFrameworkAssignments' . $option;
 			if (class_exists($class))
 			{
 				$this->classes[$this->maintype] = new $class($this->request, $this->date);
@@ -257,9 +256,9 @@ class nnFrameworkAssignmentsHelper
 		$aid = ($article && isset($article->id)) ? '[' . $article->id . ']' : '';
 		$hash = md5('passAll_' . $aid . '_' . $match_method . '_' . json_encode($assignments));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$this->init();
@@ -278,7 +277,6 @@ class nnFrameworkAssignmentsHelper
 			)
 			{
 				break;
-
 			}
 
 			if (!isset($assignments[$type]))
@@ -289,7 +287,8 @@ class nnFrameworkAssignmentsHelper
 			$pass = $this->passAllByType($assignments[$type], $type, $article);
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$pass
 		);
 	}
@@ -299,18 +298,18 @@ class nnFrameworkAssignmentsHelper
 		$aid = ($article && isset($article->id)) ? '[' . $article->id . ']' : '';
 		$hash = md5('passAllByType_' . $type . '_' . $aid . '_' . json_encode($assignment) . '_' . json_encode($article));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$this->initParamsByType($assignment, $type);
 
 		$hash = md5('passAllByType_' . $type . '_' . $aid . '_' . json_encode($assignment) . '_' . json_encode($article));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		switch ($assignment->assignment)
@@ -331,14 +330,14 @@ class nnFrameworkAssignmentsHelper
 				if (!isset($this->classes[$main_type]) && JFile::exists(__DIR__ . '/assignments/' . strtolower($main_type) . '.php'))
 				{
 					require_once __DIR__ . '/assignments/' . strtolower($main_type) . '.php';
-					$class = 'nnFrameworkAssignments' . $main_type;
+					$class = 'NNFrameworkAssignments' . $main_type;
 					$this->classes[$main_type] = new $class($this->request, $this->date);
 				}
 
 				if (isset($this->classes[$main_type]))
 				{
 					$method = 'pass' . $sub_type;
-					if (method_exists('nnFrameworkAssignments' . $main_type, $method))
+					if (method_exists('NNFrameworkAssignments' . $main_type, $method))
 					{
 						$this->classes[$main_type]->initAssignment($assignment, $article);
 						$pass = $this->classes[$main_type]->$method();
@@ -346,10 +345,10 @@ class nnFrameworkAssignmentsHelper
 				}
 
 				break;
-
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$pass
 		);
 	}
@@ -395,7 +394,6 @@ class nnFrameworkAssignmentsHelper
 			default:
 				$assignment = 'all';
 				break;
-
 		}
 	}
 
@@ -408,9 +406,9 @@ class nnFrameworkAssignmentsHelper
 
 		$hash = md5('makeArray_' . json_encode($array) . '_' . $onlycommas . '_' . $trim);
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$array = $this->mixedDataToArray($array, $onlycommas);
@@ -435,7 +433,8 @@ class nnFrameworkAssignmentsHelper
 			$array[$k] = trim($v);
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$array
 		);
 	}
@@ -471,9 +470,9 @@ class nnFrameworkAssignmentsHelper
 	{
 		$hash = md5('getAssignmentsFromParams_' . json_encode($params));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$types = array();
@@ -488,7 +487,7 @@ class nnFrameworkAssignmentsHelper
 			$types[$type] = (object) array(
 				'assignment' => $params->{'assignto_' . $id},
 				'selection'  => array(),
-				'params'     => new stdClass()
+				'params'     => new stdClass(),
 			);
 
 			if (isset($params->{'assignto_' . $id . '_selection'}))
@@ -500,7 +499,8 @@ class nnFrameworkAssignmentsHelper
 			$this->addParams($types[$type], $type, $id, $params);
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$types
 		);
 
@@ -552,11 +552,11 @@ class nnFrameworkAssignmentsHelper
 				break;
 
 			case 'Agents.Browsers':
-				if (isset($params->assignto_mobile_selection) && !empty($params->assignto_mobile_selection))
+				if (!empty($params->assignto_mobile_selection))
 				{
 					$object->selection = array_merge($this->makeArray($object->selection), $this->makeArray($params->assignto_mobile_selection));
 				}
-				if (isset($params->assignto_searchbots_selection) && !empty($params->assignto_searchbots_selection))
+				if (!empty($params->assignto_searchbots_selection))
 				{
 					$object->selection = array_merge($object->selection, $this->makeArray($params->assignto_searchbots_selection));
 				}
@@ -637,7 +637,6 @@ class nnFrameworkAssignmentsHelper
 		}
 
 		$incs = $this->getTypeParamValue($id, $params, 'inc', true);
-
 
 		foreach ($includes as $key => $param)
 		{

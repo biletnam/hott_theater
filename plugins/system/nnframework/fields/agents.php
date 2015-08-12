@@ -3,7 +3,7 @@
  * Element: Agents
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Agents extends nnFormField
+class JFormFieldNN_Agents extends NNFormField
 {
 	public $type = 'Agents';
 
@@ -136,6 +136,6 @@ class JFormFieldNN_Agents extends nnFormField
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';
 
-		return nnHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, 1);
+		return NNHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, 1);
 	}
 }

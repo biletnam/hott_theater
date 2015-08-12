@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -73,8 +73,8 @@ class JFormHelper
 	/**
 	 * Method to load a form field object given a type.
 	 *
-	 * @param   string   $type  The field type.
-	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
+	 * @param   string  $type The field type.
+	 * @param   boolean $new  Flag to toggle whether we should get a new instance of the object.
 	 *
 	 * @return  mixed  JFormField object on success, false otherwise.
 	 *
@@ -88,8 +88,8 @@ class JFormHelper
 	/**
 	 * Method to load a form rule object given a type.
 	 *
-	 * @param   string   $type  The rule type.
-	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
+	 * @param   string  $type The rule type.
+	 * @param   boolean $new  Flag to toggle whether we should get a new instance of the object.
 	 *
 	 * @return  mixed  JFormRule object on success, false otherwise.
 	 *
@@ -105,9 +105,9 @@ class JFormHelper
 	 * Each type is loaded only once and then used as a prototype for other objects of same type.
 	 * Please, use this method only with those entities which support types (forms don't support them).
 	 *
-	 * @param   string   $entity  The entity.
-	 * @param   string   $type    The entity type.
-	 * @param   boolean  $new     Flag to toggle whether we should get a new instance of the object.
+	 * @param   string  $entity The entity.
+	 * @param   string  $type   The entity type.
+	 * @param   boolean $new    Flag to toggle whether we should get a new instance of the object.
 	 *
 	 * @return  mixed  Entity object on success, false otherwise.
 	 *
@@ -116,7 +116,7 @@ class JFormHelper
 	protected static function loadType($entity, $type, $new = true)
 	{
 		// Reference to an array with current entity's type instances
-		$types = & self::$entities[$entity];
+		$types = &self::$entities[$entity];
 
 		$key = md5($type);
 
@@ -131,6 +131,7 @@ class JFormHelper
 		{
 			// Instantiate a new type object.
 			$types[$key] = new $class;
+
 			return $types[$key];
 		}
 		else
@@ -143,7 +144,7 @@ class JFormHelper
 	 * Attempt to import the JFormField class file if it isn't already imported.
 	 * You can use this method outside of JForm for loading a field for inheritance or composition.
 	 *
-	 * @param   string  $type  Type of a field whose class should be loaded.
+	 * @param   string $type Type of a field whose class should be loaded.
 	 *
 	 * @return  mixed  Class name on success or false otherwise.
 	 *
@@ -158,7 +159,7 @@ class JFormHelper
 	 * Attempt to import the JFormRule class file if it isn't already imported.
 	 * You can use this method outside of JForm for loading a rule for inheritance or composition.
 	 *
-	 * @param   string  $type  Type of a rule whose class should be loaded.
+	 * @param   string $type Type of a rule whose class should be loaded.
 	 *
 	 * @return  mixed  Class name on success or false otherwise.
 	 *
@@ -174,8 +175,8 @@ class JFormHelper
 	 * Currently, it makes sense to use this method for the "field" and "rule" entities
 	 * (but you can support more entities in your subclass).
 	 *
-	 * @param   string  $entity  One of the form entities (field or rule).
-	 * @param   string  $type    Type of an entity.
+	 * @param   string $entity One of the form entities (field or rule).
+	 * @param   string $type   Type of an entity.
 	 *
 	 * @return  mixed  Class name on success or false otherwise.
 	 *
@@ -235,7 +236,7 @@ class JFormHelper
 	/**
 	 * Method to add a path to the list of field include paths.
 	 *
-	 * @param   mixed  $new  A path or array of paths to add.
+	 * @param   mixed $new A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
@@ -249,7 +250,7 @@ class JFormHelper
 	/**
 	 * Method to add a path to the list of form include paths.
 	 *
-	 * @param   mixed  $new  A path or array of paths to add.
+	 * @param   mixed $new A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
@@ -263,7 +264,7 @@ class JFormHelper
 	/**
 	 * Method to add a path to the list of rule include paths.
 	 *
-	 * @param   mixed  $new  A path or array of paths to add.
+	 * @param   mixed $new A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
@@ -278,8 +279,8 @@ class JFormHelper
 	 * Method to add a path to the list of include paths for one of the form's entities.
 	 * Currently supported entities: field, rule and form. You are free to support your own in a subclass.
 	 *
-	 * @param   string  $entity  Form's entity name for which paths will be added.
-	 * @param   mixed   $new     A path or array of paths to add.
+	 * @param   string $entity Form's entity name for which paths will be added.
+	 * @param   mixed  $new    A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
@@ -288,7 +289,7 @@ class JFormHelper
 	protected static function addPath($entity, $new = null)
 	{
 		// Reference to an array with paths for current entity
-		$paths = & self::$paths[$entity];
+		$paths = &self::$paths[$entity];
 
 		// Add the default entity's search path if not set.
 		if (empty($paths))

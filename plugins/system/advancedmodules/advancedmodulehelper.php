@@ -3,7 +3,7 @@
  * Plugin Module Helper File
  *
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ jimport('joomla.filesystem.file');
  * ModuleHelper methods
  */
 
-class plgSystemAdvancedModuleHelper
+class PlgSystemAdvancedModuleHelper
 {
 	public function onRenderModule(&$module)
 	{
@@ -113,10 +113,10 @@ class plgSystemAdvancedModuleHelper
 		jimport('joomla.filesystem.file');
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = nnParameters::getInstance();
+		$parameters = NNParameters::getInstance();
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignments.php';
-		$assignments_helper = new nnFrameworkAssignmentsHelper;
+		$assignments_helper = new NNFrameworkAssignmentsHelper;
 
 		require_once JPATH_ADMINISTRATOR . '/components/com_advancedmodules/models/module.php';
 		$model = new AdvancedModulesModelModule;
@@ -125,19 +125,28 @@ class plgSystemAdvancedModuleHelper
 
 		$modules = is_null($modules) ? $this->getModuleList() : $modules;
 
-		if(is_array($modules) && empty($modules))
+		if (is_array($modules) && empty($modules))
 		{
 			return;
 		}
 
-		foreach ($modules as $i => $module)
+		$filtered_modules = array();
+
+		foreach ($modules as $module)
 		{
+			$module->name = substr($module->module, 4);
+
 			if (!isset($module->advancedparams))
 			{
 				$module->advancedparams = $this->getAdvancedParamsById($module->id);
 			}
 
 			$module->advancedparams = json_decode($module->advancedparams);
+			if (is_null($module->advancedparams))
+			{
+				$module->advancedparams = new stdClass;
+			}
+
 			if (
 				!isset($module->advancedparams->assignto_menuitems)
 				|| isset($module->advancedparams->assignto_urls_selection_sef)
@@ -156,12 +165,10 @@ class plgSystemAdvancedModuleHelper
 			{
 				if (isset($module->published) && !$module->published)
 				{
-					unset($modules[$i]);
-
 					continue;
 				}
 
-				$modules[$i] = $module;
+				$filtered_modules[] = $module;
 
 				continue;
 			}
@@ -185,15 +192,14 @@ class plgSystemAdvancedModuleHelper
 
 			if (isset($module->published) && !$module->published)
 			{
-				unset($modules[$i]);
-
 				continue;
 			}
 
-			$modules[$i] = $module;
+			$filtered_modules[] = $module;
 		}
 
-		$modules = array_values($modules);
+		$modules = array_values($filtered_modules);
+		unset($filtered_modules);
 	}
 
 	private function setMirrorParams(&$module, $xmlfile_assignments)
@@ -207,14 +213,12 @@ class plgSystemAdvancedModuleHelper
 			return;
 		}
 
-		$parameters = nnParameters::getInstance();
+		$parameters = NNParameters::getInstance();
 
 		// Check if module should mirror another modules assignment settings
 		$count = 0;
 		while ($count++ < 10
-			&& isset($module->advancedparams->mirror_module)
-			&& $module->advancedparams->mirror_module
-			&& isset($module->advancedparams->mirror_moduleid)
+			&& !empty($module->advancedparams->mirror_module)
 			&& !empty($module->advancedparams->mirror_moduleid)
 		)
 		{
@@ -367,7 +371,7 @@ class plgSystemAdvancedModuleHelper
 			return array();
 		}
 
-		return $modules;
+		return array_values($modules);
 	}
 
 	private function getConfig()
@@ -376,7 +380,7 @@ class plgSystemAdvancedModuleHelper
 		if (!is_object($instance))
 		{
 			require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-			$parameters = nnParameters::getInstance();
+			$parameters = NNParameters::getInstance();
 			$instance = $parameters->getComponentParams('advancedmodules');
 		}
 
@@ -385,7 +389,7 @@ class plgSystemAdvancedModuleHelper
 
 	private function getAdvancedParamsById($id)
 	{
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true)
 			->select('a.params')
 			->from('#__advancedmodules AS a')

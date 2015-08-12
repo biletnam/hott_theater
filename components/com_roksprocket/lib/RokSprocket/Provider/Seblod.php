@@ -177,7 +177,7 @@ class RokSprocket_Provider_Seblod extends RokSprocket_Provider_AbstarctJoomlaBas
 					$image_fulltext = new RokSprocket_Item_Image();
 					$image_fulltext->setSource(JPath::clean(JURI::root(true) . '/' . $raw_images->image_fulltext));
 					$image_fulltext->setIdentifier('image_fulltext');
-					//$image_fulltext->setCaption($raw_images->image_fulltext_caption);
+					$image_fulltext->setCaption($raw_images->image_fulltext_caption);
 					$image_fulltext->setAlttext($raw_images->image_fulltext_alt);
 					$images[$image_fulltext->getIdentifier()] = $image_fulltext;
 				}

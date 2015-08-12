@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Protect
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once __DIR__ . '/cache.php';
 
-class nnProtect
+class NNProtect
 {
 	static $protect_a = '<!-- >> NN_PROTECTED >>';
 	static $protect_b = ' << NN_PROTECTED << -->';
@@ -36,9 +36,9 @@ class nnProtect
 
 		$hash = md5('isProtectedPage_' . $hastags . '_' . json_encode($exclude_formats));
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		// return if current page is pdf format
@@ -60,30 +60,10 @@ class nnProtect
 			)
 		);
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$isprotected
 		);
-	}
-
-	/**
-	 * check if this is a Joomla 3 setup
-	 * used in Joomla 2.5 code to show error after upgrade to Joomla 3
-	 */
-	public static function isJoomla3($extension_name = '')
-	{
-		if (version_compare(JVERSION, '3.0', '<'))
-		{
-			return false;
-		}
-
-		if ($extension_name)
-		{
-			nnProtect::throwError(
-				JText::sprintf('NN_JOOMLA2_VERSION_ON_JOOMLA3', JText::_($extension_name))
-			);
-		}
-
-		return true;
 	}
 
 	/**
@@ -105,16 +85,17 @@ class nnProtect
 	{
 		$hash = md5('isEditPage');
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		$option = JFactory::getApplication()->input->get('option');
 		// always return false for these components
 		if (in_array($option, array('com_rsevents', 'com_rseventspro')))
 		{
-			return nnCache::set($hash,
+			return NNCache::set(
+				$hash,
 				false
 			);
 		}
@@ -139,10 +120,12 @@ class nnProtect
 			|| in_array(JFactory::getApplication()->input->get('do'), array('edit', 'form'))
 			|| in_array(JFactory::getApplication()->input->get('layout'), array('edit', 'form', 'write'))
 			|| in_array(JFactory::getApplication()->input->get('option'), array('com_contentsubmit', 'com_cckjseblod'))
-			|| nnProtect::isAdmin()
+			|| (JFactory::getApplication()->input->get('option') == 'com_comprofiler' && in_array($task, array('', 'userdetails')))
+			|| NNProtect::isAdmin()
 		);
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			$isedit
 		);
 	}
@@ -297,7 +280,7 @@ class nnProtect
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$params = nnParameters::getInstance()->getPluginParams('sourcerer');
+		$params = NNParameters::getInstance()->getPluginParams('sourcerer');
 		self::$sourcerer_tag = isset($params->syntax_word) ? $params->syntax_word : '';
 
 		return self::$sourcerer_tag;
@@ -428,9 +411,9 @@ class nnProtect
 
 		$hash = md5('prepareTags_' . json_encode($tags) . '_' . $include_closing_tags);
 
-		if (nnCache::has($hash))
+		if (NNCache::has($hash))
 		{
-			return nnCache::get($hash);
+			return NNCache::get($hash);
 		}
 
 		foreach ($tags as $i => $tag)
@@ -448,7 +431,8 @@ class nnProtect
 			}
 		}
 
-		return nnCache::set($hash,
+		return NNCache::set(
+			$hash,
 			array($tags, self::protectArray($tags, 1))
 		);
 	}
@@ -521,12 +505,12 @@ class nnProtect
 		// Protect entire form
 		if (empty($tags))
 		{
-			nnProtect::unprotect($string);
+			NNProtect::unprotect($string);
 
 			return;
 		}
 
-		nnProtect::unprotectTags($string, $tags);
+		NNProtect::unprotectTags($string, $tags);
 	}
 
 	/**
@@ -556,12 +540,12 @@ class nnProtect
 
 		foreach ($matches as $match)
 		{
-			$content = $match['2'];
+			$content = $match['3'];
 			foreach ($tags as $tag)
 			{
 				$content = preg_replace('#' . preg_quote($tag, '#') . '.*?\}#si', '', $content);
 			}
-			$string = str_replace($match['0'], $match['1'] . $content . $match['3'], $string);
+			$string = str_replace($match['0'], $match['1'] . $content . $match['4'], $string);
 		}
 	}
 

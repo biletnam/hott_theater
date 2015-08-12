@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -29,8 +29,8 @@ JHtml::_('bootstrap.popover');
 
 		$link = 'index.php?option=com_modules&task=module.add&eid=' . $item->extension_id;
 		$name = $this->escape($item->name);
-		$desc = JHTML::_('string.truncate', ($this->escape($item->desc)), 200);
-		$short_desc = JHTML::_('string.truncate', ($this->escape($item->desc)), 90);
+		$desc = JHtml::_('string.truncate', ($this->escape($item->desc)), 200);
+		$short_desc = JHtml::_('string.truncate', ($this->escape($item->desc)), 90);
 		?>
 		<?php if (JFactory::getDocument()->direction != "rtl") : ?>
 			<li>

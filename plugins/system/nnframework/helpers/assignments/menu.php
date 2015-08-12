@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Menu
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsMenu extends nnFrameworkAssignment
+class NNFrameworkAssignmentsMenu extends NNFrameworkAssignment
 {
 	function passMenu()
 	{
@@ -57,7 +57,6 @@ class nnFrameworkAssignmentsMenu extends nnFrameworkAssignment
 		}
 
 		return $this->pass(false);
-
 	}
 
 	function getMenuParentIds($id = 0)

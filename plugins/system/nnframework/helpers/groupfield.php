@@ -4,7 +4,7 @@
  * To be used as an extend for fields that have items and categories like Joomla content, CCKs, shops.
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class nnFormGroupField extends nnFormField
+class NNFormGroupField extends NNFormField
 {
 	public $type = 'Field';
 	public $default_group = 'Categories';
@@ -66,10 +66,10 @@ class nnFormGroupField extends nnFormField
 		switch ($group)
 		{
 			case 'categories':
-				return nnHtml::selectlist($options, $this->name, $this->value, $this->id, $size, $multiple);
+				return NNHtml::selectlist($options, $this->name, $this->value, $this->id, $size, $multiple);
 
 			default:
-				return nnHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
+				return NNHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
 		}
 	}
 
@@ -77,7 +77,7 @@ class nnFormGroupField extends nnFormField
 	{
 		$component = $component ?: $this->type;
 
-		if (!nnFrameworkFunctions::extensionInstalled(strtolower($component)))
+		if (!NNFrameworkFunctions::extensionInstalled(strtolower($component)))
 		{
 			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_FILES_NOT_FOUND', JText::_('NN_' . strtoupper($component))) . '</fieldset>';
 		}

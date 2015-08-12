@@ -2,7 +2,7 @@
  * JavaScript file for Element: ColorPicker
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -153,11 +153,11 @@
 	$.fn.nncolorpicker = function(option) {
 		// For HTML element passed to the plugin
 		return this.each(function() {
-			var $this = $(this),
-				data = $this.data('nncolorpicker'),
+			var self = $(this),
+				data = self.data('nncolorpicker'),
 				options = typeof option === 'object' && option;
 			if (!data) {
-				$this.data('nncolorpicker', (data = new nnColorPicker(this, options)));
+				self.data('nncolorpicker', (data = new NNColorPicker(this, options)));
 			}
 			if (typeof option === 'string') {
 				data[option]();

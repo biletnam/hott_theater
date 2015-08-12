@@ -4,7 +4,7 @@
  * Displays a list of radio items and the images you can chose from
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Icons extends nnFormField
+class JFormFieldNN_Icons extends NNFormField
 {
 	public $type = 'Icons';
 
@@ -119,7 +119,7 @@ class JFormFieldNN_Icons extends nnFormField
 			'download',
 			'upload',
 			'bookmark',
-			'out-2'
+			'out-2',
 		);
 
 		$html = array();

@@ -3,7 +3,7 @@
  * Element: Field
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,7 +17,7 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
 
-class nnFormField extends JFormField
+class NNFormField extends JFormField
 {
 	public $type = 'Field';
 	public $db = null;
@@ -26,9 +26,9 @@ class nnFormField extends JFormField
 
 	public function __construct($form = null)
 	{
-		$this->db = JFactory::getDBO();
+		$this->db = JFactory::getDbo();
 
-		$parameters = nnParameters::getInstance();
+		$parameters = NNParameters::getInstance();
 		$params = $parameters->getPluginParams('nnframework');
 		$this->max_list_count = $params->max_list_count;
 	}
@@ -78,7 +78,7 @@ class nnFormField extends JFormField
 			$name .= ' [' . $item->{$extra} . ']';
 		}
 
-		$name = nnText::prepareSelectItem($name, isset($item->published) ? $item->published : 1);
+		$name = NNText::prepareSelectItem($name, isset($item->published) ? $item->published : 1);
 
 		$option = JHtml::_('select.option', $item->id, $name, 'value', 'text', 0);
 
@@ -125,7 +125,7 @@ class nnFormField extends JFormField
 
 		foreach ($list as $item)
 		{
-			$item->treename = nnText::prepareSelectItem($item->treename, $item->published, '', 1);
+			$item->treename = NNText::prepareSelectItem($item->treename, $item->published, '', 1);
 
 			$options[] = JHtml::_('select.option', $item->id, $item->treename, 'value', 'text', 0);
 		}
@@ -142,6 +142,66 @@ class nnFormField extends JFormField
 			return '';
 		}
 
+		switch (true)
+		{
+			// Old fields using var attributes
+			case (JText::_($this->get('var1'))):
+				$string = $this->sprintf_old($string);
+				break;
+
+			// sprintf format (comma separated)
+			case (strpos($string, ',') !== false):
+				$string = $this->sprintf($string);
+				break;
+
+			// Normal language string
+			default:
+				$string = JText::_($string);
+		}
+
+		return $this->fixLanguageStringSyntax($string);
+	}
+
+	public function fixLanguageStringSyntax($string = '')
+	{
+		$string = trim(NNText::html_entity_decoder($string));
+		$string = str_replace('&quot;', '"', $string);
+		$string = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $string);
+
+		return $string;
+	}
+
+	public function sprintf($string = '')
+	{
+		$string = trim($string);
+
+		if (strpos($string, ',') === false)
+		{
+			return $string;
+		}
+
+		$string_parts = explode(',', $string);
+		$first_part = array_shift($string_parts);
+
+		if ($first_part !== strtoupper($first_part))
+		{
+			return $string;
+		}
+
+		$first_part = preg_replace('/\[\[%([0-9]+):[^\]]*\]\]/', '%\1$s', JText::_($first_part));
+
+		array_walk($string_parts, 'NNFormField::jText');
+
+		return vsprintf($first_part, $string_parts);
+	}
+
+	public function jText(&$string)
+	{
+		$string = JText::_($string);
+	}
+
+	public function sprintf_old($string = '')
+	{
 		// variables
 		$var1 = JText::_($this->get('var1'));
 		$var2 = JText::_($this->get('var2'));
@@ -149,11 +209,6 @@ class nnFormField extends JFormField
 		$var4 = JText::_($this->get('var4'));
 		$var5 = JText::_($this->get('var5'));
 
-		$string = JText::sprintf(JText::_($string), $var1, $var2, $var3, $var4, $var5);
-		$string = trim(nnText::html_entity_decoder($string));
-		$string = str_replace('&quot;', '"', $string);
-		$string = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $string);
-
-		return $string;
+		return JText::sprintf(JText::_(trim($string)), $var1, $var2, $var3, $var4, $var5);
 	}
 }

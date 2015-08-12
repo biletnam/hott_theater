@@ -4,7 +4,7 @@
  * Displays a title with a bunch of extras, like: description, image, versioncheck
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Header extends nnFormField
+class JFormFieldNN_Header extends NNFormField
 {
 	public $type = 'Header';
 
@@ -45,7 +45,7 @@ class JFormFieldNN_Header extends nnFormField
 			$v4 = $this->get('var4');
 			$v5 = $this->get('var5');
 
-			$description = nnText::html_entity_decoder(trim(JText::sprintf($description, $v1, $v2, $v3, $v4, $v5)));
+			$description = NNText::html_entity_decoder(trim(JText::sprintf($description, $v1, $v2, $v3, $v4, $v5)));
 		}
 
 		if ($title)
@@ -113,7 +113,7 @@ class JFormFieldNN_Header extends nnFormField
 			{
 				$title = '<a href="' . $url . '" target="_blank" title="' . preg_replace('#<[^>]*>#', '', $title) . '">' . $title . '</a>';
 			}
-			$html[] = '<h4>' . nnText::html_entity_decoder($title) . '</h4>';
+			$html[] = '<h4>' . NNText::html_entity_decoder($title) . '</h4>';
 		}
 		if ($description)
 		{

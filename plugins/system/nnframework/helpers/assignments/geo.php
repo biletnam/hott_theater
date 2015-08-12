@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Geo
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsGeo extends nnFrameworkAssignment
+class NNFrameworkAssignmentsGeo extends NNFrameworkAssignment
 {
 	var $geo = null;
 
@@ -68,7 +68,7 @@ class nnFrameworkAssignmentsGeo extends nnFrameworkAssignment
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
-		$func = new nnFrameworkFunctions;
+		$func = new NNFrameworkFunctions;
 
 		$ip = $_SERVER['REMOTE_ADDR'] == '127.0.0.1' ? '' : $_SERVER['REMOTE_ADDR'];
 

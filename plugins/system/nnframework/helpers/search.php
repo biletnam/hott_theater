@@ -1,7 +1,7 @@
 <?php
 /**
  * @package          NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author           Peter van Westen <peter@nonumber.nl>
  * @link             http://www.nonumber.nl
@@ -50,7 +50,7 @@ class SearchModelSearch extends JModelLegacy
 	 *
 	 * @var integer
 	 */
-	protected  $_areas = null;
+	protected $_areas = null;
 
 	/**
 	 * Pagination object
@@ -69,7 +69,7 @@ class SearchModelSearch extends JModelLegacy
 		parent::__construct();
 
 		// Get configuration
-		$app    = JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$config = JFactory::getConfig();
 
 		// Get the pagination request variables
@@ -93,8 +93,8 @@ class SearchModelSearch extends JModelLegacy
 		}
 
 		// Set the search parameters
-		$keyword  = urldecode($app->input->getString('searchword'));
-		$match    = $app->input->get('searchphrase', $searchphrase, 'word');
+		$keyword = urldecode($app->input->getString('searchword'));
+		$match = $app->input->get('searchphrase', $searchphrase, 'word');
 		$ordering = $app->input->get('ordering', $params->get('ordering', 'newest'), 'word');
 		$this->setSearch($keyword, $match, $ordering);
 
@@ -106,13 +106,13 @@ class SearchModelSearch extends JModelLegacy
 	/**
 	 * Method to set the search parameters
 	 *
-	 * @param   string  $keyword   string search string
-	 * @param   string  $match     matching option, exact|any|all
-	 * @param   string  $ordering  option, newest|oldest|popular|alpha|category
+	 * @param   string $keyword  string search string
+	 * @param   string $match    matching option, exact|any|all
+	 * @param   string $ordering option, newest|oldest|popular|alpha|category
 	 *
 	 * @return  void
 	 *
-	 * @access	public
+	 * @access    public
 	 */
 	public function setSearch($keyword, $match = 'all', $ordering = 'newest')
 	{
@@ -154,11 +154,13 @@ class SearchModelSearch extends JModelLegacy
 
 			JPluginHelper::importPlugin('search');
 			$dispatcher = JEventDispatcher::getInstance();
-			$results = $dispatcher->trigger('onContentSearch', array(
-				$this->getState('keyword'),
-				$this->getState('match'),
-				$this->getState('ordering'),
-				$areas['active'])
+			$results = $dispatcher->trigger(
+				'onContentSearch', array(
+					$this->getState('keyword'),
+					$this->getState('match'),
+					$this->getState('ordering'),
+					$areas['active'],
+				)
 			);
 
 			$rows = array();
@@ -168,7 +170,7 @@ class SearchModelSearch extends JModelLegacy
 				$rows = array_merge((array) $rows, (array) $result);
 			}
 
-			$this->_total	= count($rows);
+			$this->_total = count($rows);
 
 			if ($this->getState('limit') > 0)
 			{
@@ -211,12 +213,12 @@ class SearchModelSearch extends JModelLegacy
 	/**
 	 * Method to set the search areas
 	 *
-	 * @param   array  $active  areas
-	 * @param   array  $search  areas
+	 * @param   array $active areas
+	 * @param   array $search areas
 	 *
 	 * @return  void
 	 *
-	 * @access	public
+	 * @access    public
 	 */
 	public function setAreas($active = array(), $search = array())
 	{

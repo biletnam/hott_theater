@@ -4,7 +4,7 @@
  * Element to create a new slide pane
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Slide extends nnFormField
+class JFormFieldNN_Slide extends NNFormField
 {
 	public $type = 'Slide';
 
@@ -31,7 +31,7 @@ class JFormFieldNN_Slide extends nnFormField
 
 		JHtml::stylesheet('nnframework/style.min.css', false, true);
 
-		$label = nnText::html_entity_decoder(JText::_($this->get('label')));
+		$label = NNText::html_entity_decoder(JText::_($this->get('label')));
 		$description = $this->prepareText($this->get('description'));
 		$lang_file = $this->get('language_file');
 

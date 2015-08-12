@@ -3,7 +3,7 @@
  * Table class: advancedmodules
  *
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -23,6 +23,7 @@ class AdvancedModulesTable extends JTable
 	protected function _getAssetName()
 	{
 		$k = $this->_tbl_key;
+
 		return 'com_modules.module.' . (int) $this->$k;
 	}
 
@@ -39,8 +40,8 @@ class AdvancedModulesTable extends JTable
 	/**
 	 * Method to get the parent asset id for the record
 	 *
-	 * @param   JTable   $table  A JTable object for the asset parent
-	 * @param   integer  $id
+	 * @param   JTable  $table A JTable object for the asset parent
+	 * @param   integer $id
 	 *
 	 * @return  integer
 	 *

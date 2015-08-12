@@ -4,7 +4,7 @@
  * Displays an error if given file is not found
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ jimport('joomla.form.formfield');
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Dependency extends nnFormField
+class JFormFieldNN_Dependency extends NNFormField
 {
 	public $type = 'Dependency';
 
@@ -33,7 +33,7 @@ class JFormFieldNN_Dependency extends nnFormField
 		$this->params = $this->element->attributes();
 
 		JHtml::_('jquery.framework');
-		nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/script.min.js');
+		NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/script.min.js');
 
 		$file = $this->get('file');
 		if (!$file)
@@ -65,13 +65,13 @@ class JFormFieldNN_Dependency extends nnFormField
 			$label = $this->get('label', 'the main extension');
 		}
 
-		nnFieldDependency::setMessage($file, $label);
+		NNFieldDependency::setMessage($file, $label);
 
 		return '';
 	}
 }
 
-class nnFieldDependency
+class NNFieldDependency
 {
 	static function setMessage($file, $name)
 	{

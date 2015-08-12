@@ -1,10 +1,10 @@
 <?php
 /**
- * nnHtml
- * extra JHTML functions
+ * NNHtml
+ * extra JHtml functions
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -14,7 +14,7 @@
 
 defined('_JEXEC') or die;
 
-class nnHtml
+class NNHtml
 {
 	static function selectlist(&$options, $name, $value, $id, $size = 0, $multiple = 0, $simple = 0)
 	{
@@ -24,7 +24,7 @@ class nnHtml
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = nnParameters::getInstance();
+		$parameters = NNParameters::getInstance();
 		$params = $parameters->getPluginParams('nnframework');
 
 		if (!is_array($value))
@@ -102,7 +102,7 @@ class nnHtml
 
 		JHtml::stylesheet('nnframework/multiselect.min.css', false, true);
 
-		nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/multiselect.min.js');
+		NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/multiselect.min.js');
 
 		$html = array();
 
@@ -110,25 +110,25 @@ class nnHtml
 		$html[] = '
 			<div class="form-inline nn_multiselect-controls">
 				<span class="small">' . JText::_('JSELECT') . ':
-					<a class="nn_multiselect-checkall" href="javascript://">' . JText::_('JALL') . '</a>,
-					<a class="nn_multiselect-uncheckall" href="javascript://">' . JText::_('JNONE') . '</a>,
-					<a class="nn_multiselect-toggleall" href="javascript://">' . JText::_('NN_TOGGLE') . '</a>
+					<a class="nn_multiselect-checkall" href="javascript:;">' . JText::_('JALL') . '</a>,
+					<a class="nn_multiselect-uncheckall" href="javascript:;">' . JText::_('JNONE') . '</a>,
+					<a class="nn_multiselect-toggleall" href="javascript:;">' . JText::_('NN_TOGGLE') . '</a>
 				</span>
 				<span class="width-20">|</span>
 				<span class="small">' . JText::_('NN_EXPAND') . ':
-					<a class="nn_multiselect-expandall" href="javascript://">' . JText::_('JALL') . '</a>,
-					<a class="nn_multiselect-collapseall" href="javascript://">' . JText::_('JNONE') . '</a>
+					<a class="nn_multiselect-expandall" href="javascript:;">' . JText::_('JALL') . '</a>,
+					<a class="nn_multiselect-collapseall" href="javascript:;">' . JText::_('JNONE') . '</a>
 				</span>
 				<span class="width-20">|</span>
 				<span class="small">' . JText::_('JSHOW') . ':
-					<a class="nn_multiselect-showall" href="javascript://">' . JText::_('JALL') . '</a>,
-					<a class="nn_multiselect-showselected" href="javascript://">' . JText::_('NN_SELECTED') . '</a>
+					<a class="nn_multiselect-showall" href="javascript:;">' . JText::_('JALL') . '</a>,
+					<a class="nn_multiselect-showselected" href="javascript:;">' . JText::_('NN_SELECTED') . '</a>
 				</span>
 				<span class="nn_multiselect-maxmin">
 				<span class="width-20">|</span>
 				<span class="small">
-					<a class="nn_multiselect-maximize" href="javascript://">' . JText::_('NN_MAXIMIZE') . '</a>
-					<a class="nn_multiselect-minimize" style="display:none;" href="javascript://">' . JText::_('NN_MINIMIZE') . '</a>
+					<a class="nn_multiselect-maximize" href="javascript:;">' . JText::_('NN_MAXIMIZE') . '</a>
+					<a class="nn_multiselect-minimize" style="display:none;" href="javascript:;">' . JText::_('NN_MINIMIZE') . '</a>
 				</span>
 				</span>
 				<input type="text" name=""nn_multiselect-filter" class="nn_multiselect-filter input-medium search-query pull-right" size="16"
@@ -217,14 +217,14 @@ class nnHtml
 						<ul class="dropdown-menu">
 							<li class="nav-header">' . JText::_('COM_MODULES_SUBITEMS') . '</li>
 							<li class="divider"></li>
-							<li class=""><a class="checkall" href="javascript://"><span class="icon-checkbox"></span> ' . JText::_('JSELECT') . '</a>
+							<li class=""><a class="checkall" href="javascript:;"><span class="icon-checkbox"></span> ' . JText::_('JSELECT') . '</a>
 							</li>
-							<li><a class="uncheckall" href="javascript://"><span class="icon-checkbox-unchecked"></span> ' . JText::_('COM_MODULES_DESELECT') . '</a>
+							<li><a class="uncheckall" href="javascript:;"><span class="icon-checkbox-unchecked"></span> ' . JText::_('COM_MODULES_DESELECT') . '</a>
 							</li>
 							<div class="nn_multiselect-menu-expand">
 								<li class="divider"></li>
-								<li><a class="expandall" href="javascript://"><span class="icon-plus"></span> ' . JText::_('NN_EXPAND') . '</a></li>
-								<li><a class="collapseall" href="javascript://"><span class="icon-minus"></span> ' . JText::_('NN_COLLAPSE') . '</a></li>
+								<li><a class="expandall" href="javascript:;"><span class="icon-plus"></span> ' . JText::_('NN_EXPAND') . '</a></li>
+								<li><a class="collapseall" href="javascript:;"><span class="icon-minus"></span> ' . JText::_('NN_COLLAPSE') . '</a></li>
 							</div>
 						</ul>
 					</div>
@@ -244,6 +244,18 @@ class nnHtml
 
 	static private function handlePreparedStyles($string)
 	{
-		return preg_replace('#>((?:\s*-\s*)*)\[\[\:(.*?)\:\]\]#si', ' style="\2">\1', $string);
+		$regex = '#>((?:\s*-\s*)*)\[\[\:(.*?)\:\]\]#si';
+
+		if (@preg_match($regex . 'u', $string))
+		{
+			$regex .= 'u';
+		}
+
+		if (!preg_match($regex . 'u', $string))
+		{
+			return $string;
+		}
+
+		return preg_replace($regex, ' style="\2">\1', $string);
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -22,7 +22,7 @@ jimport('joomla.application.component.view');
  * HTML View class for the Modules component
  *
  * @static
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesViewPreview extends JViewLegacy
 {

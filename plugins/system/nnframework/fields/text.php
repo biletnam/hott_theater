@@ -3,7 +3,7 @@
  * Element: Text
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -49,7 +49,7 @@ class JFormFieldNN_Text extends JFormFieldText
 		$var5 = JText::_($this->get('var5'));
 
 		$string = JText::sprintf(JText::_($string), $var1, $var2, $var3, $var4, $var5);
-		$string = trim(nnText::html_entity_decoder($string));
+		$string = trim(NNText::html_entity_decoder($string));
 		$string = str_replace('&quot;', '"', $string);
 		$string = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $string);
 

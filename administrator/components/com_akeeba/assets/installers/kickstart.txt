@@ -29,7 +29,7 @@
  */
 
 define('KICKSTART',1);
-define('VERSION', 'revC54B23C');
+define('VERSION', 'rev44FA5E4');
 define('KICKSTARTPRO', '0');
 // Uncomment the following line to enable Kickstart's debug mode
 //define('KSDEBUG', 1);
@@ -106,9 +106,11 @@ unset($cacertpem);
 $dh = @opendir(KSROOTDIR);
 if($dh === false) return;
 while($filename = readdir($dh)) {
+	if (in_array($filename, array('.', '..'))) continue;
 	if(!is_file($filename)) continue;
 	if(substr($filename, 0, 10) != 'kickstart.') continue;
 	if(substr($filename, -4) != '.php') continue;
+	if($filename == 'kickstart.php') continue;
 	include_once $filename;
 }
 
@@ -392,7 +394,7 @@ if(!class_exists('Akeeba_Services_JSON'))
 	    *                                   bubble up with an error, so all return values
 	    *                                   from encode() should be checked with isError()
 	    */
-	    function Akeeba_Services_JSON($use = 0)
+	    function __construct($use = 0)
 	    {
 	        $this->use = $use;
 	    }
@@ -1037,7 +1039,7 @@ if(!class_exists('Akeeba_Services_JSON'))
 
     class Akeeba_Services_JSON_Error
     {
-        function Akeeba_Services_JSON_Error($message = 'unknown error', $code = null,
+        function __construct($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {
 
@@ -1901,7 +1903,6 @@ abstract class AKAbstractUnarchiver extends AKAbstractPart
 					$status = $this->readFileHeader();
 					if($status)
 					{
-						debugMsg(__CLASS__.'::_run() - Preparing to extract '.$this->fileHeader->realFile);
 						// Send start of file notification
 						$message = new stdClass;
 						$message->type = 'startfile';
@@ -1918,6 +1919,9 @@ abstract class AKAbstractUnarchiver extends AKAbstractPart
 							$message->content->compressed = 0;
 						}
 						$message->content->uncompressed = $this->fileHeader->uncompressed;
+
+						debugMsg(__CLASS__.'::_run() - Preparing to extract '.$message->content->realfile);
+
 						$this->notify($message);
 					} else {
 						debugMsg(__CLASS__.'::_run() - Could not read file header');
@@ -2093,6 +2097,7 @@ abstract class AKAbstractUnarchiver extends AKAbstractPart
 			$this->fp = @fopen( $this->archiveList[$this->currentPartNumber], 'rb' );
 			if($this->fp === false) {
 				debugMsg('Could not open file - crash imminent');
+				$this->setError(AKText::sprintf('ERR_COULD_NOT_OPEN_ARCHIVE_PART', $this->archiveList[$this->currentPartNumber]));
 			}
 			fseek($this->fp, 0);
 			$this->currentPartOffset = 0;
@@ -2218,10 +2223,11 @@ abstract class AKAbstractUnarchiver extends AKAbstractPart
 	 */
 	public function isIgnoredDirectory($shortFilename)
 	{
-		return false;
+		// return false;
+
 		if (substr($shortFilename, -1) == '/')
 		{
-			$check = substr($shortFilename, 0, -1);
+			$check = rtrim($shortFilename, '/');
 		}
 		else
 		{
@@ -4917,13 +4923,20 @@ class AKUnarchiverJPA extends AKAbstractUnarchiver
 			}
 		}
 
-		// Try to remove an existing file or directory by the same name
-		if(file_exists($this->fileHeader->realFile)) { @unlink($this->fileHeader->realFile); @rmdir($this->fileHeader->realFile); }
-		// Remove any trailing slash
-		if(substr($this->fileHeader->realFile, -1) == '/') $this->fileHeader->realFile = substr($this->fileHeader->realFile, 0, -1);
-		// Create the symlink - only possible within PHP context. There's no support built in the FTP protocol, so no postproc use is possible here :(
+		$filename = isset($this->fileHeader->realFile) ? $this->fileHeader->realFile : $this->fileHeader->file;
+
 		if( !AKFactory::get('kickstart.setup.dryrun','0') )
-			@symlink($data, $this->fileHeader->realFile);
+		{
+			// Try to remove an existing file or directory by the same name
+			if(file_exists($filename)) {
+				@unlink($filename);
+				@rmdir($filename);
+			}
+			// Remove any trailing slash
+			if(substr($filename, -1) == '/') $filename = substr($filename, 0, -1);
+			// Create the symlink - only possible within PHP context. There's no support built in the FTP protocol, so no postproc use is possible here :(
+			@symlink($data, $filename);
+		}
 
 		$this->runState = AK_STATE_DATAREAD;
 
@@ -5900,14 +5913,16 @@ class AKUnarchiverJPS extends AKUnarchiverJPA
 		// Trim the data
 		$data = substr($data,0,$miniHeader['decsize']);
 
-		// Try to remove an existing file or directory by the same name
-		if(file_exists($this->fileHeader->file)) { @unlink($this->fileHeader->file); @rmdir($this->fileHeader->file); }
-		// Remove any trailing slash
-		if(substr($this->fileHeader->file, -1) == '/') $this->fileHeader->file = substr($this->fileHeader->file, 0, -1);
-		// Create the symlink - only possible within PHP context. There's no support built in the FTP protocol, so no postproc use is possible here :(
-
 		if( !AKFactory::get('kickstart.setup.dryrun','0') )
 		{
+			// Try to remove an existing file or directory by the same name
+			if(file_exists($this->fileHeader->file)) {
+				@unlink($this->fileHeader->file);
+				@rmdir($this->fileHeader->file);
+			}
+			// Remove any trailing slash
+			if(substr($this->fileHeader->file, -1) == '/') $this->fileHeader->file = substr($this->fileHeader->file, 0, -1);
+			// Create the symlink - only possible within PHP context. There's no support built in the FTP protocol, so no postproc use is possible here :(
 			@symlink($data, $this->fileHeader->file);
 		}
 
@@ -6337,6 +6352,7 @@ class AKText extends AKAbstractObject
 		'ARCHIVE_DIRECTORY' => 'Archive directory:',
 		'RELOAD_ARCHIVES'	=> 'Reload',
 		'CONFIG_UI_SFTPBROWSER_TITLE'	=> 'SFTP Directory Browser',
+		'ERR_COULD_NOT_OPEN_ARCHIVE_PART' => 'Could not open archive part file %s for reading. Check that the file exists, is readable by the web server and is not in a directory made out of reach by chroot, open_basedir restrictions or any other restriction put in place by your host.',
 	);
 
 	/**
@@ -6895,7 +6911,7 @@ class AKFactory {
 				'restore_permissions'	=> self::get('kickstart.setup.restoreperms', 0),
 				'post_proc'				=> self::get('kickstart.procengine', 'direct'),
 				'add_path'				=> self::get('kickstart.setup.targetpath', $destdir),
-				'rename_files'			=> array('.htaccess' => 'htaccess.bak', 'php.ini' => 'php.ini.bak', 'web.config' => 'web.config.bak'),
+				'rename_files'			=> array('.htaccess' => 'htaccess.bak', 'php.ini' => 'php.ini.bak', 'web.config' => 'web.config.bak', '.user.ini' => '.user.ini.bak'),
 				'skip_files'			=> array(basename(__FILE__), 'kickstart.php', 'abiautomation.ini', 'htaccess.bak', 'php.ini.bak', 'cacert.pem'),
 				'ignoredirectories'		=> array('tmp', 'log', 'logs'),
 			);
@@ -6909,10 +6925,7 @@ class AKFactory {
 
 			if(!empty($configOverride))
 			{
-				foreach($configOverride as $key => $value)
-				{
-					$config[$key] = $value;
-				}
+				$config = array_merge($config, $configOverride);
 			}
 
 			$object->setup($config);
@@ -9330,7 +9343,7 @@ function echoHeadJavascript()
 			error: function(Request, textStatus, errorThrown) {
 				var message = '<strong>AJAX Loading Error</strong><br/>HTTP Status: '+Request.status+' ('+Request.statusText+')<br/>';
 				message = message + 'Internal status: '+textStatus+'<br/>';
-				message = message + 'XHR ReadyState: ' + Response.readyState + '<br/>';
+				message = message + 'XHR ReadyState: ' + Request.readyState + '<br/>';
 				message = message + 'Raw server response:<br/>'+Request.responseText;
 				if(errorCallback == null)
 				{
@@ -9803,6 +9816,7 @@ function echoHeadJavascript()
 		var data = {
 			'task' : 'startExtracting',
 			'json': JSON.stringify({
+				'kickstart.setup.sourcepath':		$('#kickstart\\.setup\\.sourcepath').val(),
 				'kickstart.setup.sourcefile':		$('#kickstart\\.setup\\.sourcefile').val(),
 				'kickstart.jps.password':			$('#kickstart\\.jps\\.password').val(),
 				'kickstart.tuning.min_exec_time':	$('#kickstart\\.tuning\\.min_exec_time').val(),
@@ -9991,7 +10005,7 @@ function echoHeadJavascript()
 	 */
 
 	var akeeba_update = {version: '0'};
-	var akeeba_version = 'revC54B23C';
+	var akeeba_version = 'rev44FA5E4';
 
 	function version_compare (v1, v2, operator) {
 		// BEGIN REDUNDANT
@@ -10241,7 +10255,7 @@ function echoPage()
 	</div>
 
 	<div id="header">
-		<div class="title">Akeeba Kickstart <?php echo $edition?> revC54B23C</div>
+		<div class="title">Akeeba Kickstart <?php echo $edition?> rev44FA5E4</div>
 	</div>
 
 	<div id="update-notification" style="display: none">
@@ -10676,6 +10690,12 @@ switch($task)
 		// 7. Delete jquery.min.js and json2.min.js
 		$engine->unlink('jquery.min.js');
 		$engine->unlink('json2.min.js');
+
+		// 8. If OPcache is installed we need to reset it
+		if (function_exists('opcache_reset'))
+		{
+			opcache_reset();
+		}
 
 		break;
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version   $Id: roksprocket.php 27347 2015-03-04 16:01:43Z matias $
+ * @version   $Id: roksprocket.php 28401 2015-05-05 07:41:21Z matias $
  * @author    RocketTheme http://www.rockettheme.com
  * @copyright Copyright (C) 2007 - 2012 RocketTheme, LLC
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
@@ -80,8 +80,8 @@ class plgSystemRokSprocket extends JPlugin
 			}
 		}
 
-		define('ROKSPROCKET', '2.1.6');
-		define('ROKSPROCKET_VERSION', '2.1.6');
+		define('ROKSPROCKET', '2.1.7');
+		define('ROKSPROCKET_VERSION', '2.1.7');
 
 		try {
 			$container = RokCommon_Service::getContainer();
@@ -294,8 +294,8 @@ class plgSystemRokSprocket extends JPlugin
 
 					foreach ($data as $sprocket) {
 						$params   = json_decode($sprocket->params);
-						$layout   = (!empty($params) && $params->layout) ? $params->layout : '';
-						$provider = (!empty($params) && $params->provider) ? $params->provider : '';
+						$layout   = isset($params->layout) ? $params->layout : '';
+						$provider = isset($params->provider) ? $params->provider : '';
 						$jversion = new JVersion();
 						if (version_compare($jversion->getShortVersion(), '3.0.0', '>')) {
 							pq('td > input[value=' . $sprocket->id . ']')->parent()->parent()->find('td > div > a[href*=module.edit]')->parent()->addClass("sprocket")->find("> a:not(.btn)")->after('<span class="badge">' . ucfirst($layout) . '</span><div style="background:url(' . JURI::base(true) . '/components/com_roksprocket/assets/providers/' . $provider . '.png)" class="provider"></div>');

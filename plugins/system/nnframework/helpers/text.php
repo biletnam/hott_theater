@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Text
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,7 +13,7 @@
 
 defined('_JEXEC') or die;
 
-class nnText
+class NNText
 {
 	public static function fixDate(&$date)
 	{
@@ -102,7 +102,7 @@ class nnText
 			'%z'  => 'O',
 			'%Z'  => 'T',
 			// Full Date / Time
-			'%s'  => 'U'
+			'%s'  => 'U',
 		);
 
 		return strtr((string) $dateFormat, $caracs);
@@ -142,7 +142,7 @@ class nnText
 			'O'  => '%z',
 			'T'  => '%Z',
 			// Full Date / Time - no strf eq : c, r; no date eq : %c, %D, %F, %x
-			'U'  => '%s'
+			'U'  => '%s',
 		);
 
 		return strtr((string) $dateFormat, $caracs);
@@ -209,7 +209,7 @@ class nnText
 		return explode($separator, $string);
 	}
 
-	public static function cleanTitle($string, $striptags = 0)
+	public static function cleanTitle($string, $strip_tags = false, $strip_spaces = true)
 	{
 		if (empty($string))
 		{
@@ -222,7 +222,7 @@ class nnText
 		// replace weird whitespace
 		$string = str_replace(chr(194) . chr(160), ' ', $string);
 
-		if ($striptags)
+		if ($strip_tags)
 		{
 			// remove html tags
 			$string = preg_replace('#</?[a-z][^>]*>#usi', '', $string);
@@ -230,11 +230,14 @@ class nnText
 			$string = preg_replace('#<\!--.*?-->#us', '', $string);
 		}
 
-		// Replace html spaces
-		$string = str_replace(array('&nbsp;', '&#160;'), ' ', $string);
+		if ($strip_spaces)
+		{
+			// Replace html spaces
+			$string = str_replace(array('&nbsp;', '&#160;'), ' ', $string);
 
-		// Remove duplicate whitespace
-		$string = preg_replace('#[ \n\r\t]+#', ' ', $string);
+			// Remove duplicate whitespace
+			$string = preg_replace('#[ \n\r\t]+#', ' ', $string);
+		}
 
 		return trim($string);
 	}
@@ -300,18 +303,7 @@ class nnText
 	 */
 	public static function getURI($hash = '')
 	{
-		$uri = JURI::getInstance();
-
-		if (version_compare(JVERSION, '3.0', '<'))
-		{
-			$uri = $uri->get('_uri');
-
-			$uri = ($hash != '')
-				? preg_replace('#\#.*$#', '', $uri) . '#' . $hash
-				: $uri;
-
-			return $uri;
-		}
+		$uri = JUri::getInstance();
 
 		if ($hash != '')
 		{
@@ -332,18 +324,18 @@ class nnText
 		}
 
 		// Combine duplicate <p> tags
-		nnText::combinePTags($string);
+		NNText::combinePTags($string);
 
 		// Move div nested inside <p> tags outside of it
-		nnText::moveDivBlocksOutsidePBlocks($string);
+		NNText::moveDivBlocksOutsidePBlocks($string);
 
 		// Remove duplicate ending </p> tags
-		nnText::removeDuplicateTags($string, '/p');
+		NNText::removeDuplicateTags($string, '/p');
 
 		if ($remove_surrounding_p_tags)
 		{
 			// Remove surrounding <p></p> blocks
-			nnText::removeSurroundingPBlocks($string);
+			NNText::removeSurroundingPBlocks($string);
 		}
 	}
 
@@ -387,7 +379,7 @@ class nnText
 
 		foreach ($tags as $tag)
 		{
-			$string = str_replace($tag['0'], $tag['2'] . nnText::combineTags($tag['1'], $tag['3']), $string);
+			$string = str_replace($tag['0'], $tag['2'] . NNText::combineTags($tag['1'], $tag['3']), $string);
 		}
 	}
 
@@ -403,8 +395,8 @@ class nnText
 			return;
 		}
 
-		nnText::removeStartingPTag($string);
-		nnText::removeEndingPTag($string);
+		NNText::removeStartingPTag($string);
+		NNText::removeEndingPTag($string);
 	}
 
 	public static function removeStartingPTag(&$string)
@@ -471,7 +463,7 @@ class nnText
 
 		$tag_type = $tag_type[1];
 
-		if (!$attribs = nnText::combineAttributes($tag1, $tag2))
+		if (!$attribs = NNText::combineAttributes($tag1, $tag2))
 		{
 			return '<' . $tag_type . '>';
 		}
@@ -523,8 +515,8 @@ class nnText
 	 */
 	public static function combineAttributes($string1, $string2)
 	{
-		$attribs1 = is_array($string1) ? $string1 : nnText::getAttributes($string1);
-		$attribs2 = is_array($string2) ? $string2 : nnText::getAttributes($string2);
+		$attribs1 = is_array($string1) ? $string1 : NNText::getAttributes($string1);
+		$attribs2 = is_array($string2) ? $string2 : NNText::getAttributes($string2);
 
 		$dublicate_attribs = array_intersect_key($attribs1, $attribs2);
 

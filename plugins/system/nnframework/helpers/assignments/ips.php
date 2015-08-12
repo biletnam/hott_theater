@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: IPs
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsIPs extends nnFrameworkAssignment
+class NNFrameworkAssignmentsIPs extends NNFrameworkAssignment
 {
 	function passIPs()
 	{

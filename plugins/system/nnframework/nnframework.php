@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,7 +17,7 @@ if (JFactory::getApplication()->isAdmin())
 {
 	// load the NoNumber Framework language file
 	require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
-	nnFrameworkFunctions::loadLanguage('plg_system_nnframework');
+	NNFrameworkFunctions::loadLanguage('plg_system_nnframework');
 }
 
 jimport('joomla.filesystem.file');
@@ -28,7 +28,7 @@ define('NN_K2_VERSION', JFile::exists(JPATH_ADMINISTRATOR . '/components/com_k2/
 /**
  * Plugin that loads Framework
  */
-class plgSystemNNFramework extends JPlugin
+class PlgSystemNNFramework extends JPlugin
 {
 	public function onAfterRoute()
 	{
@@ -43,7 +43,7 @@ class plgSystemNNFramework extends JPlugin
 
 		// Include the Helper
 		require_once JPATH_PLUGINS . '/system/nnframework/helper.php';
-		$helper = new plgSystemNNFrameworkHelper;
+		$helper = new PlgSystemNNFrameworkHelper;
 
 		$helper->render();
 	}
@@ -70,19 +70,19 @@ class plgSystemNNFramework extends JPlugin
 
 		$key = $form['key'];
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true)
-			->update('#__update_sites as u')
-			->set('u.extra_query = ' . $db->q(''))
-			->where('u.location LIKE ' . $db->q('http://download.nonumber.nl%'));
+			->update('#__update_sites')
+			->set($db->qn('extra_query') . ' = ' . $db->q(''))
+			->where($db->qn('location') . ' LIKE ' . $db->q('http://download.nonumber.nl%'));
 		$db->setQuery($query);
 		$db->execute();
 
-		$query = $query->clear()
-			->update('#__update_sites as u')
-			->set('u.extra_query = ' . $db->q('k=' . $key))
-			->where('u.location LIKE ' . $db->q('http://download.nonumber.nl%'))
-			->where('u.location LIKE ' . $db->q('%&pro=1%'));
+		$query->clear()
+			->update('#__update_sites')
+			->set($db->qn('extra_query') . ' = ' . $db->q('k=' . $key))
+			->where($db->qn('location') . ' LIKE ' . $db->q('http://download.nonumber.nl%'))
+			->where($db->qn('location') . ' LIKE ' . $db->q('%&pro=1%'));
 		$db->setQuery($query);
 		$db->execute();
 	}

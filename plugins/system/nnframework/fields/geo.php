@@ -3,7 +3,7 @@
  * Element: Geo
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Geo extends nnFormField
+class JFormFieldNN_Geo extends NNFormField
 {
 	public $type = 'Geo';
 
@@ -43,7 +43,7 @@ class JFormFieldNN_Geo extends nnFormField
 			}
 			else
 			{
-				$val = nnText::prepareSelectItem($val);
+				$val = NNText::prepareSelectItem($val);
 				$options[] = JHtml::_('select.option', $key, $val);
 			}
 		}
@@ -53,7 +53,7 @@ class JFormFieldNN_Geo extends nnFormField
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';
 
-		return nnHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
+		return NNHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
 	}
 
 	public $continents = array(
@@ -63,7 +63,7 @@ class JFormFieldNN_Geo extends nnFormField
 		'NA' => 'North America',
 		'SA' => 'South America',
 		'OC' => 'Oceania',
-		'AN' => 'Antarctica'
+		'AN' => 'Antarctica',
 	);
 
 	public $countries = array(
@@ -310,7 +310,7 @@ class JFormFieldNN_Geo extends nnFormField
 		'EH' => 'Western Sahara',
 		'YE' => 'Yemen',
 		'ZM' => 'Zambia',
-		'ZW' => 'Zimbabwe'
+		'ZW' => 'Zimbabwe',
 	);
 
 	// Region codes taken from https://documentation.snoobi.com/region-codes

@@ -4,7 +4,7 @@
  * Displays an article id field with a button
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_Modules extends nnFormField
+class JFormFieldNN_Modules extends NNFormField
 {
 	public $type = 'Modules';
 
@@ -73,7 +73,7 @@ class JFormFieldNN_Modules extends nnFormField
 			{
 				$item->title .= ' (' . $item->language . ')';
 			}
-			$item->title = nnText::prepareSelectItem($item->title, $item->published);
+			$item->title = NNText::prepareSelectItem($item->title, $item->published);
 
 			$options[] = JHtml::_('select.option', $item->id, $item->title);
 		}

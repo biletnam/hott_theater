@@ -148,6 +148,17 @@ function renderInstanceHeaders()
 	$js[] = "window.addEvent('domready', function(){";
 	$js[] = "	RokSprocket.instances.grids.attach(" . $id . ", '" . $options . "');";
 	$js[] = "});";
+    $js[] = "window.addEvent('load', function(){";
+    $js[] = "   var overridden = false;";
+    $js[] = "   if (!overridden && window.G5 && window.G5.offcanvas){";
+    $js[] = "       var mod = document.getElement('[data-".$this->name."=\"" . $id . "\"]');";
+    $js[] = "       mod.addEvents({";
+    $js[] = "           touchstart: function(){ window.G5.offcanvas.detach(); },";
+    $js[] = "           touchend: function(){ window.G5.offcanvas.attach(); }";
+    $js[] = "       });";
+    $js[] = "       overridden = true;";
+    $js[] = "   };";
+    $js[] = "});";
 	/*		$js[] = "window.addEvent('load', function(){";
 			$js[] = "   RokSprocket.instances.grids.grids['id-" . $id . "'].reload();";
 			$js[] = "});";*/

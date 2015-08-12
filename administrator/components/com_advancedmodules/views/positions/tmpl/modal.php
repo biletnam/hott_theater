@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -23,13 +23,13 @@ $function = JFactory::getApplication()->input->get('function', 'jSelectPosition'
 $lang = JFactory::getLanguage();
 $ordering = $this->escape($this->state->get('list.ordering'));
 $direction = $this->escape($this->state->get('list.direction'));
-$clientId = $this->state->get('stfilter.client_id');
+$clientId = $this->state->get('filter.client_id');
 $published = $this->state->get('filter.published');
 $template = $this->state->get('filter.template');
 $type = $this->state->get('filter.type');
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_advancedmodules&view=positions&layout=modal&tmpl=component&function=' . $function . '&client_id=' . $clientId); ?>" method="post" name="adminForm" id="adminForm">
-	<fieldset class="filter clearfix">
+	<fieldset class="filter clear">
 		<div class="left">
 			<label for="filter_search">
 				<?php echo JText::_('JSearch_Filter_Label'); ?>

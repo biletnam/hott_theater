@@ -3,7 +3,7 @@
  * Element: K2
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/groupfield.php';
 
-class JFormFieldNN_K2 extends nnFormGroupField
+class JFormFieldNN_K2 extends NNFormGroupField
 {
 	public $type = 'K2';
 

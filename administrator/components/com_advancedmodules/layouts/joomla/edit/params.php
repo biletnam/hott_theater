@@ -45,8 +45,9 @@ if ($displayData->get('show_options', 1))
 	foreach ($fieldSets as $name => $fieldSet)
 	{
 		if (in_array($name, $ignoreFieldsets) || (!empty($configFieldsets) && in_array($name, $configFieldsets))
-				|| !empty($hiddenFieldsets) && in_array($name, $hiddenFieldsets)
-				|| (isset($fieldSet->repeat) && $fieldSet->repeat == true))
+			|| !empty($hiddenFieldsets) && in_array($name, $hiddenFieldsets)
+			|| (isset($fieldSet->repeat) && $fieldSet->repeat == true)
+		)
 		{
 			continue;
 		}

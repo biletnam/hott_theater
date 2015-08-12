@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: VersionCheck
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 
-class nnVersions
+class NNVersions
 {
 	public static $instance = null;
 
@@ -49,8 +49,8 @@ class NoNumberVersions
 
 		require_once __DIR__ . '/functions.php';
 
-		$name = nnFrameworkFunctions::getNameByAlias($alias);
-		$alias = nnFrameworkFunctions::getAliasByName($alias);
+		$name = NNFrameworkFunctions::getNameByAlias($alias);
+		$alias = NNFrameworkFunctions::getAliasByName($alias);
 
 		if (!$version = self::getXMLVersion($alias))
 		{
@@ -59,7 +59,7 @@ class NoNumberVersions
 
 		JHtml::_('jquery.framework');
 
-		nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/script.min.js');
+		NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/script.min.js');
 		$url = 'download.nonumber.nl/extensions.php?j=3&e=' . $alias;
 		$script = "
 			jQuery(document).ready(function() {
@@ -123,7 +123,7 @@ class NoNumberVersions
 		if (!JFile::exists(JPATH_ADMINISTRATOR . '/components/com_nonumbermanager/nonumbermanager.xml'))
 		{
 			$url = $is_pro
-				? 'http://www.nonumber.nl/' . $alias . '#download'
+				? 'https://www.nonumber.nl/' . $alias . '#download'
 				: JRoute::_('index.php?option=com_installer&view=update');
 
 			return array($url, '');
@@ -142,12 +142,14 @@ class NoNumberVersions
 		JHtml::_('behavior.modal');
 		jimport('joomla.filesystem.file');
 
-		nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nnframework/js/script.min.js');
-		JFactory::getDocument()->addScriptDeclaration("
+		NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nnframework/js/script.min.js');
+		JFactory::getDocument()->addScriptDeclaration(
+			"
 			var NNEM_TIMEOUT = " . (int) $config->get('timeout', 5) . ";
 			var NNEM_TOKEN = '" . JSession::getFormToken() . "';
-		");
-		nnFrameworkFunctions::addScriptVersion(JURI::root(true) . '/media/nonumbermanager/js/script.min.js');
+		"
+		);
+		NNFrameworkFunctions::addScriptVersion(JUri::root(true) . '/media/nonumbermanager/js/script.min.js');
 
 		$url = 'http://download.nonumber.nl?ext=' . $alias . '&j=3';
 
@@ -178,7 +180,6 @@ class NoNumberVersions
 			$html[] = '<div class="nn_footer_review">' . self::getFooterReview($name) . '</div>';
 			$html[] = '<div class="nn_footer_logo">' . self::getFooterLogo() . '</div>';
 			$html[] = '<div class="nn_footer_copyright">' . self::getFooterCopyright() . '</div>';
-
 		}
 
 		return '<div class="nn_footer">' . implode('', $html) . '</div>';
@@ -210,19 +211,21 @@ class NoNumberVersions
 	{
 		require_once __DIR__ . '/functions.php';
 
-		$alias = nnFrameworkFunctions::getAliasByName($name);
+		$alias = NNFrameworkFunctions::getAliasByName($name);
 
 		$jed_url = 'http://nonr.nl/jed-' . $alias . '#reviews';
 
 		return
-			html_entity_decode(JText::sprintf(
-				'NN_JED_REVIEW',
-				'<a href="' . $jed_url . '" target="_blank">',
-				'</a>'
-				. ' <a href="' . $jed_url . '" target="_blank" class="stars">'
-				. '<span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span>'
-				. '</a>'
-			));
+			html_entity_decode(
+				JText::sprintf(
+					'NN_JED_REVIEW',
+					'<a href="' . $jed_url . '" target="_blank">',
+					'</a>'
+					. ' <a href="' . $jed_url . '" target="_blank" class="stars">'
+					. '<span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span>'
+					. '</a>'
+				)
+			);
 	}
 
 	private static function getFooterLogo()
@@ -243,7 +246,7 @@ class NoNumberVersions
 	{
 		require_once __DIR__ . '/functions.php';
 
-		if (!$version = nnFrameworkFunctions::getXMLValue('version', $alias, $type, $folder))
+		if (!$version = NNFrameworkFunctions::getXMLValue('version', $alias, $type, $folder))
 		{
 			return '';
 		}

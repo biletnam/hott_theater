@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,14 +21,14 @@ jimport('joomla.application.component.modellist');
 /**
  * Modules Component Module Model
  *
- * @since       1.5
+ * @since  1.5
  */
 class AdvancedModulesModelModules extends JModelList
 {
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
 	 * @since   1.6
@@ -38,11 +38,9 @@ class AdvancedModulesModelModules extends JModelList
 		if (empty($config['filter_fields']))
 		{
 			$config['filter_fields'] = array(
-				'client_id',
 				'id', 'a.id',
 				'color', 'a.color',
 				'title', 'a.title',
-				'note', 'a.note',
 				'checked_out', 'a.checked_out',
 				'checked_out_time', 'a.checked_out_time',
 				'published', 'a.published',
@@ -67,8 +65,8 @@ class AdvancedModulesModelModules extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
+	 * @param   string $ordering  An optional ordering field.
+	 * @param   string $direction An optional direction (asc|desc).
 	 *
 	 * @return  void
 	 *
@@ -76,13 +74,6 @@ class AdvancedModulesModelModules extends JModelList
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$this->getConfig();
-		list($default_ordering, $default_direction) = explode(' ', $this->config->default_ordering, 2);
-
-		// List state information.
-		parent::populateState($default_ordering, $default_direction);
-		$this->setState('list.fullordering', $this->config->default_ordering);
-
 		$app = JFactory::getApplication('administrator');
 
 		// Load the filter state.
@@ -92,8 +83,8 @@ class AdvancedModulesModelModules extends JModelList
 		$accessId = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', null, 'int');
 		$this->setState('filter.access', $accessId);
 
-		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '', 'string');
-		$this->setState('filter.state', $published);
+		$state = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state', '', 'string');
+		$this->setState('filter.state', $state);
 
 		$position = $this->getUserStateFromRequest($this->context . '.filter.position', 'filter_position', '', 'string');
 		$this->setState('filter.position', $position);
@@ -104,22 +95,16 @@ class AdvancedModulesModelModules extends JModelList
 		$menuid = $this->getUserStateFromRequest($this->context . '.filter.menuid', 'filter_menuid', '', 'string');
 		$this->setState('filter.menuid', $menuid);
 
-		$clientId = $app->input->getString('client_id', '');
+		$clientId = $this->getUserStateFromRequest($this->context . '.filter.client_id', 'filter_client_id', 0, 'int', false);
+		$previousId = $app->getUserState($this->context . '.filter.client_id_previous', null);
 
-		if ($clientId !== '')
+		if ($previousId != $clientId || $previousId === null)
 		{
-			if ($clientId != $app->getUserState($this->context . '.client_id'))
-			{
-				$app->setUserState($this->context . '.client_id', $clientId);
-			}
-		}
-		else
-		{
-			$clientId = $app->getUserState($this->context . '.client_id');
+			$this->getUserStateFromRequest($this->context . '.filter.client_id_previous', 'filter_client_id_previous', 0, 'int', true);
+			$app->setUserState($this->context . '.filter.client_id_previous', $clientId);
 		}
 
-		$clientId = (int) $clientId;
-		$this->setState('stfilter.client_id', $clientId);
+		$this->setState('filter.client_id', $clientId);
 
 		$language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
 		$this->setState('filter.language', $language);
@@ -128,14 +113,23 @@ class AdvancedModulesModelModules extends JModelList
 		$params = JComponentHelper::getParams('com_advancedmodules');
 		$this->setState('params', $params);
 
+		// Need to null the context.list to prevent issues with populateState
+		JFactory::getApplication()->setUserState($this->context . '.list', null);
+
+		// List state information.
+		$this->getConfig();
+		list($default_ordering, $default_direction) = explode(' ', $this->config->default_ordering, 2);
+
+		$this->setState('list.fullordering', $this->config->default_ordering);
+		parent::populateState($default_ordering, $default_direction);
 	}
 
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return	mixed	The data for the form.
+	 * @return    mixed    The data for the form.
 	 *
-	 * @since	3.2
+	 * @since    3.2
 	 */
 	protected function loadFormData()
 	{
@@ -153,7 +147,7 @@ class AdvancedModulesModelModules extends JModelList
 				'limit'        => $this->state->{'list.limit'},
 				'ordering'     => $default_ordering,
 				'fullordering' => $this->config->default_ordering,
-				'start'        => $this->state->{'list.start'}
+				'start'        => $this->state->{'list.start'},
 			);
 		}
 
@@ -167,7 +161,7 @@ class AdvancedModulesModelModules extends JModelList
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  A prefix for the store id.
+	 * @param   string $id A prefix for the store id.
 	 *
 	 * @return  string    A store id.
 	 */
@@ -176,11 +170,11 @@ class AdvancedModulesModelModules extends JModelList
 		// Compile the store id.
 		$id .= ':' . trim($this->getState('filter.search'));
 		$id .= ':' . $this->getState('filter.access');
-		$id .= ':' . $this->getState('filter.published');
+		$id .= ':' . $this->getState('filter.state');
 		$id .= ':' . $this->getState('filter.position');
 		$id .= ':' . $this->getState('filter.module');
 		$id .= ':' . $this->getState('filter.menuid');
-		$id .= ':' . $this->getState('stfilter.client_id');
+		$id .= ':' . $this->getState('filter.client_id');
 		$id .= ':' . $this->getState('filter.language');
 
 		return parent::getStoreId($id);
@@ -189,9 +183,9 @@ class AdvancedModulesModelModules extends JModelList
 	/**
 	 * Returns an object list
 	 *
-	 * @param   string  $query       The query
-	 * @param   int     $limitstart  Offset
-	 * @param   int     $limit       The number of records
+	 * @param   string $query      The query
+	 * @param   int    $limitstart Offset
+	 * @param   int    $limit      The number of records
 	 *
 	 * @return  array
 	 */
@@ -217,44 +211,8 @@ class AdvancedModulesModelModules extends JModelList
 
 			return array_slice($result, $limitstart, $limit ? $limit : null);
 		}
-		else if ($ordering == 'color')
-		{
-			$this->_db->setQuery($query);
-			$result = $this->_db->loadObjectList();
-			$this->translate($result);
-			$newresult = array();
 
-			foreach ($result as $i => $row)
-			{
-				$params = json_decode($row->advancedparams);
-
-				$color = isset($params->color) ? str_replace('#', '', $params->color) : 'none';
-				$color = empty($color) ? 'none' : $color;
-				$newresult['_' . $color . '_' . (($i + 1) / 10000)] = $row;
-			}
-
-			if ($orderDirn == 'DESC')
-			{
-				krsort($newresult);
-			}
-			else
-			{
-				ksort($newresult);
-			}
-
-			$newresult = array_values($newresult);
-			$total = count($newresult);
-			$this->cache[$this->getStoreId('getTotal')] = $total;
-
-			if ($total < $limitstart)
-			{
-				$limitstart = 0;
-				$this->setState('list.start', 0);
-			}
-
-			return array_slice($newresult, $limitstart, $limit ? $limit : null);
-		}
-		else
+		if ($ordering != 'color')
 		{
 			if ($ordering == 'ordering')
 			{
@@ -279,12 +237,51 @@ class AdvancedModulesModelModules extends JModelList
 
 			return $result;
 		}
+
+		$this->_db->setQuery($query);
+		$result = $this->_db->loadObjectList();
+		$this->translate($result);
+		$newresult = array();
+
+		foreach ($result as $i => $row)
+		{
+			$params = json_decode($row->advancedparams);
+			if (is_null($params))
+			{
+				$params = new stdClass;
+			}
+
+			$color = isset($params->color) ? str_replace('#', '', $params->color) : 'none';
+			$color = empty($color) ? 'none' : $color;
+			$newresult['_' . $color . '_' . (($i + 1) / 10000)] = $row;
+		}
+
+		if ($orderDirn == 'DESC')
+		{
+			krsort($newresult);
+		}
+		else
+		{
+			ksort($newresult);
+		}
+
+		$newresult = array_values($newresult);
+		$total = count($newresult);
+		$this->cache[$this->getStoreId('getTotal')] = $total;
+
+		if ($total < $limitstart)
+		{
+			$limitstart = 0;
+			$this->setState('list.start', 0);
+		}
+
+		return array_slice($newresult, $limitstart, $limit ? $limit : null);
 	}
 
 	/**
 	 * Translate a list of objects
 	 *
-	 * @param   array  &$items  The array of objects
+	 * @param   array &$items The array of objects
 	 *
 	 * @return  array The array of translated objects
 	 */
@@ -293,19 +290,23 @@ class AdvancedModulesModelModules extends JModelList
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 		$lang = JFactory::getLanguage();
-		$client = $this->getState('stfilter.client_id') ? 'administrator' : 'site';
+		$client = $this->getState('filter.client_id') ? 'administrator' : 'site';
 
 		foreach ($items as $item)
 		{
 			$extension = $item->module;
 			$source = constant('JPATH_' . strtoupper($client)) . "/modules/$extension";
 			$lang->load("$extension.sys", constant('JPATH_' . strtoupper($client)), null, false, true)
-				|| $lang->load("$extension.sys", $source, null, false, true);
+			|| $lang->load("$extension.sys", $source, null, false, true);
 			$item->name = JText::_($item->name);
 
 			$params = json_decode($item->advancedparams);
+			if (is_null($params))
+			{
+				$params = new stdClass;
+			}
 
-			if (isset($params->mirror_module) && $params->mirror_module && isset($params->mirror_moduleid) && !empty($params->mirror_moduleid))
+			if (isset($params->mirror_module) && $params->mirror_module && !empty($params->mirror_moduleid))
 			{
 				$query->clear()
 					->select('MIN(mm.menuid) AS pages')
@@ -360,27 +361,21 @@ class AdvancedModulesModelModules extends JModelList
 			// Select the required fields from the table.
 			->select('a.id')
 			->from('#__modules AS a')
-
 			// Join over the language
 			->select('l.title AS language_title')
 			->join('LEFT', '#__languages AS l ON l.lang_code = a.language')
-
 			// Join over the users for the checked out user.
 			->select('uc.name AS editor')
 			->join('LEFT', '#__users AS uc ON uc.id=a.checked_out')
-
 			// Join over the asset groups.
 			->select('ag.title AS access_level')
 			->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access')
-
 			// Join over the module menus
 			->select('MIN(mm.menuid) AS pages')
 			->join('LEFT', '#__modules_menu AS mm ON mm.moduleid = a.id')
-
 			// Join over the extensions
 			->select('e.name AS name')
 			->join('LEFT', '#__extensions AS e ON e.element = a.module')
-
 			// Group
 			->group(
 				'a.id, a.title, a.note, a.position, a.module, a.language, a.checked_out,' .
@@ -461,7 +456,7 @@ class AdvancedModulesModelModules extends JModelList
 		}
 
 		// Filter by published state
-		$published = $this->getState('filter.published');
+		$published = $this->getState('filter.state');
 
 		if (is_numeric($published))
 		{
@@ -473,7 +468,7 @@ class AdvancedModulesModelModules extends JModelList
 		}
 
 		// Filter by client.
-		$clientId = $this->getState('stfilter.client_id');
+		$clientId = $this->getState('filter.client_id');
 
 		if (is_numeric($clientId))
 		{
@@ -509,7 +504,7 @@ class AdvancedModulesModelModules extends JModelList
 			$this->getState(
 				'list.select',
 				'a.id, a.title, a.note, a.position, a.module, a.language,' .
-					'a.checked_out, a.checked_out_time, a.published+2*(e.enabled-1) as published, a.access, a.ordering, a.publish_up, a.publish_down'
+				'a.checked_out, a.checked_out_time, a.published+2*(e.enabled-1) as published, a.access, a.ordering, a.publish_up, a.publish_down'
 			)
 		);
 
@@ -527,12 +522,14 @@ class AdvancedModulesModelModules extends JModelList
 	 */
 	protected function getConfig()
 	{
-		if (!isset($this->config))
+		if (isset($this->config))
 		{
-			require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-			$parameters = nnParameters::getInstance();
-			$this->config = $parameters->getComponentParams('advancedmodules');
+			return $this->config;
 		}
+
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
+		$parameters = NNParameters::getInstance();
+		$this->config = $parameters->getComponentParams('advancedmodules');
 
 		return $this->config;
 	}

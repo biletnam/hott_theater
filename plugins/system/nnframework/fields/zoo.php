@@ -3,7 +3,7 @@
  * Element: Zoo
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/groupfield.php';
 
-class JFormFieldNN_Zoo extends nnFormGroupField
+class JFormFieldNN_Zoo extends NNFormGroupField
 {
 	public $type = 'Zoo';
 
@@ -101,7 +101,7 @@ class JFormFieldNN_Zoo extends nnFormGroupField
 			foreach ($list as $item)
 			{
 				$item->treename = '  ' . str_replace('&#160;&#160;- ', '  ', $item->treename);
-				$item->treename = nnText::prepareSelectItem($item->treename, $item->published);
+				$item->treename = NNText::prepareSelectItem($item->treename, $item->published);
 				$option = JHtml::_('select.option', $item->id, $item->treename, 'value', 'text', 0);
 				$option->level = 1;
 				$options[] = $option;

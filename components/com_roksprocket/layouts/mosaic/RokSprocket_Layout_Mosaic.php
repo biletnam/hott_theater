@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version   $Id: RokSprocket_Layout_Mosaic.php 21881 2014-07-09 22:43:31Z kevin $
+ * @version   $Id: RokSprocket_Layout_Mosaic.php 28636 2015-07-09 15:40:49Z james $
  * @author    RocketTheme http://www.rockettheme.com
  * @copyright Copyright (C) 2007 - 2015 RocketTheme, LLC
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
@@ -223,6 +223,17 @@ function renderInstanceHeaders()
 	$js[] = "window.addEvent('domready', function(){";
 	$js[] = "	RokSprocket.instances.mosaic.attach(" . $id . ", '" . $options . "');";
 	$js[] = "});";
+    $js[] = "window.addEvent('load', function(){";
+    $js[] = "   var overridden = false;";
+    $js[] = "   if (!overridden && window.G5 && window.G5.offcanvas){";
+    $js[] = "       var mod = document.getElement('[data-".$this->name."=\"" . $id . "\"]');";
+    $js[] = "       mod.addEvents({";
+    $js[] = "           touchstart: function(){ window.G5.offcanvas.detach(); },";
+    $js[] = "           touchend: function(){ window.G5.offcanvas.attach(); }";
+    $js[] = "       });";
+    $js[] = "       overridden = true;";
+    $js[] = "   };";
+    $js[] = "});";
 	/*		$js[] = "window.addEvent('load', function(){";
 			$js[] = "   RokSprocket.instances.mosaic.mosaic['id-" . $id . "'].reload();";
 			$js[] = "});";*/

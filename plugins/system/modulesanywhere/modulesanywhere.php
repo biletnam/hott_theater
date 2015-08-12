@@ -3,7 +3,7 @@
  * Main File
  *
  * @package         Modules Anywhere
- * @version         3.6.6
+ * @version         4.0.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 /**
  * Plugin that loads modules
  */
-class plgSystemModulesAnywhere extends JPlugin
+class PlgSystemModulesAnywhere extends JPlugin
 {
 	private $_alias = 'modulesanywhere';
 	private $_title = 'MODULES_ANYWHERE';
@@ -30,14 +30,19 @@ class plgSystemModulesAnywhere extends JPlugin
 		$this->getHelper();
 	}
 
-	public function onContentPrepare($context, &$article)
+	public function onContentPrepare($context, &$article, &$params)
 	{
+		if ($context == 'com_zoo.element.textarea')
+		{
+			return;
+		}
+
 		if (!$this->getHelper())
 		{
 			return;
 		}
 
-		$this->_helper->onContentPrepare($article, $context);
+		$this->_helper->onContentPrepare($article, $context, $params);
 	}
 
 	public function onAfterDispatch()
@@ -88,18 +93,18 @@ class plgSystemModulesAnywhere extends JPlugin
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (nnProtect::isAdmin())
+		if (NNProtect::isAdmin())
 		{
 			return false;
 		}
 
-		if (nnProtect::isProtectedPage($this->_alias, 1))
+		if (NNProtect::isProtectedPage($this->_alias, 1))
 		{
 			return false;
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = nnFrameworkHelper::getPluginHelper($this);
+		$this->_helper = NNFrameworkHelper::getPluginHelper($this);
 
 		return $this->_helper;
 	}
@@ -162,7 +167,7 @@ class plgSystemModulesAnywhere extends JPlugin
 		}
 
 		// load the admin language file
-		JFactory::getLanguage()->load('plg_' . $this->_type . '_' . $this->_name, JPATH_ADMINISTRATOR);
+		JFactory::getLanguage()->load('plg_' . $this->_type . '_' . $this->_name, JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name);
 
 		$text = JText::_($text) . ' ' . JText::sprintf($this->_lang_prefix . '_EXTENSION_CAN_NOT_FUNCTION', JText::_($this->_title));
 

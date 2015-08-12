@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Modules Anywhere
- * @version         3.6.6
+ * @version         4.0.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,13 +17,17 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
 
-nnFrameworkFunctions::loadLanguage('plg_system_modulesanywhere');
+NNFrameworkFunctions::loadLanguage('plg_system_modulesanywhere');
 
 /**
  * Plugin that places modules
  */
-class plgSystemModulesAnywhereHelper
+class PlgSystemModulesAnywhereHelper
 {
+	var $option = '';
+	var $params = null;
+	var $aid = array();
+
 	public function __construct(&$params)
 	{
 		$this->option = JFactory::getApplication()->input->get('option');
@@ -58,7 +62,7 @@ class plgSystemModulesAnywhereHelper
 
 		$bts = '((?:<p(?: [^>]*)?>\s*)?)((?:\s*<br ?/?>\s*)?)';
 		$bte = '((?:\s*<br ?/?>)?)((?:\s*</p>)?)';
-		$regex = '((?:\{div(?: [^\}]*)\})?)(\s*)'
+		$regex = '((?:\{div(?: [^\}]*)?\})?)(\s*)'
 			. '\{(' . implode('|', $tags) . ')(?:\s|&nbsp;|&\#160;)+((?:[^\}]*?\{[^\}]*?\})*[^\}]*?)\}'
 			. '(\s*)((?:\{/div\})?)';
 		$this->params->regex = '#' . $bts . $regex . $bte . '#s';
@@ -73,14 +77,15 @@ class plgSystemModulesAnywhereHelper
 		$this->params->disabled_components = array('com_acymailing');
 	}
 
-	public function onContentPrepare(&$article, &$context)
+	public function onContentPrepare(&$article, &$context, &$params)
 	{
 		$this->params->message = '';
 
+
 		$area = isset($article->created_by) ? 'articles' : 'other';
+		$context = (($params instanceof JRegistry) && $params->get('nn_search')) ? 'com_search.' . $params->get('readmore_limit') : $context;
 
-
-		nnFrameworkHelper::processArticle($article, $context, $this, 'processModules', array($area));
+		NNFrameworkHelper::processArticle($article, $context, $this, 'processModules', array($area, $context));
 	}
 
 	public function onAfterDispatch()
@@ -117,14 +122,14 @@ class plgSystemModulesAnywhereHelper
 			return;
 		}
 
-		if (JFactory::getDocument()->getType() != 'html')
+		if (JFactory::getDocument()->getType() == 'feed')
 		{
 			$this->replaceTags($html);
 		}
 		else
 		{
 			// only do stuff in body
-			list($pre, $body, $post) = nnText::getBody($html);
+			list($pre, $body, $post) = NNText::getBody($html);
 			$this->replaceTags($body);
 			$html = $pre . $body . $post;
 		}
@@ -157,7 +162,7 @@ class plgSystemModulesAnywhereHelper
 
 			$this->removeAll($string, $area);
 
-			nnProtect::unprotect($string);
+			NNProtect::unprotect($string);
 
 			return;
 		}
@@ -183,6 +188,11 @@ class plgSystemModulesAnywhereHelper
 
 		foreach ($components as $component)
 		{
+			if (strpos($string, $component['0']) === false)
+			{
+				continue;
+			}
+
 			$this->processModules($component['1'], 'components');
 			$string = str_replace($component['0'], $component['1'], $string);
 		}
@@ -190,7 +200,7 @@ class plgSystemModulesAnywhereHelper
 		// EVERYWHERE
 		$this->processModules($string, 'other');
 
-		nnProtect::unprotect($string);
+		NNProtect::unprotect($string);
 	}
 
 	function tagArea(&$string, $ext = 'EXT', $area = '')
@@ -224,7 +234,7 @@ class plgSystemModulesAnywhereHelper
 			list($text) = explode($end, $match, 2);
 			$matches[$i] = array(
 				$start . $text . $end,
-				$text
+				$text,
 			);
 		}
 
@@ -237,13 +247,31 @@ class plgSystemModulesAnywhereHelper
 		$this->processModules($string, $area);
 	}
 
-	function processModules(&$string, $area = 'articles')
+	function processModules(&$string, $area = 'articles', $context = '')
 	{
+		// Check if tags are in the text snippet used for the search component
+		if (strpos($context, 'com_search.') === 0)
+		{
+			$limit = explode('.', $context, 2);
+			$limit = (int) array_pop($limit);
+
+			$string_check = substr($string, 0, $limit);
+
+			if (!preg_match('#\{' . $this->params->tags . '#', $string_check))
+			{
+				return;
+			}
+		}
+
 
 		if (preg_match('#\{' . $this->params->tags . '#', $string))
 		{
 			jimport('joomla.application.module.helper');
-			JPluginHelper::importPlugin('content');
+
+			if (JFactory::getDocument()->getType() !== 'feed')
+			{
+				JPluginHelper::importPlugin('content');
+			}
 
 			$this->replace($string, $this->params->regex, $area);
 			$this->replace($string, $this->params->regex2, $area);
@@ -252,7 +280,7 @@ class plgSystemModulesAnywhereHelper
 
 	function replace(&$string, $regex, $area = 'articles')
 	{
-		list($pre_string, $string, $post_string) = nnText::getContentContainingSearches(
+		list($pre_string, $string, $post_string) = NNText::getContentContainingSearches(
 			$string,
 			$this->params->start_tags,
 			null, 200, 500
@@ -274,7 +302,7 @@ class plgSystemModulesAnywhereHelper
 		$protects = array();
 
 		if (
-			!nnText::stringContains($string, $this->params->start_tags)
+			!NNText::stringContains($string, $this->params->start_tags)
 			|| !preg_match_all($regex, $string, $matches, PREG_SET_ORDER)
 		)
 		{
@@ -285,6 +313,11 @@ class plgSystemModulesAnywhereHelper
 
 		foreach ($matches as $match)
 		{
+			if (strpos($string, $match['0']) === false)
+			{
+				continue;
+			}
+
 			if ($this->processMatch($string, $match, $area))
 			{
 				continue;
@@ -299,6 +332,11 @@ class plgSystemModulesAnywhereHelper
 
 		foreach ($protects as $protect)
 		{
+			if (strpos($string, $protect['1']) === false)
+			{
+				continue;
+			}
+
 			$string = str_replace($protect['1'], $protect['0'], $string);
 		}
 
@@ -341,6 +379,12 @@ class plgSystemModulesAnywhereHelper
 
 		$type = trim($type);
 		$id = trim($id);
+
+		// The core loadposition tag supports chrome after a comma. Modules Anywhere uses a bar.
+		if ($type == 'loadposition')
+		{
+			$id = str_replace(',', '|', $id);
+		}
 
 		$chrome = '';
 		$forcetitle = 0;
@@ -402,13 +446,13 @@ class plgSystemModulesAnywhereHelper
 			}
 		}
 
-		if (!$chrome)
-		{
-			$chrome = ($forcetitle) ? 'xhtml' : $this->params->style;
-		}
-
 		if ($type == $this->params->module_tag)
 		{
+			if (!$chrome)
+			{
+				$chrome = ($forcetitle) ? 'xhtml' : $this->params->style;
+			}
+
 			// module
 			$html = $this->processModule($id, $chrome, $ignores, $overrides, $area);
 			if ($html == 'MA_IGNORE')
@@ -418,6 +462,11 @@ class plgSystemModulesAnywhereHelper
 		}
 		else
 		{
+			if (!$chrome)
+			{
+				$chrome = ($forcetitle) ? 'xhtml' : '';
+			}
+
 			// module position
 			$html = $this->processPosition($id, $chrome);
 		}
@@ -492,7 +541,7 @@ class plgSystemModulesAnywhereHelper
 			$html = $p_start . $html . $p_end;
 		}
 
-		nnText::fixHtmlTagStructure($html);
+		NNText::fixHtmlTagStructure($html);
 
 		if ($this->params->place_comments)
 		{
@@ -528,7 +577,7 @@ class plgSystemModulesAnywhereHelper
 		$ignore_assignments = isset($ignores['ignore_assignments']) ? $ignores['ignore_assignments'] : $this->params->ignore_assignments;
 		$ignore_caching = isset($ignores['ignore_caching']) ? $ignores['ignore_caching'] : $this->params->ignore_caching;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true)
 			->select('m.*')
 			->from('#__modules AS m')
@@ -539,7 +588,7 @@ class plgSystemModulesAnywhereHelper
 		}
 		else
 		{
-			$query->where('m.title = ' . $db->quote(nnText::html_entity_decoder($id)));
+			$query->where('m.title = ' . $db->quote(NNText::html_entity_decoder($id)));
 		}
 		if (!$ignore_access)
 		{
@@ -587,15 +636,11 @@ class plgSystemModulesAnywhereHelper
 		if (($area == 'articles' && !$ignore_caching) || !empty($overrides))
 		{
 			$json = ($module->params && substr(trim($module->params), 0, 1) == '{');
-			if ($json)
-			{
-				$params = json_decode($module->params);
-			}
-			else
-			{
+
+			$params = $json
+				? json_decode($module->params)
 				// Old ini style. Needed for crappy old style modules like swMenuPro
-				$params = JRegistryFormat::getInstance('INI')->stringToObject($module->params);
-			}
+				: JRegistryFormat::getInstance('INI')->stringToObject($module->params);
 
 			// override module parameters
 			if (!empty($overrides))
@@ -605,21 +650,22 @@ class plgSystemModulesAnywhereHelper
 					if (isset($module->{$key}))
 					{
 						$module->{$key} = $val;
+						continue;
 					}
-					else
+
+					if ($val && $val['0'] == '[' && $val[strlen($val) - 1] == ']')
 					{
-						if ($val && $val['0'] == '[' && $val[strlen($val) - 1] == ']')
-						{
-							$val = json_decode('{"val":' . $val . '}');
-							$val = $val->val;
-						}
-						else if (isset($params->{$key}) && is_array($params->{$key}))
-						{
-							$val = explode(',', $val);
-						}
-						$params->{$key} = $val;
+						$val = json_decode('{"val":' . $val . '}');
+						$val = $val->val;
 					}
+					else if (isset($params->{$key}) && is_array($params->{$key}))
+					{
+						$val = explode(',', $val);
+					}
+
+					$params->{$key} = $val;
 				}
+
 				if ($json)
 				{
 					$module->params = json_encode($params);
@@ -647,14 +693,18 @@ class plgSystemModulesAnywhereHelper
 		if ($chrome)
 		{
 			$params = json_decode($module->params);
+			if (is_null($params))
+			{
+				$params = new stdClass;
+			}
 
 			if (isset($params->style) && strpos($params->style, '-'))
 			{
 				$params->style = explode('-', $params->style, 2);
-				$params->style = $params->style['0'] . '-';
+				$params->style = $params->style['0'];
 			}
 
-			$params->style = isset($params->style) ? $params->style . $chrome : $chrome;
+			$params->style = isset($params->style) && $params->style ? $params->style . '-' . $chrome : $chrome;
 			$module->params = json_encode($params);
 		}
 
@@ -685,7 +735,7 @@ class plgSystemModulesAnywhereHelper
 	{
 		$this->setModulePublishState($module);
 
-		if (!$module->published)
+		if (empty($module->published))
 		{
 			$module = null;
 		}
@@ -696,20 +746,20 @@ class plgSystemModulesAnywhereHelper
 		$module->published = true;
 
 		// for old Advanced Module Manager versions
-		if (function_exists('plgSystemAdvancedModulesPrepareModuleList'))
+		if (function_exists('PlgSystemAdvancedModulesPrepareModuleList'))
 		{
 			$modules = array($module->id => $module);
-			plgSystemAdvancedModulesPrepareModuleList($modules);
+			PlgSystemAdvancedModulesPrepareModuleList($modules);
 			$module = array_shift($modules);
 
 			return;
 		}
 
 		// for new Advanced Module Manager versions
-		if (class_exists('plgSystemAdvancedModuleHelper'))
+		if (class_exists('PlgSystemAdvancedModuleHelper'))
 		{
 			$modules = array($module->id => $module);
-			$helper = new plgSystemAdvancedModuleHelper;
+			$helper = new PlgSystemAdvancedModuleHelper;
 			$helper->onPrepareModuleList($modules);
 			$module = array_shift($modules);
 
@@ -717,7 +767,7 @@ class plgSystemModulesAnywhereHelper
 		}
 
 		// for core Joomla
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true)
 			->select('mm.moduleid')
 			->from('#__modules_menu AS mm')
@@ -730,18 +780,18 @@ class plgSystemModulesAnywhereHelper
 
 	function protect(&$string)
 	{
-		nnProtect::protectFields($string);
-		nnProtect::protectSourcerer($string);
+		NNProtect::protectFields($string);
+		NNProtect::protectSourcerer($string);
 	}
 
 	function protectTags(&$string)
 	{
-		nnProtect::protectTags($string, $this->params->protected_tags);
+		NNProtect::protectTags($string, $this->params->protected_tags);
 	}
 
 	function unprotectTags(&$string)
 	{
-		nnProtect::unprotectTags($string, $this->params->protected_tags);
+		NNProtect::unprotectTags($string, $this->params->protected_tags);
 	}
 
 	/**
@@ -762,7 +812,7 @@ class plgSystemModulesAnywhereHelper
 			array(
 				$this->params->comment_start, $this->params->comment_end,
 				htmlentities($this->params->comment_start), htmlentities($this->params->comment_end),
-				urlencode($this->params->comment_start), urlencode($this->params->comment_end)
+				urlencode($this->params->comment_start), urlencode($this->params->comment_end),
 			), '', $string
 		);
 		$string = preg_replace('#' . preg_quote($this->params->message_start, '#') . '.*?' . preg_quote($this->params->message_end, '#') . '#', '', $string);

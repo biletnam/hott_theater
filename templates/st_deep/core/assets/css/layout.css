@@ -87,6 +87,13 @@ div[id*="avatar-pos-promo-bottom-"]  {
         position: fixed;
         top: 0;
 }
+
+@media only screen and (max-width: 640px) {
+	#avatar-left, #avatar-right{
+		position: relative!important;
+                height: auto;
+	}
+}
 #avatar-left, #avatar-content, #avatar-right {
 	float:left;
 }

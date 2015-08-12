@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Modules Anywhere
- * @version         3.6.6
+ * @version         4.0.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 /**
  * Button Plugin that places Editor Buttons
  */
-class plgButtonModulesAnywhere extends JPlugin
+class PlgButtonModulesAnywhere extends JPlugin
 {
 	private $_alias = 'modulesanywhere';
 
@@ -66,19 +66,19 @@ class plgButtonModulesAnywhere extends JPlugin
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (!nnProtect::isSystemPluginInstalled($this->_alias))
+		if (!NNProtect::isSystemPluginInstalled($this->_alias))
 		{
 			return false;
 		}
 
 		// Load plugin parameters
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = nnParameters::getInstance();
+		$parameters = NNParameters::getInstance();
 		$params = $parameters->getPluginParams($this->_name);
 
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
+		$this->_helper = NNFrameworkHelper::getPluginHelper($this, $params);
 
 		return $this->_helper;
 	}

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -47,8 +47,9 @@ if ($displayData->get('show_options', 1))
 	foreach ($fieldSets as $name => $fieldSet)
 	{
 		if (in_array($name, $ignoreFieldsets) || (!empty($configFieldsets) && in_array($name, $configFieldsets))
-				|| !empty($hiddenFieldsets) && in_array($name, $hiddenFieldsets)
-				|| (isset($fieldSet->repeat) && $fieldSet->repeat == true))
+			|| !empty($hiddenFieldsets) && in_array($name, $hiddenFieldsets)
+			|| (isset($fieldSet->repeat) && $fieldSet->repeat == true)
+		)
 		{
 			continue;
 		}

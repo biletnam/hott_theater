@@ -3,7 +3,7 @@
  * Table class: advancedmodules
  *
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -23,6 +23,7 @@ class AdvancedModulesTable extends JTable
 	protected function _getAssetName()
 	{
 		$k = $this->_tbl_key;
+
 		return 'com_modules.module.' . (int) $this->$k;
 	}
 

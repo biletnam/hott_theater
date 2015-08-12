@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: VirtueMart
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,12 +15,15 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsVirtueMart extends nnFrameworkAssignment
+class NNFrameworkAssignmentsVirtueMart extends NNFrameworkAssignment
 {
 	function init()
 	{
-		$this->request->item_id = JFactory::getApplication()->input->getInt('virtuemart_product_id', 0);
-		$this->request->category_id = JFactory::getApplication()->input->getString('virtuemart_category_id', '');
+		$virtuemart_product_id = JFactory::getApplication()->input->get('virtuemart_product_id', array(), 'array');
+		$virtuemart_category_id = JFactory::getApplication()->input->get('virtuemart_category_id', array(), 'array');
+
+		$this->request->item_id = isset($virtuemart_product_id['0']) ? $virtuemart_product_id['0'] : null;
+		$this->request->category_id = isset($virtuemart_category_id['0']) ? $virtuemart_category_id['0'] : null;
 		$this->request->id = ($this->request->item_id) ? $this->request->item_id : $this->request->category_id;
 	}
 

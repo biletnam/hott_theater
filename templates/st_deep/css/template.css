@@ -281,7 +281,7 @@ img.img-full-width {
 }
 #avatar-full-5-block {
 	padding: 30px 0;
-	background: /*#222;*/ #fff;
+	background: url(../images/casting-call-bg.jpg) no-repeat;
 }
 #avatar-full-6-block {
 	padding-bottom: 80px;
@@ -1319,7 +1319,8 @@ ul[class*="avatar-main-menu"] > li > span {
 	background: /*#3DAEF2 url(../images/bg-tool.jpg) center center fixed no-repeat;*/ #fff;
 	background-size: cover;
 	position: relative;
-	padding: 0;	
+	padding: 0;
+        top: -75px;
 }
 #avatar-tool-block:after {
 	content: "";

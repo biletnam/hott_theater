@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -29,7 +29,7 @@ class ModulesHelperXML
 	/**
 	 * Parse the module XML file
 	 *
-	 * @param   array  &$rows  XML rows
+	 * @param   array &$rows XML rows
 	 *
 	 * @return  void
 	 *
@@ -43,8 +43,8 @@ class ModulesHelperXML
 		{
 			if ($row->module == '')
 			{
-				$rows[$i]->name    = 'custom';
-				$rows[$i]->module  = 'custom';
+				$rows[$i]->name = 'custom';
+				$rows[$i]->module = 'custom';
 				$rows[$i]->descrip = 'Custom created module, using Module Manager New function';
 			}
 			else
@@ -53,7 +53,7 @@ class ModulesHelperXML
 
 				if ($data['type'] == 'module')
 				{
-					$rows[$i]->name    = $data['name'];
+					$rows[$i]->name = $data['name'];
 					$rows[$i]->descrip = $data['description'];
 				}
 			}

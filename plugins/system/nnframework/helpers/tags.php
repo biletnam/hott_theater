@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Tags
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,7 +13,7 @@
 
 defined('_JEXEC') or die;
 
-class nnTags
+class NNTags
 {
 	public static function getTagValues($string = '', $keys = array('title'), $separator = '|', $equal = '=', $limit = 0)
 	{
@@ -113,7 +113,7 @@ class nnTags
 				'strong', 'b', 'em', 'i', 'u', 'big', 'small', 'font',
 				// html 5 stuff
 				'header', 'nav', 'section', 'article', 'aside', 'footer',
-				'figure', 'figcaption', 'details', 'summary', 'mark', 'time'
+				'figure', 'figcaption', 'details', 'summary', 'mark', 'time',
 			);
 		}
 		$a = explode('<', $pre);

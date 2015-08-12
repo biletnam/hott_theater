@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ defined('_JEXEC') or die;
 /**
  * View to edit a module.
  *
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesViewModule extends JViewLegacy
 {
@@ -32,24 +32,23 @@ class AdvancedModulesViewModule extends JViewLegacy
 	/**
 	 * Display the view
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  void
 	 */
 	public function display($tpl = null)
 	{
-		$this->item		= $this->get('Item');
+		$this->form = $this->get('Form');
+		$this->item = $this->get('Item');
+		$this->state = $this->get('State');
+		$this->canDo = JHelperContent::getActions('com_modules', 'module', $this->item->id);
 		$this->getConfig();
+		$this->getAssignments();
 
 		if (!isset($this->item->published) || $this->item->published == '')
 		{
 			$this->item->published = $this->config->default_state;
 		}
-
-		$this->form		= $this->get('Form');
-		$this->state	= $this->get('State');
-		$this->canDo	= JHelperContent::getActions('com_modules', 'module', $this->item->id);
-		$this->getAssignments();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -62,7 +61,7 @@ class AdvancedModulesViewModule extends JViewLegacy
 		if (preg_match('#_gk[1-9]#', $this->item->module))
 		{
 			// Set message for Gavick modules
-			JFactory::getApplication()->enqueueMessage(JText::sprintf(html_entity_decode(JText::_('AMM_MODULE_INCOMPATIBLE')), 'index.php?option=com_modules&force=1&task=module.edit&id=' . (int) $this->item->id), 'warning');
+			JFactory::getApplication()->enqueueMessage(JText::sprintf(html_entity_decode(JText::_('AMM_MODULE_INCOMPATIBLE')), '<a href="index.php?option=com_modules&force=1&task=module.edit&id=' . (int) $this->item->id) . '">', '</a>', 'warning');
 		}
 
 		$this->addToolbar();
@@ -76,12 +75,15 @@ class AdvancedModulesViewModule extends JViewLegacy
 	 */
 	protected function getConfig()
 	{
-		if (!isset($this->config))
+		if (isset($this->config))
 		{
-			require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-			$parameters = nnParameters::getInstance();
-			$this->config = $parameters->getComponentParams('advancedmodules');
+			return $this->config;
 		}
+
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
+		$parameters = NNParameters::getInstance();
+		$this->config = $parameters->getComponentParams('advancedmodules');
+
 		return $this->config;
 	}
 
@@ -100,11 +102,14 @@ class AdvancedModulesViewModule extends JViewLegacy
 			$assignments->bind($this->item->advancedparams);
 			$this->assignments = $assignments;
 		}
+
 		return $this->assignments;
 	}
 
 	/**
 	 * Add the page title and toolbar.
+	 *
+	 * @return  void
 	 *
 	 * @since   1.6
 	 */
@@ -112,12 +117,12 @@ class AdvancedModulesViewModule extends JViewLegacy
 	{
 		JFactory::getApplication()->input->set('hidemainmenu', true);
 
-		$user		= JFactory::getUser();
-		$isNew		= ($this->item->id == 0);
-		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
-		$canDo		= $this->canDo;
+		$user = JFactory::getUser();
+		$isNew = ($this->item->id == 0);
+		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
+		$canDo = $this->canDo;
 
-		$title = $this->item->title. ' [' . $this->item->module . ']';
+		$title = $this->item->title . ' [' . $this->item->module . ']';
 		JToolbarHelper::title(JText::sprintf('AMM_MODULE_EDIT', $title), 'advancedmodulemanager icon-nonumber');
 
 		// For new records, check the create permission.

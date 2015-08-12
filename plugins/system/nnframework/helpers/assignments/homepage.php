@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: HomePage
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsHomePage extends nnFrameworkAssignment
+class NNFrameworkAssignmentsHomePage extends NNFrameworkAssignment
 {
 	function passHomePage()
 	{
@@ -76,7 +76,7 @@ class nnFrameworkAssignmentsHomePage extends nnFrameworkAssignment
 
 	function checkPass(&$home, $addlang = 0)
 	{
-		$uri = JURI::getInstance();
+		$uri = JUri::getInstance();
 
 		if ($addlang)
 		{
@@ -123,7 +123,7 @@ class nnFrameworkAssignmentsHomePage extends nnFrameworkAssignment
 		// remove trailing /
 		$url = trim(preg_replace('#/$#', '', $url));
 
-		$root = JURI::root();
+		$root = JUri::root();
 
 		// remove the http(s)
 		$root = preg_replace('#^.*?://#', '', $root);

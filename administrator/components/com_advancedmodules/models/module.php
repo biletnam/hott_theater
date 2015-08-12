@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,7 +21,7 @@ use Joomla\Registry\Registry;
 /**
  * Module model.
  *
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesModelModule extends JModelAdmin
 {
@@ -66,13 +66,13 @@ class AdvancedModulesModelModule extends JModelAdmin
 	 */
 	protected $batch_commands = array(
 		'assetgroup_id' => 'batchAccess',
-		'language_id' => 'batchLanguage',
+		'language_id'   => 'batchLanguage',
 	);
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param   array $config An optional associative array of configuration settings.
 	 */
 	public function __construct($config = array())
 	{
@@ -84,8 +84,8 @@ class AdvancedModulesModelModule extends JModelAdmin
 				'event_before_save'   => 'onExtensionBeforeSave',
 				'events_map'          => array(
 					'save'   => 'extension',
-					'delete' => 'extension'
-				)
+					'delete' => 'extension',
+				),
 			), $config
 		);
 
@@ -119,7 +119,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 		$this->setState('module.id', $pk);
 
 		// Load the parameters.
-		$params	= JComponentHelper::getParams('com_advancedmodules');
+		$params = JComponentHelper::getParams('com_advancedmodules');
 		$this->setState('params', $params);
 
 		$this->getConfig();
@@ -128,9 +128,9 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to perform batch operations on a set of modules.
 	 *
-	 * @param   array  $commands  An array of commands to perform.
-	 * @param   array  $pks       An array of item ids.
-	 * @param   array  $contexts  An array of item contexts.
+	 * @param   array $commands An array of commands to perform.
+	 * @param   array $pks      An array of item ids.
+	 * @param   array $contexts An array of item contexts.
 	 *
 	 * @return  boolean  Returns true on success, false on failure.
 	 *
@@ -151,6 +151,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 		if (empty($pks))
 		{
 			$this->setError(JText::_('JGLOBAL_NO_ITEM_SELECTED'));
+
 			return false;
 		}
 
@@ -205,6 +206,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 		if (!$done)
 		{
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_INSUFFICIENT_BATCH_INFORMATION'));
+
 			return false;
 		}
 
@@ -217,9 +219,9 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Batch language changes for a group of rows.
 	 *
-	 * @param   string  $value    The new value matching a language.
-	 * @param   array   $pks      An array of row IDs.
-	 * @param   array   $contexts An array of item contexts.
+	 * @param   string $value    The new value matching a language.
+	 * @param   array  $pks      An array of row IDs.
+	 * @param   array  $contexts An array of item contexts.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
@@ -244,6 +246,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 				if (!$table->store())
 				{
 					$this->setError($table->getError());
+
 					return false;
 				}
 
@@ -258,6 +261,10 @@ class AdvancedModulesModelModule extends JModelAdmin
 					$table_adv->moduleid = $table->id;
 
 					$params = json_decode($table_adv->params);
+					if (is_null($params))
+					{
+						$params = new stdClass;
+					}
 
 					if ($value == '*')
 					{
@@ -275,6 +282,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 					if (!$table_adv->check() || !$table_adv->store())
 					{
 						$this->setError($table_adv->getError());
+
 						return false;
 					}
 				}
@@ -282,6 +290,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 			else
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
 				return false;
 			}
 		}
@@ -295,9 +304,9 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Batch copy modules to a new position or current.
 	 *
-	 * @param   integer  $value     The new value matching a module position.
-	 * @param   array    $pks       An array of row IDs.
-	 * @param   array    $contexts  An array of item contexts.
+	 * @param   integer $value    The new value matching a module position.
+	 * @param   array   $pks      An array of row IDs.
+	 * @param   array   $contexts An array of item contexts.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
@@ -357,7 +366,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 				$newId = (int) $table->get('id');
 
 				// Add the new ID to the array
-				$newIds[$pk]	= $newId;
+				$newIds[$pk] = $newId;
 
 				// Now we need to handle the module assignments
 				$query->clear()
@@ -401,6 +410,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 					if (!$table_adv->check() || !$table_adv->store())
 					{
 						$this->setError($table_adv->getError());
+
 						return false;
 					}
 				}
@@ -422,9 +432,9 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Batch move modules to a new position or current.
 	 *
-	 * @param   integer  $value     The new value matching a module position.
-	 * @param   array    $pks       An array of row IDs.
-	 * @param   array    $contexts  An array of item contexts.
+	 * @param   integer $value    The new value matching a module position.
+	 * @param   array   $pks      An array of row IDs.
+	 * @param   array   $contexts An array of item contexts.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
@@ -490,7 +500,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to test whether a record can have its state edited.
 	 *
-	 * @param   object  $record  A record object.
+	 * @param   object $record A record object.
 	 *
 	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
 	 *
@@ -515,7 +525,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to delete rows.
 	 *
-	 * @param   array  &$pks  An array of item ids.
+	 * @param   array &$pks An array of item ids.
 	 *
 	 * @return  boolean  Returns true on success, false on failure.
 	 *
@@ -525,12 +535,12 @@ class AdvancedModulesModelModule extends JModelAdmin
 	public function delete(&$pks)
 	{
 		$dispatcher = JEventDispatcher::getInstance();
-		$pks        = (array) $pks;
-		$user       = JFactory::getUser();
-		$table      = $this->getTable();
-		$db         = $this->getDbo();
-		$query      = $db->getQuery(true);
-		$context    = $this->option . '.' . $this->name;
+		$pks = (array) $pks;
+		$user = JFactory::getUser();
+		$table = $this->getTable();
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$context = $this->option . '.' . $this->name;
 
 		// Include the plugins for the on delete events.
 		JPluginHelper::importPlugin('extension');
@@ -605,7 +615,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to duplicate modules.
 	 *
-	 * @param   array  &$pks  An array of primary key IDs.
+	 * @param   array &$pks An array of primary key IDs.
 	 *
 	 * @return  boolean  True if successful.
 	 *
@@ -698,7 +708,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 			$query->clear()
 				->insert('#__modules_menu')
 				->columns(array($db->quoteName('moduleid'), $db->quoteName('menuid')));
-			foreach($inserts as $insert)
+			foreach ($inserts as $insert)
 			{
 				$query->values($insert);
 			}
@@ -750,6 +760,10 @@ class AdvancedModulesModelModule extends JModelAdmin
 				if ($table_adv->load($pk, true))
 				{
 					$params = json_decode($table_adv->params);
+					if (is_null($params))
+					{
+						$params = new stdClass;
+					}
 
 					$params->color = strtolower($color);
 
@@ -758,6 +772,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 					if (!$table_adv->check() || !$table_adv->store())
 					{
 						$this->setError($table_adv->getError());
+
 						return false;
 					}
 				}
@@ -765,6 +780,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 			else
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
 				return false;
 			}
 		}
@@ -778,9 +794,9 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to change the title.
 	 *
-	 * @param   integer  $category_id  The id of the category. Not used here.
-	 * @param   string   $title        The title.
-	 * @param   string   $position     The position.
+	 * @param   integer $category_id The id of the category. Not used here.
+	 * @param   string  $title       The title.
+	 * @param   string  $position    The position.
 	 *
 	 * @return  array  Contains the modified title.
 	 *
@@ -814,8 +830,8 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param   array    $data      Data for the form.
-	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
+	 * @param   array   $data     Data for the form.
+	 * @param   boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return  JForm  A JForm object on success, false on failure
 	 *
@@ -826,16 +842,16 @@ class AdvancedModulesModelModule extends JModelAdmin
 		// The folder and element vars are passed when saving the form.
 		if (empty($data))
 		{
-			$item		= $this->getItem();
-			$clientId	= $item->client_id;
-			$module		= $item->module;
-			$id			= $item->id;
+			$item = $this->getItem();
+			$clientId = $item->client_id;
+			$module = $item->module;
+			$id = $item->id;
 		}
 		else
 		{
-			$clientId	= JArrayHelper::getValue($data, 'client_id');
-			$module		= JArrayHelper::getValue($data, 'module');
-			$id			= JArrayHelper::getValue($data, 'id');
+			$clientId = JArrayHelper::getValue($data, 'client_id');
+			$module = JArrayHelper::getValue($data, 'module');
+			$id = JArrayHelper::getValue($data, 'id');
 		}
 
 		// These variables are used to add data from the plugin XML files.
@@ -914,7 +930,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to get a single record.
 	 *
-	 * @param   integer  $pk  The id of the primary key.
+	 * @param   integer $pk The id of the primary key.
 	 *
 	 * @return  mixed  Object on success, false on failure.
 	 *
@@ -975,7 +991,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 					}
 
 					// Extension found, prime some module values.
-					$table->module    = $extension->element;
+					$table->module = $extension->element;
 					$table->client_id = $extension->client_id;
 				}
 				else
@@ -988,11 +1004,15 @@ class AdvancedModulesModelModule extends JModelAdmin
 			}
 
 			// Convert to the JObject before adding other data.
-			$properties        = $table->getProperties(1);
+			$properties = $table->getProperties(1);
 			$this->_cache[$pk] = JArrayHelper::toObject($properties, 'JObject');
 
 			// Convert the params field to an array.
 			$this->_cache[$pk]->params = json_decode($table->params, true);
+			if (is_null($this->_cache[$pk]->params))
+			{
+				$this->_cache[$pk]->params = array();
+			}
 
 			// Advanced parameters
 			// Get a row instance.
@@ -1005,6 +1025,10 @@ class AdvancedModulesModelModule extends JModelAdmin
 
 			// Convert the params field to an array.
 			$this->_cache[$pk]->advancedparams = json_decode($table_adv->params, true);
+			if (is_null($this->_cache[$pk]->params))
+			{
+				$this->_cache[$pk]->advancedparams = array();
+			}
 
 			$this->_cache[$pk]->advancedparams = $this->initAssignments($pk, $this->_cache[$pk]);
 
@@ -1027,12 +1051,12 @@ class AdvancedModulesModelModule extends JModelAdmin
 				}
 			}
 
-			$this->_cache[$pk]->assigned   = $assigned;
+			$this->_cache[$pk]->assigned = $assigned;
 			$this->_cache[$pk]->assignment = $assignment;
 
 			// Get the module XML.
 			$client = JApplicationHelper::getClientInfo($table->client_id);
-			$path   = JPath::clean($client->path . '/modules/' . $table->module . '/' . $table->module . '.xml');
+			$path = JPath::clean($client->path . '/modules/' . $table->module . '/' . $table->module . '.xml');
 
 			if (file_exists($path))
 			{
@@ -1062,9 +1086,9 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param   string  $type    The table type to instantiate
-	 * @param   string  $prefix  A prefix for the table class name. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
+	 * @param   string $type   The table type to instantiate
+	 * @param   string $prefix A prefix for the table class name. Optional.
+	 * @param   array  $config Configuration array for model. Optional.
 	 *
 	 * @return  JTable  A database object
 	 *
@@ -1078,7 +1102,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param   JTable  $table  The database object
+	 * @param   JTable $table The database object
 	 *
 	 * @return  void
 	 *
@@ -1086,16 +1110,16 @@ class AdvancedModulesModelModule extends JModelAdmin
 	 */
 	protected function prepareTable($table)
 	{
-		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->position	= trim($table->position);
+		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+		$table->position = trim($table->position);
 	}
 
 	/**
 	 * Method to preprocess the form
 	 *
-	 * @param   JForm   $form   A form object.
-	 * @param   mixed   $data   The data expected for the form.
-	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
+	 * @param   JForm  $form  A form object.
+	 * @param   mixed  $data  The data expected for the form.
+	 * @param   string $group The name of the plugin group to import (defaults to "content").
 	 *
 	 * @return  void
 	 *
@@ -1106,16 +1130,16 @@ class AdvancedModulesModelModule extends JModelAdmin
 	{
 		jimport('joomla.filesystem.path');
 
-		$lang     = JFactory::getLanguage();
+		$lang = JFactory::getLanguage();
 		$clientId = $this->getState('item.client_id');
-		$module   = $this->getState('item.module');
+		$module = $this->getState('item.module');
 
-		$client   = JApplicationHelper::getClientInfo($clientId);
+		$client = JApplicationHelper::getClientInfo($clientId);
 		$formFile = JPath::clean($client->path . '/modules/' . $module . '/' . $module . '.xml');
 
 		// Load the core and/or local language file(s).
 		$lang->load($module, $client->path, null, false, true)
-		||	$lang->load($module, $client->path . '/modules/' . $module, null, false, true);
+		|| $lang->load($module, $client->path . '/modules/' . $module, null, false, true);
 
 		if (file_exists($formFile))
 		{
@@ -1155,9 +1179,9 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Loads ContentHelper for filters before validating data.
 	 *
-	 * @param   object  $form   The form to validate against.
-	 * @param   array   $data   The data to validate.
-	 * @param   string  $group  The name of the group(defaults to null).
+	 * @param   object $form  The form to validate against.
+	 * @param   array  $data  The data to validate.
+	 * @param   string $group The name of the group(defaults to null).
 	 *
 	 * @return  mixed  Array of filtered data if valid, false otherwise.
 	 *
@@ -1173,7 +1197,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Applies the text filters to arbitrary text as per settings for current user groups
 	 *
-	 * @param   text  $text  The string to filter
+	 * @param   text $text The string to filter
 	 *
 	 * @return  string  The filtered string
 	 */
@@ -1185,7 +1209,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array  $data  The form data.
+	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -1196,11 +1220,11 @@ class AdvancedModulesModelModule extends JModelAdmin
 		$advancedparams = JFactory::getApplication()->input->get('advancedparams', array(), 'array');
 
 		$dispatcher = JEventDispatcher::getInstance();
-		$input      = JFactory::getApplication()->input;
-		$table      = $this->getTable();
-		$pk         = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('module.id');
-		$isNew      = true;
-		$context    = $this->option . '.' . $this->name;
+		$input = JFactory::getApplication()->input;
+		$table = $this->getTable();
+		$pk = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('module.id');
+		$isNew = true;
+		$context = $this->option . '.' . $this->name;
 
 		// Include the plugins for the save event.
 		JPluginHelper::importPlugin('extension');
@@ -1230,12 +1254,12 @@ class AdvancedModulesModelModule extends JModelAdmin
 		// correct the publish date details
 		if (isset($advancedparams['assignto_date_publish_up']))
 		{
-			nnText::fixDateOffset($advancedparams['assignto_date_publish_up']);
+			NNText::fixDateOffset($advancedparams['assignto_date_publish_up']);
 		}
 
 		if (isset($advancedparams['assignto_date_publish_down']))
 		{
-			nnText::fixDateOffset($advancedparams['assignto_date_publish_down']);
+			NNText::fixDateOffset($advancedparams['assignto_date_publish_down']);
 		}
 
 		if (isset($advancedparams['assignto_date']))
@@ -1421,7 +1445,8 @@ class AdvancedModulesModelModule extends JModelAdmin
 
 				foreach ($data['assigned'] as &$pk)
 				{
-					if(is_numeric($pk)) {
+					if (is_numeric($pk))
+					{
 						$menuid = (int) $pk * $sign;
 						$inserts[(int) $table->id . '-' . $menuid] = (int) $table->id . ',' . $menuid;
 					}
@@ -1488,7 +1513,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to save the advanced parameters.
 	 *
-	 * @param    array    $data    The form data.
+	 * @param    array $data The form data.
 	 *
 	 * @return    boolean    True on success.
 	 * @since    1.6
@@ -1534,6 +1559,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 		catch (RuntimeException $e)
 		{
 			JError::raiseWarning(500, $e->getMessage());
+
 			return false;
 		}
 
@@ -1543,7 +1569,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to get and save the module core menu assignments
 	 *
-	 * @param    int    $id    The module id.
+	 * @param    int $id The module id.
 	 *
 	 * @return    boolean    True on success.
 	 * @since    1.6
@@ -1558,8 +1584,8 @@ class AdvancedModulesModelModule extends JModelAdmin
 		if (empty($id))
 		{
 			$module->advancedparams = array(
-				'assignto_menuitems' => $this->config->default_menu_assignment,
-				'assignto_menuitems_selection' => array()
+				'assignto_menuitems'           => $this->config->default_menu_assignment,
+				'assignto_menuitems_selection' => array(),
 			);
 		}
 		else
@@ -1602,7 +1628,8 @@ class AdvancedModulesModelModule extends JModelAdmin
 						}
 					}
 				}
-			} else if( isset($module->advancedparams['assignto_menuitems_selection']['0']) && strpos($module->advancedparams['assignto_menuitems_selection']['0'], ',') !== false)
+			}
+			else if (isset($module->advancedparams['assignto_menuitems_selection']['0']) && strpos($module->advancedparams['assignto_menuitems_selection']['0'], ',') !== false)
 			{
 				$module->advancedparams['assignto_menuitems_selection'] = explode(',', $module->advancedparams['assignto_menuitems_selection']['0']);
 			}
@@ -1637,7 +1664,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param   object  $table  A record object.
+	 * @param   object $table A record object.
 	 *
 	 * @return  array  An array of conditions to add to add to ordering queries.
 	 *
@@ -1655,8 +1682,8 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Custom clean cache method for different clients
 	 *
-	 * @param   string   $group      The name of the plugin group to import (defaults to null).
-	 * @param   integer  $client_id  The client ID. [optional]
+	 * @param   string  $group     The name of the plugin group to import (defaults to null).
+	 * @param   integer $client_id The client ID. [optional]
 	 *
 	 * @return  void
 	 *
@@ -1670,7 +1697,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method to test whether a record can be deleted.
 	 *
-	 * @param    object    $record    A record object.
+	 * @param    object $record A record object.
 	 *
 	 * @return    boolean    True if allowed to delete the record. Defaults to the permission set in the component.
 	 */
@@ -1683,6 +1710,7 @@ class AdvancedModulesModelModule extends JModelAdmin
 				return;
 			}
 			$user = JFactory::getUser();
+
 			return $user->authorise('core.delete', 'com_modules.module.' . (int) $record->id);
 		}
 	}
@@ -1690,8 +1718,8 @@ class AdvancedModulesModelModule extends JModelAdmin
 	/**
 	 * Method override to check if you can edit an existing record.
 	 *
-	 * @param   array   $data  An array of input data.
-	 * @param   string  $key   The name of the key for the primary key.
+	 * @param   array  $data An array of input data.
+	 * @param   string $key  The name of the key for the primary key.
 	 *
 	 * @return  boolean
 	 */
@@ -1717,14 +1745,17 @@ class AdvancedModulesModelModule extends JModelAdmin
 	 *
 	 * @return    Object
 	 */
-	protected function getConfig()
+	private function getConfig()
 	{
-		if (!isset($this->config))
+		if (isset($this->config))
 		{
-			require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-			$parameters = nnParameters::getInstance();
-			$this->config = $parameters->getComponentParams('advancedmodules');
+			return $this->config;
 		}
+
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
+		$parameters = NNParameters::getInstance();
+		$this->config = $parameters->getComponentParams('advancedmodules');
+
 		return $this->config;
 	}
 }

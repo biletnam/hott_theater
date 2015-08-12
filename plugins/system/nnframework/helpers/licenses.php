@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Licenses
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,7 +13,7 @@
 
 defined('_JEXEC') or die;
 
-class nnLicenses
+class NNLicenses
 {
 	public static $instance = null;
 
@@ -47,8 +47,8 @@ class NoNumberLicenses
 
 		require_once __DIR__ . '/functions.php';
 
-		$alias = nnFrameworkFunctions::getAliasByName($name);
-		$name = nnFrameworkFunctions::getNameByAlias($name);
+		$alias = NNFrameworkFunctions::getAliasByName($name);
+		$name = NNFrameworkFunctions::getNameByAlias($name);
 
 		if ($check_pro && self::isPro($alias))
 		{
@@ -72,7 +72,7 @@ class NoNumberLicenses
 	{
 		require_once __DIR__ . '/functions.php';
 
-		if (!$version = nnFrameworkFunctions::getXMLValue('version', $element))
+		if (!$version = NNFrameworkFunctions::getXMLValue('version', $element))
 		{
 			return false;
 		}

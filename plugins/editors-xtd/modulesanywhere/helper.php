@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Modules Anywhere
- * @version         3.6.6
+ * @version         4.0.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 /**
  ** Plugin that places the button
  */
-class plgButtonModulesAnywhereHelper
+class PlgButtonModulesAnywhereHelper
 {
 	public function __construct(&$params)
 	{
@@ -54,7 +54,7 @@ class plgButtonModulesAnywhereHelper
 		$icon = 'nonumber icon-modulesanywhere';
 		$link = 'index.php?nn_qp=1'
 			. '&folder=plugins.editors-xtd.modulesanywhere'
-			. '&file=modulesanywhere.inc.php'
+			. '&file=popup.php'
 			. '&name=' . $name;
 
 		$text_ini = strtoupper(str_replace(' ', '_', $this->params->button_text));

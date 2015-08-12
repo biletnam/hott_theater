@@ -4,7 +4,7 @@
  * Displays Assignment Selection radio options
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version         
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/field.php';
 
-class JFormFieldNN_AssignmentSelection extends nnFormField
+class JFormFieldNN_AssignmentSelection extends NNFormField
 {
 	public $type = 'AssignmentSelection';
 
@@ -32,7 +32,7 @@ class JFormFieldNN_AssignmentSelection extends nnFormField
 		JHtml::stylesheet('nnframework/style.min.css', false, true);
 
 		require_once __DIR__ . '/toggler.php';
-		$toggler = new nnFieldToggler;
+		$toggler = new NNFieldToggler;
 
 		$this->value = (int) $this->value;
 		$label = $this->get('label');
@@ -44,7 +44,7 @@ class JFormFieldNN_AssignmentSelection extends nnFormField
 
 		if ($label)
 		{
-			$label = nnText::html_entity_decoder(JText::_($label));
+			$label = NNText::html_entity_decoder(JText::_($label));
 
 			$html[] = '</div>';
 			if (!$noshow)

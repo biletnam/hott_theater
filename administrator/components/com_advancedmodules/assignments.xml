@@ -9,7 +9,7 @@
 
 
 	<fieldset name="assignments">
-		<field name="@block_assignments" type="nn_block" var1="AMM_MODULE" description="NN_ASSIGNMENTS_DESC" />
+		<field name="@block_assignments" type="note" class="well well-small" description="NN_ASSIGNMENTS_DESC,AMM_MODULE" />
 	</fieldset>
 
 	<fieldset name="mirror_module">
@@ -29,10 +29,10 @@
 			<option value="or">NN_OR</option>
 		</field>
 		<field name="@toggler_match_1a" type="nn_toggler" param="match_method" value="and" />
-		<field name="@block_and" type="nn_block" class="alert-info" description="NN_AND_DESC" />
+		<field name="@block_and" type="note" class="alert alert-info" description="NN_AND_DESC" />
 		<field name="@toggler_match_1b" type="nn_toggler" />
 		<field name="@toggler_match_2a" type="nn_toggler" param="match_method" value="or" />
-		<field name="@block_or" type="nn_block" class="alert-info" description="NN_OR_DESC" />
+		<field name="@block_or" type="note" class="alert alert-info" description="NN_OR_DESC" />
 		<field name="@toggler_match_2b" type="nn_toggler" />
 	</fieldset>
 
@@ -42,7 +42,7 @@
 			<option value="2">NN_SELECTED</option>
 		</field>
 		<field name="@toggler_show_assignments_1a" type="nn_toggler" param="show_assignments" value="2" />
-		<field name="@block_show_assignments" type="nn_block" class="alert-info" description="NN_SHOW_ASSIGNMENTS_SELECTED_DESC" />
+		<field name="@block_show_assignments" type="note" class="alert alert-info" description="NN_SHOW_ASSIGNMENTS_SELECTED_DESC" />
 		<field name="@toggler_show_assignments_1b" type="nn_toggler" />
 	</fieldset>
 
@@ -63,7 +63,7 @@
 
 	<fieldset name="assignto_homepage">
 		<field name="assignto_homepage" type="nn_assignmentselection" showclose="1" label="NN_HOME_PAGE" />
-		<field name="@text_homepage" type="nn_plaintext" label="NN_HOME_PAGE_DESC" />
+		<field name="@text_homepage" type="note" description="NN_HOME_PAGE_DESC" />
 		<field name="@assignto_homepage" type="nn_assignmentselection" />
 	</fieldset>
 
@@ -78,7 +78,7 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="@text_assignto_date_1" type="nn_plaintext" label="NN_DATE_TIME_DESC" />
+		<field name="@text_assignto_date_1" type="note" description="NN_DATE_TIME_DESC" />
 		<field name="@text_assignto_date_2" type="nn_datetime" format="Y-m-d H:i" label="NN_CURRENT_DATE" />
 		<field name="@assignto_date" type="nn_assignmentselection" />
 
@@ -118,27 +118,27 @@
 	<fieldset name="assignto_urls">
 		<field name="assignto_urls" type="nn_assignmentselection" showclose="1" label="NN_URL" />
 		<field name="assignto_urls_selection" type="nn_textareaplus" texttype="regex" default="" label="NN_URL_PARTS" description="NN_URL_PARTS_DESC" />
-		<field name="@text_urls" type="nn_plaintext" label="NN_URL_PARTS_DESC" />
+		<field name="@text_urls" type="note" description="NN_URL_PARTS_DESC" />
 		<field name="assignto_urls_regex" type="radio" class="btn-group btn-group-yesno" default="0" label="NN_REGULAR_EXPRESSIONS" description="NN_REGULAR_EXPRESSIONS_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
 		<field name="@toggler_urls_regex_a" type="nn_toggler" param="assignto_urls_regex" value="1" />
-		<field name="@block_urls_regex" type="nn_block" class="alert-danger" description="NN_URL_PARTS_REGEX" />
+		<field name="@block_urls_regex" type="note" class="alert alert-danger" description="NN_URL_PARTS_REGEX" />
 		<field name="@toggler_urls_regex_b" type="nn_toggler" />
 		<field name="@assignto_urls" type="nn_assignmentselection" />
 	</fieldset>
 
 	<fieldset name="assignto_os">
 		<field name="assignto_os" type="nn_assignmentselection" showclose="1" label="NN_OS" />
-		<field name="@text_os" type="nn_plaintext" label="NN_OS_DESC" />
+		<field name="@text_os" type="note" description="NN_OS_DESC" />
 		<field name="assignto_os_selection" type="nn_agents" group="os" multiple="true" default="" label="NN_SELECTION" description="NN_OS_DESC" />
 		<field name="@assignto_os" type="nn_assignmentselection" />
 	</fieldset>
 
 	<fieldset name="assignto_browsers">
 		<field name="assignto_browsers" type="nn_assignmentselection" showclose="1" label="NN_BROWSERS" />
-		<field name="@text_browsers" type="nn_plaintext" label="NN_BROWSERS_DESC" />
+		<field name="@text_browsers" type="note" description="NN_BROWSERS_DESC" />
 		<field name="assignto_browsers_selection" type="nn_agents" group="browsers" multiple="true" default="" label="NN_BROWSERS" description="NN_BROWSERS_DESC" />
 		<field name="assignto_mobile_selection" type="nn_agents" group="mobile" multiple="true" default="" label="NN_MOBILE_BROWSERS" description="NN_BROWSERS_DESC" />
 		<field name="@assignto_browsers" type="nn_assignmentselection" />

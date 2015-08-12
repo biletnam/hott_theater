@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ defined('_JEXEC') or die;
 /**
  * HTML View class for the Modules component
  *
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesViewSelect extends JViewLegacy
 {
@@ -39,11 +39,12 @@ class AdvancedModulesViewSelect extends JViewLegacy
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
 
-		$this->state = & $state;
-		$this->items = & $items;
+		$this->state = &$state;
+		$this->items = &$items;
 
 		$this->addToolbar();
 		parent::display($tpl);

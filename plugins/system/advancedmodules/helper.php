@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 jimport('joomla.filesystem.file');
 
-class plgSystemAdvancedModulesHelper
+class PlgSystemAdvancedModulesHelper
 {
 	var $use_legacy = false;
 
@@ -39,12 +39,6 @@ class plgSystemAdvancedModulesHelper
 
 	private function moduleHelperNeedsLegacy()
 	{
-		// Joomla 3.4.0 and older need legacy
-		if (version_compare(JVERSION, '3.4.1', '<'))
-		{
-			return true;
-		}
-
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/versions.php';
 
 		// Return true if old JModuleHelper will be loaded by one of the following extensions
@@ -78,7 +72,7 @@ class plgSystemAdvancedModulesHelper
 		if ($this->use_legacy)
 		{
 			require_once JPATH_PLUGINS . '/system/advancedmodules/advancedmodulehelper_legacy.php';
-			$class = new plgSystemAdvancedModuleHelper;
+			$class = new PlgSystemAdvancedModuleHelper;
 
 			JFactory::getApplication()->registerEvent('onRenderModule', array($class, 'onRenderModule'));
 			JFactory::getApplication()->registerEvent('onCreateModuleQuery', array($class, 'onCreateModuleQuery'));
@@ -88,7 +82,7 @@ class plgSystemAdvancedModulesHelper
 		}
 
 		require_once JPATH_PLUGINS . '/system/advancedmodules/advancedmodulehelper.php';
-		$class = new plgSystemAdvancedModuleHelper;
+		$class = new PlgSystemAdvancedModuleHelper;
 
 		JFactory::getApplication()->registerEvent('onRenderModule', array($class, 'onRenderModule'));
 		JFactory::getApplication()->registerEvent('onPrepareModuleList', array($class, 'onPrepareModuleList'));
@@ -105,26 +99,48 @@ class plgSystemAdvancedModulesHelper
 
 		$body = JResponse::getBody();
 
-		$body = preg_replace('#(\?option=com_)(modules[^a-z-_])#', '\1advanced\2', $body);
-		$body = str_replace(array('?option=com_advancedmodules&force=1', '?option=com_advancedmodules&amp;force=1'), '?option=com_modules', $body);
+		$this->replaceLinksModules($body);
 
-		if (JFactory::getApplication()->isAdmin() || strpos($body, 'jmodediturl=') === false)
+		if (!JFactory::getApplication()->isAdmin())
 		{
-			JResponse::setBody($body);
+			$this->replaceLinksInFrontend($body);
+		}
 
+		JResponse::setBody($body);
+	}
+
+	private function replaceLinksModules(&$string)
+	{
+		$string = preg_replace('#(\?option=com_)(modules[^a-z-_])#', '\1advanced\2', $string);
+		$string = str_replace(array('?option=com_advancedmodules&force=1', '?option=com_advancedmodules&amp;force=1'), '?option=com_modules', $string);
+	}
+
+	private function replaceLinksInFrontend(&$string)
+	{
+		if (strpos($string, 'jmodediturl=') === false)
+		{
 			return;
 		}
 
-		$body = preg_replace('#(jmodediturl="[^"]*)index.php\?option=com_config&controller=config.display.modules#', '\1index.php?option=com_advancedmodules', $body);
+		$url = 'index.php?option=com_advancedmodules';
 
-		JResponse::setBody($body);
+		if (JFactory::getUser()->authorise('core.manage', 'com_modules') && $this->getConfig()->use_admin_from_frontend)
+		{
+			$url = 'administrator/index.php?option=com_advancedmodules&task=module.edit';
+		}
+
+		$string = preg_replace(
+			'#(jmodediturl="[^"]*)index.php\?option=com_config&controller=config.display.modules#',
+			'\1' . $url,
+			$string
+		);
 	}
 
 	private function replaceLinksInCoreModuleManager()
 	{
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 
-		nnFrameworkFunctions::loadLanguage('com_advancedmodules');
+		NNFrameworkFunctions::loadLanguage('com_advancedmodules');
 
 		$body = JResponse::getBody();
 
@@ -135,9 +151,29 @@ class plgSystemAdvancedModulesHelper
 		}
 
 		$link = '<a style="float:right;" href="' . JRoute::_($url) . '">' . JText::_('AMM_SWITCH_TO_ADVANCED_MODULE_MANAGER') . '</a><div style="clear:both;"></div>';
-		$body = preg_replace('#(</script>\s*)(<form)#', '\1' . $link . '\2', $body);
-		$body = preg_replace('#(</form>\s*)((<\!--.*?-->\s*)*</div>)#', '\1' . $link . '\2', $body);
+		$body = preg_replace('#(</div>\s*</form>\s*(<\!--.*?-->\s*)*</div>)#', $link . '\1', $body);
 
 		JResponse::setBody($body);
+	}
+
+	/**
+	 * Function that gets the config settings
+	 *
+	 * @return    Object
+	 */
+	private function getConfig()
+	{
+		static $instance;
+
+		if (is_object($instance))
+		{
+			return $instance;
+		}
+
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
+		$parameters = NNParameters::getInstance();
+		$instance = $parameters->getComponentParams('advancedmodules');
+
+		return $instance;
 	}
 }

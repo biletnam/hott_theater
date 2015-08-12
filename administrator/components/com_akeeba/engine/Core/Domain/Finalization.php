@@ -103,6 +103,7 @@ class Finalization extends Part
 
 		// Do we have a custom action queue set in volatile.core.finalization.action_queue?
 		$customQueue = $configuration->get('volatile.core.finalization.action_queue', null);
+		$customQueueBefore = $configuration->get('volatile.core.finalization.action_queue_before', null);
 
 		if (is_array($customQueue) && !empty($customQueue))
 		{
@@ -126,6 +127,44 @@ class Finalization extends Part
 						}
 					}
 				}
+			}
+		}
+
+		if (is_array($customQueueBefore) && !empty($customQueueBefore))
+		{
+			// Get all actions before run_post_processing
+			$temp = array();
+			$temp[] = array_shift($this->action_queue);
+			$temp[] = array_shift($this->action_queue);
+			$temp[] = array_shift($this->action_queue);
+
+			// Add the custom handlers from volatile.core.finalization.action_handlers_before
+			while (!empty($customQueueBefore))
+			{
+				$action = array_pop($customQueueBefore);
+
+				if (method_exists($this, $action))
+				{
+					array_unshift($this->action_queue, $action);
+				}
+				else
+				{
+					foreach ($this->action_handlers as $handler)
+					{
+						if (method_exists($handler, $action))
+						{
+							array_unshift($this->action_queue, $action);
+
+							break;
+						}
+					}
+				}
+			}
+
+			// Add back the handlers we shifted before
+			foreach ($temp as $action)
+			{
+				array_unshift($this->action_queue, $action);
 			}
 		}
 
@@ -475,7 +514,7 @@ class Finalization extends Part
 		{
 			Factory::getLog()->log(LogLevel::WARNING, 'Failed to process file ' . $filename);
 			Factory::getLog()->log(LogLevel::WARNING, 'Error received from the post-processing engine:');
-			Factory::getLog()->log(LogLevel::WARNING, implode("\n", $this->getWarnings()));
+            Factory::getLog()->log(LogLevel::WARNING, implode("\n", array_merge($this->getWarnings(), $this->getErrors())));
 			$this->setWarning('Failed to process file ' . $filename);
 		}
 		elseif ($result === true)

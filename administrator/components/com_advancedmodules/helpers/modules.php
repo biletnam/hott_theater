@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,14 +19,14 @@ defined('_JEXEC') or die;
 /**
  * Modules component helper.
  *
- * @since       1.6
+ * @since  1.6
  */
 abstract class ModulesHelper
 {
 	/**
 	 * Configure the Linkbar.
 	 *
-	 * @param   string  $vName  The name of the active view.
+	 * @param   string $vName The name of the active view.
 	 *
 	 * @return  void
 	 */
@@ -43,11 +43,11 @@ abstract class ModulesHelper
 	public static function getStateOptions()
 	{
 		// Build the filter options.
-		$options	= array();
-		$options[]	= JHtml::_('select.option',	'1',	JText::_('JPUBLISHED'));
-		$options[]	= JHtml::_('select.option',	'0',	JText::_('JUNPUBLISHED'));
-		$options[]	= JHtml::_('select.option',	'-2',	JText::_('JTRASHED'));
-		$options[]	= JHtml::_('select.option',	'*',	JText::_('JALL'));
+		$options = array();
+		$options[] = JHtml::_('select.option', '1', JText::_('JPUBLISHED'));
+		$options[] = JHtml::_('select.option', '0', JText::_('JUNPUBLISHED'));
+		$options[] = JHtml::_('select.option', '-2', JText::_('JTRASHED'));
+		$options[] = JHtml::_('select.option', '*', JText::_('JALL'));
 
 		return $options;
 	}
@@ -60,9 +60,9 @@ abstract class ModulesHelper
 	public static function getClientOptions()
 	{
 		// Build the filter options.
-		$options	= array();
-		$options[]	= JHtml::_('select.option', '0', JText::_('JSITE'));
-		$options[]	= JHtml::_('select.option', '1', JText::_('JADMINISTRATOR'));
+		$options = array();
+		$options[] = JHtml::_('select.option', '0', JText::_('JSITE'));
+		$options[] = JHtml::_('select.option', '1', JText::_('JADMINISTRATOR'));
 
 		return $options;
 	}
@@ -70,15 +70,15 @@ abstract class ModulesHelper
 	/**
 	 * Get a list of modules positions
 	 *
-	 * @param   integer  $clientId       Client ID
-	 * @param   boolean  $editPositions  Allow to edit the positions
+	 * @param   integer $clientId      Client ID
+	 * @param   boolean $editPositions Allow to edit the positions
 	 *
 	 * @return  array  A list of positions
 	 */
 	public static function getPositions($clientId, $editPositions = false)
 	{
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true)
 			->select('DISTINCT(position)')
 			->from('#__modules')
 			->where($db->quoteName('client_id') . ' = ' . (int) $clientId)
@@ -105,11 +105,11 @@ abstract class ModulesHelper
 		{
 			if (!$position && !$editPositions)
 			{
-				$options[]	= JHtml::_('select.option', 'none', ':: ' . JText::_('JNONE') . ' ::');
+				$options[] = JHtml::_('select.option', 'none', ':: ' . JText::_('JNONE') . ' ::');
 			}
 			else
 			{
-				$options[]	= JHtml::_('select.option', $position, $position);
+				$options[] = JHtml::_('select.option', $position, $position);
 			}
 		}
 
@@ -119,9 +119,9 @@ abstract class ModulesHelper
 	/**
 	 * Return a list of templates
 	 *
-	 * @param   integer  $clientId  Client ID
-	 * @param   string   $state     State
-	 * @param   string   $template  Template name
+	 * @param   integer $clientId Client ID
+	 * @param   string  $state    State
+	 * @param   string  $template Template name
 	 *
 	 * @return  array  List of templates
 	 */
@@ -130,17 +130,20 @@ abstract class ModulesHelper
 		$db = JFactory::getDbo();
 
 		// Get the database object and a new query object.
-		$query	= $db->getQuery(true);
+		$query = $db->getQuery(true);
 
 		// Build the query.
 		$query->select('e.element, e.name, e.enabled')
 			->from('#__extensions as e');
+
 		if ($template != '')
 		{
 			$query->where('e.element = ' . $db->quote($template));
 		}
+
 		$query->where('e.type = ' . $db->quote('template'))
 			->where('e.client_id = ' . (int) $clientId);
+
 		if ($state != '')
 		{
 			$query->where('e.enabled = ' . $db->quote($state));
@@ -149,20 +152,21 @@ abstract class ModulesHelper
 		// Set the query and load the templates.
 		$db->setQuery($query);
 		$templates = $db->loadObjectList('element');
+
 		return $templates;
 	}
 
 	/**
 	 * Get a list of the unique modules installed in the client application.
 	 *
-	 * @param   int  $clientId  The client id.
+	 * @param   int $clientId The client id.
 	 *
 	 * @return  array  Array of unique modules
 	 */
 	public static function getModules($clientId)
 	{
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true)
 			->select('e.element AS value, e.name AS text')
 			->from('#__extensions as e')
 			->join('LEFT', '#__modules as m ON m.module=e.element AND m.client_id=e.client_id')
@@ -180,8 +184,8 @@ abstract class ModulesHelper
 			$extension = $module->value;
 			$path = $clientId ? JPATH_ADMINISTRATOR : JPATH_SITE;
 			$source = $path . "/modules/$extension";
-				$lang->load("$extension.sys", $path, null, false, true)
-			||	$lang->load("$extension.sys", $source, null, false, true);
+			$lang->load("$extension.sys", $path, null, false, true)
+			|| $lang->load("$extension.sys", $source, null, false, true);
 			$modules[$i]->text = JText::_($module->text);
 		}
 
@@ -193,7 +197,7 @@ abstract class ModulesHelper
 	/**
 	 * Get a list of the menu item assignment options for modules.
 	 *
-	 * @param   int  $clientId  The client id.
+	 * @param   int $clientId The client id.
 	 *
 	 * @return  array
 	 */
@@ -203,25 +207,27 @@ abstract class ModulesHelper
 		$options[] = JHtml::_('select.option', '0', JText::_('JALL'));
 		$options[] = JHtml::_('select.option', '-', JText::_('JNONE'));
 
-		$spacer = 0;
-		if ($clientId == 0)
+		if ($clientId != 0)
 		{
-			$options[] = JHtml::_('select.option', '-1', JText::_('COM_MODULES_ASSIGNED_VARIES_EXCEPT'));
-			$options[] = JHtml::_('select.option', '-2', JText::_('COM_MODULES_ASSIGNED_VARIES_ONLY'));
+			return $options;
+		}
 
-			require_once realpath(JPATH_ADMINISTRATOR . '/components/com_menus/helpers/menus.php');
-			$items = MenusHelper::getMenuLinks();
+		$options[] = JHtml::_('select.option', '-1', JText::_('COM_MODULES_ASSIGNED_VARIES_EXCEPT'));
+		$options[] = JHtml::_('select.option', '-2', JText::_('COM_MODULES_ASSIGNED_VARIES_ONLY'));
 
-			foreach($items as $type) {
-				$options[] = JHtml::_('select.option', '<OPTGROUP>', $type->title);
+		require_once realpath(JPATH_ADMINISTRATOR . '/components/com_menus/helpers/menus.php');
+		$items = MenusHelper::getMenuLinks();
 
-				foreach($type->links as $item) {
-					$options[] = JHtml::_('select.option', $item->value, str_repeat('- ', $item->level) . $item->text);
-				}
+		foreach ($items as $type)
+		{
+			$options[] = JHtml::_('select.option', '<OPTGROUP>', $type->title);
 
-				$options[] = JHtml::_('select.option', '</OPTGROUP>');
+			foreach ($type->links as $item)
+			{
+				$options[] = JHtml::_('select.option', $item->value, str_repeat('- ', $item->level) . $item->text);
 			}
 
+			$options[] = JHtml::_('select.option', '</OPTGROUP>');
 		}
 
 		return $options;
@@ -230,9 +236,9 @@ abstract class ModulesHelper
 	/**
 	 * Return a translated module position name
 	 *
-	 * @param   integer  $clientId  Application client id 0: site | 1: admin
-	 * @param   string   $template  Template name
-	 * @param   string   $position  Position name
+	 * @param   integer $clientId Application client id 0: site | 1: admin
+	 * @param   string  $template Template name
+	 * @param   string  $position Position name
 	 *
 	 * @return  string  Return a translated position name
 	 *
@@ -245,9 +251,9 @@ abstract class ModulesHelper
 		$path = $clientId ? JPATH_ADMINISTRATOR : JPATH_SITE;
 
 		$lang->load('tpl_' . $template . '.sys', $path, null, false, false)
-		||	$lang->load('tpl_' . $template . '.sys', $path . '/templates/' . $template, null, false, false)
-		||	$lang->load('tpl_' . $template . '.sys', $path, $lang->getDefault(), false, false)
-		||	$lang->load('tpl_' . $template . '.sys', $path . '/templates/' . $template, $lang->getDefault(), false, false);
+		|| $lang->load('tpl_' . $template . '.sys', $path . '/templates/' . $template, null, false, false)
+		|| $lang->load('tpl_' . $template . '.sys', $path, $lang->getDefault(), false, false)
+		|| $lang->load('tpl_' . $template . '.sys', $path . '/templates/' . $template, $lang->getDefault(), false, false);
 
 		$langKey = strtoupper('TPL_' . $template . '_POSITION_' . $position);
 		$text = JText::_($langKey);
@@ -274,8 +280,8 @@ abstract class ModulesHelper
 	/**
 	 * Check if the string was translated
 	 *
-	 * @param   string  $langKey  Language file text key
-	 * @param   string  $text     The "translated" text to be checked
+	 * @param   string $langKey Language file text key
+	 * @param   string $text    The "translated" text to be checked
 	 *
 	 * @return  boolean  Return true for translated text
 	 *
@@ -289,8 +295,8 @@ abstract class ModulesHelper
 	/**
 	 * Create and return a new Option
 	 *
-	 * @param   string  $value  The option value [optional]
-	 * @param   string  $text   The option text [optional]
+	 * @param   string $value The option value [optional]
+	 * @param   string $text  The option text [optional]
 	 *
 	 * @return  object  The option as an object (stdClass instance)
 	 *
@@ -305,7 +311,7 @@ abstract class ModulesHelper
 
 		$option = new stdClass;
 		$option->value = $value;
-		$option->text  = $text;
+		$option->text = $text;
 
 		return $option;
 	}
@@ -313,8 +319,8 @@ abstract class ModulesHelper
 	/**
 	 * Create and return a new Option Group
 	 *
-	 * @param   string  $label    Value and label for group [optional]
-	 * @param   array   $options  Array of options to insert into group [optional]
+	 * @param   string $label   Value and label for group [optional]
+	 * @param   array  $options Array of options to insert into group [optional]
 	 *
 	 * @return  array  Return the new group as an array
 	 *
@@ -324,7 +330,7 @@ abstract class ModulesHelper
 	{
 		$group = array();
 		$group['value'] = $label;
-		$group['text']  = $label;
+		$group['text'] = $label;
 		$group['items'] = $options;
 
 		return $group;

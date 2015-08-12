@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -49,7 +49,7 @@ $html = array();
 $html[] = $this->render($this->assignments, 'assignments');
 
 $html[] = $this->render($this->assignments, 'mirror_module');
-$html[] = '<div class="clearfix"> </div>';
+$html[] = '<div class="clear"></div>';
 $html[] = '<div id="' . rand(1000000, 9999999) . '___mirror_module.0" class="nntoggler">';
 
 if (count($assignments) > 1)

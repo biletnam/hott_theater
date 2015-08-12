@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         Advanced Module Manager
- * @version         4.22.9
+ * @version         5.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,7 +17,7 @@
 defined('_JEXEC') or die;
 
 /**
- * @since       1.6
+ * @since  1.6
  */
 class AdvancedModulesViewPositions extends JViewLegacy
 {
@@ -40,6 +40,7 @@ class AdvancedModulesViewPositions extends JViewLegacy
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
 

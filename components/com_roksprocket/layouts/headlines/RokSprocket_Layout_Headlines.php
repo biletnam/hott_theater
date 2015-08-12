@@ -1,6 +1,6 @@
 <?php
 /**
- * @version   $Id: RokSprocket_Layout_Headlines.php 14428 2013-10-10 21:36:16Z btowles $
+ * @version   $Id: RokSprocket_Layout_Headlines.php 28636 2015-07-09 15:40:49Z james $
  * @author    RocketTheme http://www.rockettheme.com
  * @copyright Copyright (C) 2007 - 2015 RocketTheme, LLC
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
@@ -96,6 +96,17 @@ class RokSprocket_Layout_Headlines extends RokSprocket_AbstractLayout
 		$js[] = "window.addEvent('domready', function(){";
 		$js[] = "	RokSprocket.instances.headlines.attach(" . $id . ", '" . $options . "');";
 		$js[] = "});";
+        $js[] = "window.addEvent('load', function(){";
+        $js[] = "   var overridden = false;";
+        $js[] = "   if (!overridden && window.G5 && window.G5.offcanvas){";
+        $js[] = "       var mod = document.getElement('[data-".$this->name."=\"" . $id . "\"]');";
+        $js[] = "       mod.addEvents({";
+        $js[] = "           touchstart: function(){ window.G5.offcanvas.detach(); },";
+        $js[] = "           touchend: function(){ window.G5.offcanvas.attach(); }";
+        $js[] = "       });";
+        $js[] = "       overridden = true;";
+        $js[] = "   };";
+        $js[] = "});";
 		RokCommon_Header::addInlineScript(implode("\n", $js) . "\n");
 	}
 

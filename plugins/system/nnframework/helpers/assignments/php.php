@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: PHP
  *
  * @package         NoNumber Framework
- * @version         15.6.1
+ * @version
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/assignment.php';
 
-class nnFrameworkAssignmentsPHP extends nnFrameworkAssignment
+class NNFrameworkAssignmentsPHP extends NNFrameworkAssignment
 {
 	function passPHP()
 	{
@@ -72,11 +72,11 @@ class nnFrameworkAssignmentsPHP extends nnFrameworkAssignment
 			}
 			if (!isset($database))
 			{
-				$database = JFactory::getDBO();
+				$database = JFactory::getDbo();
 			}
 			if (!isset($db))
 			{
-				$db = JFactory::getDBO();
+				$db = JFactory::getDbo();
 			}
 			if (!isset($user))
 			{
