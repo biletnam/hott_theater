@@ -1,0 +1,503 @@
+/**
+ * Changelog
+ *
+ * @package         Modules Anywhere
+ *
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            https://www.nonumber.nl
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ */
+
+/**
+ * + Added
+ * ! Removed
+ * ^ Changed
+ * # Fixed
+ */
+
+10-Aug-2015 : v4.0.3
+ # Fixed issue with missing language strings in editor button popup
+
+09-Aug-2015 : v4.0.2
+ # Fixed issue with php error about call to a member function get() on a non-object on some components
+
+07-Aug-2015 : v4.0.1
+ # Fixed issue with uninstallation getting into a loop
+ # Fixed issue with upgrading not working
+
+02-Aug-2015 : v4.0.0
+ ! [J2.5] Removed Joomla 2.5 support
+ ^ Made minimum requirement Joomla version 3.4.1
+ ^ Recoded the installer
+ # Fixed issue with assignments Advanced Module Manager not working in some cases
+ # Fixed issue with chrome overrides not working anymore
+ # Fixed issue with loadposition tag using a chrome not working
+ # [PRO] Fixed issue with {div} tags without a class not getting replaced
+
+19-May-2015 : v3.6.6
+ # [J3] Fixed issue with not being able to set module chrome when module style is selected in module
+
+08-Apr-2015 : v3.6.5
+ ^ Updated translations: it-IT, sv-SE
+ ^ [J3] Improved rendering speed on pages with large contents
+ # [J3] Fixed issue with editor button showing to users without edit/create permissions
+ # [J3][FREE] Fixed issue with error about undefined property disable_components
+
+03-Mar-2015 : v3.6.4
+ ^ Updated translations: fr-FR, hu-HU
+ # [PRO] Fixed issue with components select list only saving one value
+ # [J3.4] Fixed issue with editor plugin showing in Extension Manager > Discover
+
+12-Jan-2015 : v3.6.3
+ + [J3][PRO] Added option to remove/keep plugin syntax on disabled components
+ # Fixed issue with warning about empty needle
+ # [PRO] Fixed issue with disable on components option not working
+
+08-Jan-2015 : v3.6.2
+ + Added translations: sr-YU
+ ! Removed compatibility for php versions under 5.3.13
+ ! [J3] Removed compatibility for Joomla 3 versions under 3.3.0
+ ^ Updated translations: pl-PL, pt-BR
+ # Fixed issue with Free version being able to be installed over the Pro version
+
+25-Nov-2014 : v3.6.1
+ # Fixed issue with error about nnFile on installation on some setups
+ # Fixed issues with ignore assignments setting not working when Advanced Module Manager is not installed
+ # [PRO] Fixed issues with duplicate rows in update_sites table
+
+20-Oct-2014 : v3.6.0
+ + [J3][PRO] Added option to show frontend editing mouse-over link
+ # Fixed issue with plugin not working on jDownloads frontend view
+
+01-Oct-2014 : v3.5.2
+ # Fixed issue with plugin not being run over introtext/fulltext on onContentPrepare event
+ # Fixed issue with surrounding p and div tags not being handled correctly in some cases
+
+16-Aug-2014 : v3.5.1
+ ^ Updated translations: et-EE
+ # Fixed issue with loadposition tag not being handled if then are no module(s) tags in content
+
+11-Aug-2014 : v3.5.0
+ + Added translations: tr-TR
+ ! [J3] Removed compatibility for Joomla 3 versions under 3.2.2
+ ^ Refactored code
+ ^ Updated translations: id-ID, lt-LT, ru-RU
+ # Fixed issue with tags being converted in com_myjspace edit forms
+ # [J2] Fixed issue with errors after upgrade to Joomla 3
+ # [J3] Fixed issue with incompatibility with new Advanced Module Manager assignments
+ # [J3] Fixed issue with tags not being handled in search results
+
+25-Apr-2014 : v3.4.3
+ ^ Updated translations: id-ID
+ # Fixed issue with html structure issues when tags are directly inside html 5 elements
+ # [J3.3] Fixed some Joomla 3.3 incompatibility issues
+
+11-Apr-2014 : v3.4.2
+ + Added translations: hu-HU, id-ID
+ # Fixed issue with some missing language strings in some occasions
+
+25-Feb-2014 : v3.4.1
+ ^ Improved rendering speed on list views
+ # Fixed issue with breaking of xml view of com_jmap
+ # Fixed issue with feeds being broken
+ # Fixed issue with some missing language strings in some occasions
+ # Fixed issue with tags being encoded in frontend edit views
+ # [PRO] Fixed issue with html entities in parameter overrides
+
+19-Dec-2013 : v3.4.0
+ ^ Improved some code in NoNumber Framework which improves page load speed
+ # SECURITY FIX: Fixed issue with editor button popup window being accessible to all registered users
+
+26-Nov-2013 : v3.3.6
+ # Fixed installation error about duplicate entry on some MySQL 5.6 setups
+ # [J3.1] Fixed issue with fatal php error about using $this
+
+08-Nov-2013 : v3.3.5
+ # [J3.1] Fixed issue with modal popups not working
+
+07-Nov-2013 : v3.3.4
+ # Fixed issue with tags in Sourcerer code being converted
+ # Fixed issue with tags in some text and textarea fields being converted
+ # [J3] Fixed Joomla 3.2 compatibility issues
+
+16-Oct-2013 : v3.3.3
+ # [FREE] Fixed issue with update failing due to false message about using old version from before Free/Pro
+
+16-Oct-2013 : v3.3.2
+ + Added translations: bg-BG, fa-IR, nb-NO, pt-PT, ro-RO
+ ^ Changed javascript minification to use Google Closure
+ ^ Updated translations: ar-AA, ar-SA, el-GR, es-ES, ja-JP, ru-RU, sv-SE
+ # Fixed issue with header stuff (javascript/css) not always being added in category views
+
+25-Sep-2013 : v3.3.1
+ # Fixed issue with opening tags not being converted on some setups
+ # Fixed issue with tags not being handled when site has invalid html structure
+ # Fixed issue with tags sometimes appearing in title tags and title attributes
+
+09-Aug-2013 : v3.3.0
+ ! [J2] Removed compatibility for Joomla 2.5 versions lower than 2.5.10
+ ! [J3.0] Removed compatibility for Joomla 3 versions lower than 3.1.0
+ # [J3.0] Improved rendering speed on list views
+ # [J3] Fixed issue with editor button not getting styled correctly on TinyMCE
+
+19-Jun-2013 : v3.2.5
+ ^ Improved minification of js files
+ ^ [J2] Converted images in (editor) buttons to font icons
+ # [J3] Fixed issue with Module Style select in editor popup not working
+
+30-May-2013 : v3.2.4
+ + Added translations: bs-BA
+ ^ Updated translations: et-EE, nl-NL, pl-PL
+ # Fixed issue with article security settings being applied to modules that have content prepare enabled
+
+28-Mar-2013 : v3.2.3
+ + Added translations: pl-PL
+ ^ Changed messaging on installation on unsupported Joomla versions
+ ^ Cleaned up some code (syntax)
+ ^ Updated translations: sl-SI
+
+09-Feb-2013 : v3.2.2
+ + Added less files for generating css files
+ ^ Minified css files
+ ^ Updated translations: fr-FR, pt-BR, th-TH
+ # Fixed some issues with installation breaking and throwing errors on some setups
+ # [J2] Fixed issue with editor button not having icon due to missing css file
+
+11-Jan-2013 : v3.2.1
+ # Fixed issue of slowness due to looping when modules hav caching switched off
+
+10-Jan-2013 : v3.2.0
+ + Added option to ignore the caching setting of the module to force handling on article level
+ + Added option to overrule the ignore_caching setting via the tag
+ + Added possibility to set array values in overrides like: [1,2,3,"foo","bar"]
+ # Fixed issue with modules that have no caching options not being handled at article level
+
+30-Dec-2012 : v3.1.1
+ # Fixed issue with RAXO modules not being handled on article level because RAXO messes with core param names
+ # Fixed issue with stylesheets and javascripts not being handled on modules that have caching set
+
+29-Dec-2012 : v3.1.0
+ ^ Cleaned up code
+ ^ Modules with caching off will no longer be placed at article level, to prevent article caching module output
+ ^ Moved media files to Joomla media folder
+ # Fixed error about XML setup file on first install
+
+11-Dec-2012 : v3.0.3
+ ! [J2] Removed ability to install on Joomla versions lower than 2.5.7
+ # [J2] Fixed issue with errors about xml files on installation
+
+27-Nov-2012 : v3.0.2
+ # Fixed issue with tags sometimes not being replaces on some setups
+ # [J2] Fixed issue with error about search in editor button popup
+
+14-Nov-2012 : v3.0.1
+ # Fixed issue with error messages about XML file on installation on some setups
+
+11-Nov-2012 : v3.0.0
+ + [J3] Added Joomla 3 support
+ ! [J1.5] Removed Joomla 1.5 support
+ ^ Updated translations: et-EE
+
+01-Nov-2012 : v2.3.3
+ ! [J1.5] LAST VERSION COMPATIBLE WITH JOOMLA 1.5
+ ^ Updated translations: da-DK, nl-NL
+ # [J2] Fixed issue with empty modules outputting chrome when hide-if-empty option is on (via AMM)
+
+25-Sep-2012 : v2.3.2
+ + Added possibility to set chrome via style= parameter in tag
+ ^ Updated translations: de-DE, ja-JP, th-TH
+ ^ [FREE] Fixed issue with showtitle overriding not working
+
+13-Sep-2012 : v2.3.1
+ # Fixed issue with tags being handled in edit for of jcal, jevent and some others
+ # [J2][PRO] Fixed issue with overriding parameters not working (since v2.3.0)
+
+07-Sep-2012 : v2.3.0
+ + Added ability to override the ignore_access and ignore_assignment settings from the tag
+ + Added option to ignore the assignment settings (default = ignored)
+ + Added option to ignore the modules access level
+ ^ Updated translations: it-IT, th-TH
+
+31-Jul-2012 : v2.2.0
+ + Added ability to override the override_state setting from the tag
+ + Added support for {div} tags back to Free version
+ ^ Added checks for Advanced Module Manager module assignment settings
+ ^ Improved messaging when modules are not shown for whatever reason
+ ^ Updated translations: de-DE, lt-LT, nl-NL
+ ^ [J2] Added checks for module date assignment settings
+
+13-Jul-2012 : v2.1.9
+ ^ Updated translations: de-DE, nl-NL, pt-BR, zh-TW
+ # [J2][PRO] Fixed issues with poorly coded modules still using old style params, like swMenuPro
+
+02-Jul-2012 : v2.1.8
+ # [J1.5] Fixed issue with PHP error about Class NNText not found (wasn't fixed in v2.1.7)
+
+02-Jul-2012 : v2.1.7
+ # [J1.5] Fixed issue with PHP error about Class NNText not found
+
+29-Jun-2012 : v2.1.6
+ ! Removed ability to install on Joomla 1.6 and 1.7
+ ^ Cleaned a lot of code
+ ^ Made database queries multi-database compatible
+ ^ Updated translations: et-EE, sl-SI, th-TH
+ ^ [J2] Changed type selectbox in editor button popup to show real names
+ # Fixed issue with tags being interpreted inside the Josetta form
+ # [FREE] Fixed issue with PHP notice about undefined property override_settings
+ # [J2] Fixed issue with filters in editor button popup not working
+
+08-Jun-2012 : v2.1.5
+ + Added ability to customize the selectable styles (chromes)
+ + Added ability to manually set the default style (chrome) (textfield instead of dropdown)
+ + Added translations: sv-SE
+ ! Removed ability to install on setups with php 5.2 or lower
+ ^ Updated translations: es-ES, lt-LT
+
+10-May-2012 : v2.1.4
+ # [FREE] Fixed issue with PHP notice about undefined property articles_security_level
+
+09-May-2012 : v2.1.3
+ # Fixed issue with installation failing (conflicted-copy)
+
+09-May-2012 : v2.1.2
+ + [J2] Added display of module note in list
+
+03-May-2012 : v2.1.1
+ # Fixed issue with modules not passing access level check correctly
+
+01-May-2012 : v2.1.0
+ + Added translations: cs-CZ, zh-TW
+ + [PRO] Added ability to also override main settings of module like showtitle and access
+ ^ Improved protecting of edit forms to only protect fields (so tags work outside form fields)
+ ^ Increased page load speed by changing how xml files are loaded
+ ^ Updated translations: da-DK
+
+12-Apr-2012 : v2.0.3
+ # Fixed issue with language strings not being converted in editor button popup
+
+12-Apr-2012 : v2.0.2
+ # Fixed issue with use of style and params in tags not working
+
+10-Apr-2012 : v2.0.1
+ # SECURITY FIX: Fixed URL injection vulnerability in NoNumber Framework
+
+07-Apr-2012 : v2.0.0
+ + Added translations: et-EE
+ ^ Changed some language strings
+ ^ Cleaned up code syntax
+ ^ Improved handling of other plugin style tags inside the {module} tags
+ ^ Moved editor button settings to system plugin
+ ^ Now available as Pro and Free version
+ ^ Updated translations: sl-SI
+ # Fixed issue with installer not removing the folder/zip from the tmp
+ # [J1.7+] Fixed styling issues in Editor Button popup
+
+18-Nov-2011 : v1.13.3
+ # [J1.7] Fixed issue with Editor Settings not working
+
+06-Nov-2011 : v1.13.2
+ + Added option to add show/hide title parameter to tag from modal window
+ ^ Cleaned code syntax (no longer guaranteed support for php 5.2.x and lower)
+
+08-Oct-2011 : v1.13.1
+ # Fixed security issue in NoNumber Framework plugin
+
+08-Oct-2011 : v1.13.0
+ ^ Cleaned up some code (like no more use of DS)
+ ^ Improved installer
+ ^ Moved translation language files to main package (no more language packs)
+ # Fixed issue with tags being handled in editor button popup
+
+16-Sep-2011 : v1.12.0
+ ^ Changed NoNumber Elements plugin to NoNumber Framework
+ ^ Moved common language strings to NoNumber Framework files
+ # Fixed issue with surrounding whitespace
+
+05-Aug-2011 : v1.11.8
+ # [J1.5] Fixed issue error on datetime.php
+ # [J1.7] Fixed issue with modules with user group selections not working properly
+
+04-Aug-2011 : v1.11.7
+ # [J1.5] Fixed issue with setting elements not working
+
+04-Aug-2011 : v1.11.6
+ # Fixed issue with php error in feeds
+ # [J1.7] Fixed issue with modules with user group selections not working properly
+
+25-Jul-2011 : v1.11.5
+ # [J1.7] Fixed issue with editor button popup not working (error)
+
+21-Jul-2011 : v1.11.4
+ ^ Changed layout of options
+ ^ Changed use of elements
+ # Fixed issue with JEventHandler error on some setups
+ # Fixed some issues with surrounding tags and whitespace
+ # [J1.7] Fixed issue with articles with higher access level showing
+
+20-Jun-2011 : v1.11.3
+ # [J1.5] Fixed issue with installation problems
+
+18-Jun-2011 : v1.11.2
+ # [J1.7] Fixed issue with missing language string
+ # [J1.7] Fixed issue with overriding array settings
+
+18-Jun-2011 : v1.11.1
+ + Added ability to overrule parameters with curly brackets in value (by adding leading backward slash)
+ # Fixed issue with tags not working outside component area of disabled components
+ # [J1.7] Fixed issue with parameter overriding not working (thanks David-Hai Gootvilig)
+
+23-May-2011 : v1.11.0
+ + Joomla 1.7 compatible!
+ # Fixed issue with some non-UTF-8 pages breaking
+
+30-Mar-2011 : v1.10.3
+ ^ Added break to prevent looping of module inclusion
+ ^ Made code a little lighter
+ # Fixed issue plugin being executed on raw format pages
+ # Fixed issue with some non-UTF-8 pages breaking
+
+25-Mar-2011 : v1.10.2
+ # Fixed issue with leading/trailing paragraph/div tags not being handled well
+ # Fixed issue with search component breaking in some cases
+ # Fixed issue with special characters (UTF-8)
+
+17-Mar-2011 : v1.10.1
+ ^ Changed language files to be J1.6 ready
+ # Fixed issue with editor button not working for registered/author level
+ # Fixed issue with problems when html has multiple body tags
+ # Fixed issue with tags being interpreted in frontend editor fields with very large contents
+
+11-Feb-2011 : v1.10.0
+ ^ Changed extension icon / logo
+ # Fixed issue with overruling parameters with equal or bar signs in the value
+ # Fixed issue with public access to editor button popup page (security fix!)
+
+13-Dec-2010 : v1.9.2
+ # Fixed issue with conflicting characters in language file
+
+12-Dec-2010 : v1.9.1
+ # Cleaned up some code
+ # Fixed issues with document being called to early
+ # Fixed some issues with compatibility with AcyMailing
+ # Fixed some issues with loading of language strings
+
+25-Nov-2010 : v1.9.0
+ + Added checks to see if NoNumber Elements plugin is installed/enabled
+ ^ Fixed and updated all language strings
+ ^ Improved code to make it lighter/faster
+ # Fixed issue with tags being handled in edit fields
+
+16-Nov-2010 : v1.8.0
+ # Fixed extension causing pages to break on some setups
+ # Fixed issue with not working in some forms (where they should)
+
+15-Nov-2010 : v1.7.0
+ ^ Improved code to make it lighter/faster
+ ^ Made syntax also be handled in AcyMailing
+ ^ Moved popup styles and images to NoNumber Elements plugin
+ # Fixed issue with div tags not being placed through Editor Button
+ # Fixed issue with tag names not being taken from settings through Editor Button
+
+18-Oct-2010 : v1.6.0
+ + Added ability to wrap output in styled div tags
+ ^ Changed layout of Editor Button popup popup window a little
+ ^ Changed tooltips ids/titles/aliases of articles in list in Editor Button popup window
+ # Fixed issue with comment tags not being true HTML compliant
+
+24-Jul-2010 : v1.5.2
+ ^ Changed way version and license information are displayed (now via ajax)
+ ^ Changed way versions and licenses are checked (no more base64)
+ ^ Made code a little lighter
+
+23-Jun-2010 : v1.5.1
+ # Fixed issue with code looping, causing page timeouts
+
+22-Jun-2010 : v1.5.0
+ + Added ability to override module parameters in module tag
+ ^ Improved code (=faster)
+ # Fixed issue with feeds not working
+
+22-May-2010 : v1.4.1
+ # Fixed issue with ordering not working in (editor button) modal popup
+ # Fixed issue with some language strings not being loaded
+ # Fixed styling of notice in (editor button) modal popup
+
+12-May-2010 : v1.4.0
+ + Added option to not place the HTML comments
+ # Fixed issue with editor button popup page being accessible to all
+ # Fixed issue with module settings not always working
+ # Fixed issue with modules cache not being used
+
+13-Feb-2010 : v1.3.4
+ ^ Changed the License Code check (now controlled by the License Manager)
+ # Fixed errors regarding preg_match_all
+ # Fixed incorrect message about plugin not being installed (in editor button settings
+ # Fixed issue with errors about registry for php 5.0.5
+ # Fixed wrong version number in xml file
+
+29-Jan-2010 : v1.3.3
+ + Added option to ignore published state of modules
+ ^ Reduced number of database queries
+ # Fixed issue with assignment to JACL user group levels not working correctly
+ # Fixed issue with deprecated syntax for php 5.3+
+ # Fixed issue with false message about system plugin missing
+ # Fixed issue with preg_match_all error in some cases (when article author is not set)
+
+26-Jan-2010 : v1.3.2
+ # Fixed location of Joomla! DTD files
+ # Fixed tags with style not working
+
+22-Jan-2010 : v1.3.1
+ # Fixed issue with editor button placing half a comment tag (breaks editor on IE)
+
+20-Jan-2010 : v1.3.0
+ + Added Commercial License Code support
+ + Added option to not display icon in editor button
+ + Added option to set text in editor button
+ ^ Changed file encoding to UTF-8
+ ^ Improved styling of editor button popup
+ ^ Made settings react a little faster (toggling options)
+ # Fixed issue with module tag still being handled within head
+ # Fixed issue with modules being handled in editor on frontend
+ # Fixed issue with titles with special characters
+
+09-Oct-2009 : v1.2.0
+ ^ Changed the update check
+ ^ Changed to make module tag only be handled within body tag (not in head)
+ # Fixed issue with errors on articles with no creator
+ # Fixed issue with language file not being loaded (comments in html not readable)
+ # Fixed issue with popup not being able to open on some setups
+
+08-Aug-2009 : v1.1.4
+ # Fixed issue with errors regarding "Call to a member function get() on a non-object" on some modules
+
+07-Aug-2009 : v1.1.3
+ # Fixed issue with errors in feeds when using K2
+
+20-Jul-2009 : v1.1.2
+ ^ MODA tags will not show anymore when server runs out of memory
+ # Fixed issue with modules with numeric names not working
+ # Fixed issue with pagination and ordering not working in Modules Anywhere editor button popup window
+
+14-Jul-2009 : v1.1.1
+ # Fixed issue with module tags still being converted in edit page when there are forms in the text
+
+14-Jul-2009 : v1.1.0
+ + Added jumper setting
+ ^ Changed auto installer
+ # Fixed issue with module tags in articles being converted to modules when editing in frontend
+ # Fixed issue with update notification not working correctly
+
+08-Jun-2009 : v1.0.0
+ + Added an editor button to easily insert the {module} tag
+ + Added options for components and other areas
+ + First stable release
+ Changes since Modules in Content v0.1.3:
+ Modules Anywhere is based on Modules in Content.
+ ! Removed update icon in administrator toolbar
+ ^ Changed different administrator elements
+ ^ Changed installation procedure (automatic installer/updater)
+ ^ Changed the way plugin works so you can use the syntax everywhere (not only in articles)
+ ^ Changed update notification
+ # Fixed issue with style overruling not working

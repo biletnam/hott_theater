@@ -1,0 +1,605 @@
+/**
+ * Changelog
+ *
+ * @package         NoNumber Extension Manager
+ *
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            https://www.nonumber.nl
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ */
+
+/**
+ * + Added
+ * ! Removed
+ * ^ Changed
+ * # Fixed
+ */
+
+08-Aug-2015 : v5.1.1
+ # Fixed issue with error on saving Download Key
+
+07-Aug-2015 : v5.1.0
+ ! Removed proxy settings (now using global configuration settings)
+ ^ Updated translations: ja-JP
+ # Fixed issue with uninstallation getting into a loop
+ # Fixed issue with upgrading not working
+
+30-Jul-2015 : v5.0.2
+ ^ Removed old code
+ # Fixed issue with installed free versions being displayed as being 'old'
+
+29-Jul-2015 : v5.0.1
+ # Fixed issues on uninstallation
+
+29-Jul-2015 : v5.0.0
+ ! [J2.5] Removed Joomla 2.5 support
+ ^ Made minimum requirement Joomla version 3.4.1
+ ^ Recoded the installer
+ ^ Updated translations: de-DE, it-IT
+
+03-Apr-2015 : v4.8.7
+ # [J3] Fixed issue with version data not updating upon updates/refresh
+
+02-Apr-2015 : v4.8.6
+ # [J2] Fixed issuew with errors on installation
+
+01-Apr-2015 : v4.8.5
+ # [J3] Fixed issues with wrong buttons and data showing for installed extensions
+
+01-Apr-2015 : v4.8.4
+ # [J3] Fixed some installation issues
+
+25-Mar-2015 : v4.8.3
+ # [J3] Fixed issue with checkboxes not showing
+
+19-Mar-2015 : v4.8.2
+ # [J3] Fixed issue with invalid Download Key message showing when having no pro extensions installed
+
+19-Mar-2015 : v4.8.1
+ # [J3] Fixed issue with invalid Download Key message showing when not all of multiple subscriptions are expired
+
+16-Mar-2015 : v4.8.0
+ ^ Updated translations: de-DE, hu-HU, nl-NL, uk-UA
+ ^ [J3] Implemented update via NoNumber Extension Manager in extension update messages
+
+24-Jan-2015 : v4.7.1
+ ^ Updated translations: id-ID, sv-SE
+ # Fixed issue with saving of Download Key not working on some settings
+
+21-Jan-2015 : v4.7.0
+ + [J3] Added Download Key field in component view
+ + [J3] Added Reinstall All button
+ + [J3] Added message when installation fails
+ ^ Improved messages when Download Key is not filled in/valid
+ ^ Updated translations: it-IT, uk-UA
+
+08-Jan-2015 : v4.6.6
+ + [J3] Added save button next to Download Key field
+ ! Removed compatibility for php versions under 5.3.13
+ # Fixed issue with Sliders description not displaying
+
+16-Dec-2014 : v4.6.5
+ ! [J3] Removed compatibility for Joomla 3 versions under 3.3.0
+ ^ Updated review links to the Joomla Extensions Directory
+ ^ Updated translations: pt-BR, sv-SE
+ # [J3] Fixed issue with Download Key field not being editable
+
+19-Nov-2014 : v4.6.4
+ # Fixed issue with copyright language strings not being unique
+ # Fixed issue with error about nnFile on installation on some setups
+
+12-Nov-2014 : v4.6.3
+ # Fixed issue with download urls not passing correct data
+
+10-Nov-2014 : v4.6.2
+ ^ Updated translations: pl-PL
+ ^ [J3] Made Download Key field cloaked text with extra update button/field
+ # [PRO] Fixed issues with duplicate rows in update_sites table
+
+25-Oct-2014 : v4.6.0
+ + [J3] Added script to update the update site urls, so updating to pro via Joomla updater is possible
+ ^ Updated translations: et-EE, id-ID, lt-LT, sk-SK
+ ^ [J3] Made Download Key field plain text instead of password field
+
+13-Oct-2014 : v4.5.1
+ # Fixed issue with missing language string for DUMMY_CONTENT_DESC
+
+06-Oct-2014 : v4.5.0
+ + Added extension: Dummy Content
+
+28-Aug-2014 : v4.4.1
+ # Fixed issue with missing language strings
+
+05-Aug-2014 : v4.4.0
+ ^ Updated translations: id-ID, lt-LT, nl-NL
+ # [J2] Fixed issue with errors after upgrade to Joomla 3
+
+19-Jun-2014 : v4.3.1
+ ! [J3] Removed compatibility for Joomla 3 versions under 3.2.2
+ ^ Refactored code
+ ^ Updated translations: de-DE, et-EE, id-ID, lt-LT, pt-BR
+ # [J3] Fixed issue with wrong version number for Advanced Template Manager 1.0.1 showing
+
+21-May-2014 : v4.3.0
+ + Added extension: IP Login
+ + Added translations: hr-HR, sr-RS
+ ^ Updated translations: de-DE, et-EE, id-ID, nl-NL, sk-SK
+
+11-May-2014 : v4.2.12
+ # [J3] Added extension: Advanced Template Manager
+
+23-Apr-2014 : v4.2.11
+ ^ Updated translations: id-ID
+ # [J3] Fixed issue with uninstall window always returning failed message
+ # [J3] Fixed some styling issues after uninstalling an extension
+
+16-Apr-2014 : v4.2.10
+ ^ Updated translations: id-ID
+ # [J2] Fixed issue with comments having a no-wrap styling, causing layout issues
+
+10-Apr-2014 : v4.2.9
+ + Added translations: cs-CZ, id-ID, nl-NL, sv-SE, zh-CN
+ ! Hides AdminBar Docker if not installed
+ ! Hides Timed Styles if not installed
+ ^ Updated translations: ru-RU
+ # Fixed installation error about duplicate entry on some MySQL 5.6 setups
+
+07-Nov-2013 : v4.2.8
+ ^ Updated translations: de-DE, et-EE, lt-LT, sk-SK
+
+03-Nov-2013 : v4.2.7
+ # Fixed missing language strings for Email Protector
+
+03-Nov-2013 : v4.2.6
+ + Added extension: Email Protector
+
+01-Nov-2013 : v4.2.5
+ # Fixed issue with icons not working
+
+31-Oct-2013 : v4.2.4
+ + [J3] Added extension: Better Preview
+ ^ Updated translations: de-DE, et-EE
+
+31-Oct-2013 : v4.2.3
+ + Added extension: Components Anywhere
+ + Added translations:fa-IR, pl-PL, tr-TR
+ ^ Changed javascript minification to use Google Closure
+ ^ Updated translations: ar-AA, ar-SA, bg-BG, bn-BD, ca-ES, da-DK, el-GR, es-ES, fr-FR, hu-HU, it-IT, ja-JP, nb-NO, ro-RO, uk-UA
+
+23-Aug-2013 : v4.2.2
+ # Fixed issue with false alert about 'could not retrieve data' showing on some setups
+
+07-Aug-2013 : v4.2.1
+ # [J2] Fixed issue with not being able to install when Qlue404 is installed
+
+06-Aug-2013 : v4.2.0
+ + [PRO] Added option to hide copyright info on the main admin component view
+ + [PRO] Added option to hide the update notification on the main admin component view
+ + [J3] Added extension: Add to Menu
+ ! [J2] Removed compatibility for Joomla 2.5 versions lower than 2.5.10
+ ! [J3.0] Removed compatibility for Joomla 3 versions lower than 3.1.0
+ # Fixed issue with main version update notice not working
+
+18-Jun-2013 : v4.1.10
+ ^ [J2] Changed some more extension icon images to font icons
+
+11-Jun-2013 : v4.1.9
+ ^ [J2] Changed extension icon images to font icons
+
+11-Jun-2013 : v4.1.8
+ + Added extension: Modals
+ ! [J2] Hides Modalizer if not installed
+ ^ Improved minification of js files
+ ^ Updated translations: de-DE
+
+28-Mar-2013 : v4.1.7
+ # [J2] Fixed issue with settings popup showing overlay and styling being messed up
+
+28-Mar-2013 : v4.1.6
+ # Fixed faulty icon in admin components menu (sorry)
+
+26-Mar-2013 : v4.1.5
+ ^ Changed messaging on installation on unsupported Joomla versions
+ ^ Cleaned up some code (syntax)
+ ^ Moved/fixed location of admin menu icon
+ # [J3] Fixed issue with special characters not showing up correctly in tooltips
+
+18-Mar-2013 : v4.1.4
+ + [J3] Added extension: Tooltips
+ ^ Updated translations: lt-LT, sl-SI
+
+09-Feb-2013 : v4.1.3
+ + [J3] Added extension: DB Replacer
+ + [J3] Added extension: Snippets
+
+09-Feb-2013 : v4.1.2
+ + Added less files for generating css files
+ + [J2] Changed Slider to Sliders
+ + [J2] Changed Tabber to Tabs
+ + [J3] Added extension: Sliders
+ + [J3] Added extension: Tabs
+ ^ Minified css and js files
+ ^ Updated translations: pt-BR, pt-PT, ru-RU th-TH
+ ^ [J2] Changed styling of elements to match the Bootstrap styling of the J3 version a bit more
+ # Fixed issue with error on installation when Joomla FTP layer is switched on
+ # Fixed some issues with installation breaking and throwing errors on some setups
+
+10-Jan-2013 : v4.1.1
+ ^ Updated translations: hu-HU, sv-SE
+ # [J3] Fixed issue with check all checkbox not working
+ # [J3] Fixed issue with php error when NoNumber Framework plugin is not installed or enabled
+
+30-Dec-2012 : v4.1.0
+ + [J3] Added extension: Content Templater
+ ! Removed Install All button
+ ^ Cleaned up code
+ ^ Moved media files to Joomla media folder
+ ^ Updated translations: et-EE, sk-SK, zh-TW
+ ^ [J2] Changed styling of buttons to match the Bootstrap styling of the J3 version
+ # Fixed error about XML setup file on first install
+
+11-Dec-2012 : v4.0.0
+ + [J3] Added Joomla 3 support
+ ! [J1.5] Removed Joomla 1.5 support
+ ^ Updated translations: et-EE, nb-NO, th-TH
+
+11-Sep-2012 : v3.3.3
+ ! [J1.5] LAST VERSION COMPATIBLE WITH JOOMLA 1.5
+ ^ Updated translations: it-IT, sv-SE
+ # [J2] Fixed issue with NoNumber Extension Manager not working when updated from old version
+
+04-Sep-2012 : v3.3.2
+ # [J2] Fixed issue with error on some pages with no Itemid (framework issue)
+
+04-Sep-2012 : v3.3.1
+ + Added Joomla version to download url
+ ^ Updated translations: th-TH
+
+10-Aug-2012 : v3.3.0
+ + Added Timeout setting for data retrieval from NoNumber server
+ ^ Changed default timeout for data retrieval from 3 to 5 seconds
+ ^ Updated translations: ja-JP, nl-NL
+
+03-Jul-2012 : v3.2.6
+ ^ Updated translations: nl-NL
+ # [J1.5] Fixed issue with installs not working due to javascript error (Mootools 1.11)
+
+02-Jul-2012 : v3.2.5
+ ^ Improved process script
+ # Fixed faulty language string on Start button in process window
+
+29-Jun-2012 : v3.2.4
+ ! Removed ability to install on Joomla 1.6 and 1.7
+ ! Removed ability to install on setups with php 5.2 or lower
+ ^ Changed title and button in modal popup to be clearer
+ ^ Cleaned a lot of code
+ ^ Updated translations: de-DE, hu-HU, sk-SK
+
+22-May-2012 : v3.2.3
+ ^ Updated translations: es-ES
+ # Fixed issue with data/update check not working on some setups running in safe mode
+
+10-May-2012 : v3.2.2
+ ^ Improved preference of comments (shows is-old message before is-missing)
+ ^ Updated translations: zh-TW
+
+03-May-2012 : v3.2.1
+ ^ Removed Pro check at bottom of the page
+
+03-May-2012 : v3.2.0
+ + Added all Pro functionality to Free version
+ ! Removed Pro version
+
+02-May-2012 : v3.1.1
+ # [FREE] Fixed issue with false message on upgrade about having to uninstall
+
+01-May-2012 : v3.1.0
+ ^ Increased page load speed by changing how xml files are loaded
+
+26-Apr-2012 : v3.0.10
+ + Added proxy settings to Free version too
+
+20-Apr-2012 : v3.0.9
+ # Fixed issue with all installs failing (caused by fix in 3.0.8)
+
+19-Apr-2012 : v3.0.8
+ # Fixed issue with install popup showing Access Denied on some setups
+
+17-Apr-2012 : v3.0.7
+ # Fixed issue with spaces around download key causing it to fail check
+ # [J1.5] Fixed issue with installer returning failed message when successful in FireFox
+
+16-Apr-2012 : v3.0.6
+ + Added translations: nb-NO
+ ^ Updated language file (en-GB)
+ ^ Updated translations: de-DE, pt-BR, zh-TW
+ # Fixed issue with extension icons in popup not showing
+
+13-Apr-2012 : v3.0.5
+ # [FREE] Fixed issue with not being able to install over top of old pre-Free version
+
+13-Apr-2012 : v3.0.4
+ ^ Changed download key field type to password, so key is unreadable
+ ^ Updated translations: th-TH, zh-TW
+ # Fixed issue with spaces around download key causing it to fail check
+
+12-Apr-2012 : v3.0.3
+ + Added translations: zh-TW
+ ^ Updated translations: et-EE, lt-LT, sv-SE
+ # [J1.5] Fixed issue with installer returning failed message when successful
+
+10-Apr-2012 : v3.0.2
+ # SECURITY FIX: Fixed URL injection vulnerability in NoNumber Framework
+
+07-Apr-2012 : v3.0.1
+ # Fixed issue with old extensions being selectable when no Pro is accessible
+ # Fixed issue with old extensions showing message if Pro is accessible
+
+06-Apr-2012 : v3.0.0
+ + Added modal popup for action and progress
+ + Added translations: ar-AA, ar-SA, et-EE
+ + [PRO] Added ability to uninstall
+ ^ Completely recoded
+ ^ Completely restyled
+ ^ Improved messaging (comments)
+ ^ Improved speed by collecting external data with only one request
+ ^ Now available as Pro and Free version
+ ^ Updated translations: pt-PT, sk-SK
+
+10-Jan-2012 : v2.6.10
+ # Fixed issue with installer not removing the folder/zip from the tmp
+
+09-Jan-2012 : v2.6.9
+ ^ Changed way the mootools version is detected
+ ^ Updated translations: th-TH
+ # [J1.7+] Fixed issue with links to modules not working correctly
+
+22-Dec-2011 : v2.6.8
+ + Added translations: hu-HU, pt-PT
+ ^ Updated translations: fr-FR, it-IT, ru-RU
+ # [J1.7] Fixed issue with script breaking, causing data not being checked
+
+05-Dec-2011 : v2.6.7
+ # Fixed issue with core search pages not working because of NoNumber Framework
+
+02-Dec-2011 : v2.6.6
+ + [J1.7] Added Better Preview
+ ^ Updated translations: ru-RU
+
+01-Dec-2011 : v2.6.5
+ + Added message about php 5.2 incompatibility on those setups
+ + [J1.7] Added extension: Add to Menu
+ + [J1.7] Added extension: Snippets
+
+01-Dec-2011 : v2.6.4
+ + Added translations: bn-BD
+ + [J1.7] Added extension: AdminBar Docker
+ + [J1.7] Added extension: Content Templater
+ ^ Cleaned up more code
+ ^ Updated translations: ja-JP, sl-SI
+
+04-Nov-2011 : v2.6.3
+ + [J1.7] Added extension: ReReplacer
+ ^ Cleaned code syntax (no longer guaranteed support for php 5.2.x and lower)
+
+17-Oct-2011 : v2.6.2
+ # Fixed security issue in NoNumber Framework plugin
+
+09-Oct-2011 : v2.6.1
+ # Fixed issue with missing link in components menu (with v2.6.0)
+
+08-Oct-2011 : v2.6.0
+ ! Removed available language checks
+ ^ Cleaned up some code (like no more use of DS)
+ ^ Improved installer
+ ^ Moved translation language files to main package (no more language packs)
+ # Fixed issue with language strings that have single quotes
+
+26-Sep-2011 : v2.5.1
+ # Fixed issue with php error on installation on some Joomla 1.7 setups
+ # [J1.7] Fixed issue with sql error (check for com_advancedmodules)
+
+16-Sep-2011 : v2.5.0
+ ^ Changed NoNumber Elements plugin to NoNumber Framework
+ ^ Moved common language strings to NoNumber Framework files
+ # Fixed missing language strings (for Tooltips)
+
+13-Aug-2011 : v2.4.8
+ + [J1.7] Added extension: Advanced Module Manager
+
+05-Aug-2011 : v2.4.7
+ # Fixed some issues with elements
+
+18-Jul-2011 : v2.4.6
+ # [J1.7] Fixed issue with install problems on some setups
+
+05-Jul-2011 : v2.4.5
+ + Added extension: Tooltips
+ + [J1.7] Added extension: Modalizer
+ + [J1.7] Added extension: Sourcerer
+
+20-Jun-2011 : v2.4.4
+ # [J1.5] Fixed issue with installation problems
+
+18-Jun-2011 : v2.4.3
+ # [J1.7] Fixed issue with install problems
+
+18-Jun-2011 : v2.4.2
+ + [J1.6] Added extension: CDN for Joomla!
+ + [J1.6] Added extension: Timed Styles
+ + [J1.6] Added extension:DB Replacer
+ # Fixed issue with security extensions causing external url calls to fail
+
+06-Jun-2011 : v2.4.1
+ # [J1.7] Fixed issue with install problems
+
+23-May-2011 : v2.4.0
+ + Joomla 1.7 compatible!
+ ^ Changed way the mootools version is detected
+
+20-Apr-2011 : v2.3.1
+ # Fixed issue with Turkish language file error on installation
+ # Fixed issue with javascript breaking on Safari browsers
+ # Fixed issue with proxy language strings not being correct
+
+06-Apr-2011 : v2.3.0
+ + Added option to install/update language files
+ # Fixed issue with selection being emptied on pressing 'install selected' button
+ # Fixed issues with javascript errors concerning checkboxes
+
+30-Mar-2011 : v2.2.2
+ + Added check to see if all parts of the extension are installed
+ + Added option to set proxy server for outside connections
+ # Fixed issue with checkboxes of hidden extensions being selected
+
+25-Mar-2011 : v2.2.1
+ # Fixed issues with javascript errors on non-FireFox browsers (with mtupgrade)
+ # Fixed issues with language strings not working in some cases
+
+18-Mar-2011 : v2.2.0
+ + Added descriptions to language files (no longer collected externally)
+ ! Removed 'installed' column (version column already gives that info)
+ ! Removed description column
+ ! Removed modal popup option for opening extensions
+ ^ Moved description tooltip to extension name
+ # Fixed some issues with language strings
+
+01-Mar-2011 : v2.1.4
+ ^ Changed language files to be J1.6 ready
+ ^ Changed some extension icons
+ # Fixed issue with links to component pages opening in modal popup
+
+08-Feb-2011 : v2.1.3
+ + Added Check Data button to each extension line
+ + Added error numbers to install errors
+ # Fixed issue with installing via curl failing on some setups
+ # Fixed some tooltips
+
+15-Jan-2011 : v2.1.2
+ ^ Changed display of install/update all buttons (ghosted)
+ # Fixed issue with extensions failing to install if download is slow
+
+14-Jan-2011 : v2.1.1
+ + Added button to show/hide not installed extensions
+ ^ Changed extension icons
+ ^ Changed main refresh button to a Check Data button
+ # Fixed issue with Update/Install All buttons not using curl
+ # Fixed issue with default setting Check All not being correct
+ # Fixed issue with language strings from core installer
+ # Fixed issue with untranslated language strings in config popup
+
+23-Dec-2010 : v2.1.0
+ + Added option to only collect external data from installed extensions
+ + Added option to open these pages in modal popup pages
+ + Added type icons and links to the extensions
+ ^ Changed method of downloading of files to support curl
+ # Fixed issue with IE8 (and lower) javascript errors on checking
+
+10-Dec-2010 : v2.0.4
+ # Fixed issue with install/update all buttons not appearing
+
+03-Dec-2010 : v2.0.2
+ # Fixed issue with wrong version number
+ # Fixed some javascript issues with MooTools 1.2
+
+03-Dec-2010 : v2.0.0
+ + Added option to not collect external data on pageload
+ ^ Changed way external data is collected (making it much faster)
+
+25-Nov-2010 : v1.6.0
+ + Added checks to see if NoNumber Elements plugin is installed/enabled
+ + Added download icons
+ ^ Fixed and updated all language strings
+ # Fixed issue with install all button disappearing
+
+09-Nov-2010 : v1.5.1
+ # Fixed issue with installing/updating not working with MooTools Upgrade plugin
+
+08-Nov-2010 : v1.5.0
+ + Added Timed Styles and Slider to the list
+ ^ Made MooTools 1.2 compatible
+
+03-Nov-2010 : v1.4.3
+ + Added Tabber to the list
+ ^ Changed layout a bit
+
+19-Oct-2010 : v1.4.2
+ + Added CDN for Joomla! to the list
+
+26-Sep-2010 : v1.4.1
+ # Fixed issue with info not being able to be checked on some servers
+
+29-Jul-2010 : v1.4.0
+ + Added confirm popup on install all buttons
+ + Added display of ghosted input fields when valid code for all is entered
+ + Added link to extension names
+ + Added select boxes and install selected button
+ ! Removed link column
+ ^ Changed layout a bit
+
+27-Jul-2010 : v1.3.3
+ + Added message about cleaning browsers cache when installing/updating all (not in 1.3.2)
+
+27-Jul-2010 : v1.3.2
+ + Added message about cleaning browsers cache when installing/updating all
+ # Fixed issue with new version number not being placed in install links
+
+26-Jul-2010 : v1.3.1
+ + Added refresh icons for each row
+ ^ Improved saving of license codes
+ # Fixed issue with install buttons sometimes doing install twice
+ # Fixed issue with install state and version number not updating when refreshing row
+
+24-Jul-2010 : v1.3.0
+ + Added a button to install all extensions that are not already installed
+ + Added a button to update all outdated extensions
+ + Added description icon
+ + Added refresh all icon
+ ^ Changed icons a bit
+ ^ Changed refresh icons to refresh whole row
+ ^ Changed way license codes are saved (now via ajax)
+ ^ Changed way versions and licenses are checked (no more base64)
+ ^ Combined license and extension page in one
+ ^ Improved main javascript files
+
+19-Jul-2010 : v1.2.0
+ + Added changelog icon
+ + Added display of version number of the NoNumber Elements
+ + Added download button
+ + Added install/update buttons
+ ^ Change way version is checked
+ ^ Changed names and order of the pages (Licenses / Versions)
+
+10-Jul-2010 : v1.1.5
+ # Fixed issue with submenu items (Versions / Licenses) not being added
+
+02-Jul-2010 : v1.1.4
+ + Added DB Replacer and Snippets to the list
+
+23-Jun-2010 : v1.1.3
+ # Fixed issue with code looping, causing page timeouts
+
+22-Jun-2010 : v1.1.2
+ # Fixed issue with undefined properties
+
+22-Feb-2010 : v1.1.1
+ ! Removed FrontpagePlus from the list
+ # Fixed issue with database table not being installed
+ # Fixed issue with submenu items not being created
+
+12-Feb-2010 : v1.1.0
+ (Requires new License codes. Old codes won't work anymore!)
+ # Fixed issue with code not check not being same for all php versions / setups
+
+01-Feb-2010 : v1.0.2
+ ^ Removed version number caching from versions page
+ # Fixed issue with deprecated syntax for php 5.3+
+ # Fixed issue with hosts under a secondary level domain (like .co.uk)
+
+26-Jan-2010 : v1.0.1
+ + Added links to versions and licenses pages in the toolbar
+ # Fixed location of Joomla! DTD files
+
+18-Jan-2010 : v1.0.0
+ + First release

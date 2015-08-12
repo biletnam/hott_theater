@@ -1,0 +1,384 @@
+/**
+ * Changelog
+ *
+ * @package         Cache Cleaner
+ *
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            https://www.nonumber.nl
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ */
+
+/**
+ * + Added
+ * ! Removed
+ * ^ Changed
+ * # Fixed
+ */
+
+07-Aug-2015 : v4.0.4
+ # Fixed issue with uninstallation getting into a loop
+ # Fixed issue with upgrading not working
+
+30-Jul-2015 : v4.0.3
+ # Fixed issue with cleaning on success showing error message
+
+30-Jul-2015 : v4.0.2
+ # Fixed issue with admin module not being published on new install
+
+29-Jul-2015 : v4.0.1
+ # Fixed issues on uninstallation
+ # [FREE] Fixed issue with fatal error
+
+29-Jul-2015 : v4.0.0
+ + Added support for cleaning OPcache
+ + [PRO] Added support for CloudFlare
+ ! [J2.5] Removed Joomla 2.5 support
+ ^ Improved error handling
+ ^ Made minimum requirement Joomla version 3.4.1
+ ^ Recoded the installer
+ ^ Updated translations: de-DE, it-IT, nl-NL, sv-SE
+ ^ [PRO] Updated code to work with new SiteGround Nginx caching
+ # Fixed issue with Administrator Module Options not showing under correct tab in plugin settings
+ # Fixed issue with being able to clean cache via url on admin login screen
+
+26-Feb-2015 : v3.7.0
+ + [J3][PRO] Added button in plugin settings to purge KeyCDN cache
+ + [J3][PRO] Added button in plugin settings to purge MaxCDN cache
+ ^ Updated translations: lt-LT, uk-UA
+ # Fixed issue with purging JotCache not working
+
+28-Jan-2015 : v3.6.0
+ + Added ability to also purge on ajax (raw) tasks, like saveorder
+ + [J3][PRO] Added ability to purge cache created by JotCache
+ ^ Updated translations: uk-UA
+
+08-Jan-2015 : v3.5.3
+ + Added publish, unpublish, archive, trash & delete to the default tasks to clear the cache on
+ ! Removed compatibility for php versions under 5.3.13
+ # Fixed issue with Free version being able to be installed over the Pro version
+
+21-Dec-2014 : v3.5.2
+ # Fixed issue class not found errors on some setups
+ # Fixed issue with ignore folders option not working
+ # [J3][PRO] Fixed issue with KeyCDN and MaxCDN purging not working
+
+11-Dec-2014 : v3.5.1
+ # [FREE] Fixed issue with php error about unexpected ')'
+
+11-Dec-2014 : v3.5.0
+ + Added support for memcache(d)
+ + Added translations: az-AZ
+ + [PRO] Added ability to purge KeyCDN Pullzone Cache
+ + [PRO] Added ability to purge MaxCDN Pullzone Cache
+ + [PRO] Added ability to purge SiteGround Dynamic Cache
+ ! [PRO] Removed the redundant CMS Lib cleaner
+ ! [J3] Removed compatibility for Joomla 3 versions under 3.3.0
+ ^ Refactored code
+ ^ Updated translations: pl-PL
+ # Fixed issue with error about nnFile on installation on some setups
+ # [PRO] Fixed issues with duplicate rows in update_sites table
+
+01-Oct-2014 : v3.4.3
+ # Fixed issue with frontend clean on save not working
+ # [PRO] Fixed issue with frontend clean on interval not working
+
+13-Sep-2014 : v3.4.2
+ # [PRO] Fixed issue with clean on interval not working correctly
+
+01-Aug-2014 : v3.4.1
+ # [PRO] Fixed issue with error about undefined function when using the empty tables option
+
+31-Jul-2014 : v3.4.0
+ ! [J3] Removed compatibility for Joomla 3 versions under 3.2.2
+ ^ Refactored code
+ ^ Updated translations: id-ID, pl-PL, zh-TW
+ # [J2] Fixed issue with errors after upgrade to Joomla 3
+
+11-Apr-2014 : v3.3.5
+ ^ Updated translations: id-ID
+ # Fixed issue with module settings being reset on update
+
+20-Mar-2014 : v3.3.4
+ # Fixed issue with version number of module not getting updated on install
+
+19-Mar-2014 : v3.3.3
+ ^ Updated translations: bg-BG, de-DE, ru-RU
+ # Fixed issue with parent folders of ignored folders being deleted
+
+14-Feb-2014 : v3.3.2
+ ^ Updated translations: es-ES
+ # Fixed installation error about duplicate entry on some MySQL 5.6 setups
+ # Fixed issue with some missing language strings in some occasions
+ # [J2] Fixed issue with submenu not hiding on touchscreens
+ # [J3] Fixed issue with javascript error about undefined function on some setups
+
+07-Nov-2013 : v3.3.1
+ ^ Changed javascript minification to use Google Closure
+ ^ [J3] Made status bar visible on mobile view
+ # [J3] Fixed Joomla 3.2 compatibility issues
+
+09-Aug-2013 : v3.3.0
+ + Added translations: fa-IR
+ + [J3] Added ability to show a toolbar button
+ ! [J2] Removed compatibility for Joomla 2.5 versions lower than 2.5.10
+ ! [J3.0] Removed compatibility for Joomla 3 versions lower than 3.1.0
+ ^ Improved minification of js files
+ ^ Updated translations: ar-AA, ar-SA, de-DE, ja-JP, pt-PT, sk-SK
+
+15-May-2013 : v3.1.5
+ # [J3] Fixed issue with loading Mootools for tooltips instead of jQuery
+
+28-Mar-2013 : v3.1.4
+ ^ Changed messaging on installation on unsupported Joomla versions
+ ^ Cleaned up some code (syntax)
+ ^ Updated translations: pl-PL
+
+11-Mar-2013 : v3.1.3
+ + Added less files for generating css files
+ ^ Minified css and js files
+ ^ Updated translations: de-DE, fr-FR, it-IT, lt-LT, pt-BR, pt-PT
+ # Fixed some issues with installation breaking and throwing errors on some setups
+
+10-Jan-2013 : v3.1.2
+ + [PRO] Added options to purge cache and do a global check-in on save and interval
+ + [J3] Fixed issue with page breaking when auto clean is enabled
+ ^ Updated translations: hu-HU
+
+29-Dec-2012 : v3.1.1
+ # Fixed error about XML setup file on first install
+
+24-Dec-2012 : v3.1.0
+ ^ Cleaned up code
+ ^ Moved media files to Joomla media folder
+ ^ Updated translations: sv-SE
+ # [J2] Fixed issue with error about plugin not being enabled when php error reporting is on
+
+11-Dec-2012 : v3.0.2
+ ! [J2] Removed ability to install on Joomla versions lower than 2.5.7
+ ^ Updated translations: th-TH
+ ^ [J3] Replaced icon image with font-face icon
+ # [J2] Fixed issue with errors about xml files on installation
+
+14-Nov-2012 : v3.0.1
+ ^ Updated translations: sl-SI
+ # Fixed issue with error messages about XML file on installation on some setups
+
+11-Nov-2012 : v3.0.0
+ + [J3] Added Joomla 3 support
+ ! [J1.5] Removed Joomla 1.5 support
+ ^ Updated translations: de-DE, da-DK, es-ES, it-IT, nl-NL, pt-BR, zh-TW
+
+29-Jun-2012 : v2.2.0
+ + [J2] Added ability to purge the update cache when choosing Purge Expired
+ ! Removed ability to install on Joomla 1.6 and 1.7
+ ! [J1.5] LAST VERSION COMPATIBLE WITH JOOMLA 1.5
+ ^ Cleaned a lot of code
+ ^ Updated translations: hu-HU, lt-LT, sl-SI
+
+11-Jun-2012 : v2.1.2
+ # [J1.5] Fixed issue with error on install
+
+10-Jun-2012 : v2.1.1
+ ! Removed ability to install on setups with php 5.2 or lower
+ # Fixed issue with multiline input in ignore file/folders option not working (thanks Jurian Even)
+ # [FREE] Fixed issue with auto clean folders on save option not showing
+ # [PRO] Fixed issue with auto clean tables on interval option not working
+
+01-May-2012 : v2.1.0
+ + Added translations: zh-TW
+ ^ Increased page load speed by changing how xml files are loaded
+
+16-Apr-2012 : v2.0.2
+ ^ Updated translations: hu-HU
+
+10-Apr-2012 : v2.0.1
+ # SECURITY FIX: Fixed URL injection vulnerability in NoNumber Framework
+
+07-Apr-2012 : v2.0.0
+ ^ Changed some language strings
+ ^ Cleaned up code syntax
+ ^ Now available as Pro and Free version
+
+12-Mar-2012 : v1.11.8
+ # [J1.5] Fixed issue with module being installed as site instead of admin
+
+12-Mar-2012 : v1.11.7
+ ^ Updated translations: cs-CZ
+ # [J1.7+] Fixed issue with custom folders not being cleaned when more than one is entered
+
+10-Feb-2012 : v1.11.6
+ + Added translations: pl-PL
+ # Fixed issue with installer not removing the folder/zip from the tmp
+ # Fixed issue with status bar not completely disappearing when fading out
+
+09-Jan-2012 : v1.11.5
+ ^ Updated translations: it-IT
+ # Fixed issue with Chrome caching the cleaning result of Cache Cleaner
+
+16-Dec-2011 : v1.11.4
+ + Added translations: pt-PT
+ ^ Cleaned up more code
+ # Fixed issue with Zoo giving errors about its cache folder not existing on save
+
+18-Nov-2011 : v1.11.3
+ # Fixed issue with link to system plugin in error message not working
+
+03-Nov-2011 : v1.11.2
+ + Added translations: da-DK, id-ID
+ ^ Cleaned code syntax (no longer guaranteed support for php 5.2.x and lower)
+ ^ Improved handling of unreadable/protected folders
+ ^ Updated translations: de-DE, es-ES, fr-FR
+
+08-Oct-2011 : v1.11.1
+ # Fixed security issue in NoNumber Framework plugin
+
+08-Oct-2011 : v1.11.0
+ ^ Cleaned up some code (like no more use of DS)
+ ^ Improved installer
+ ^ Moved translation language files to main package (no more language packs)
+ # Fixed styling for admin template AdminPraise Lite
+ # [J1.7] Fixed issue cleaning on save/apply not working
+
+27-Sep-2011 : v1.10.2
+ # Fixed issue with double slash in framework javascript url
+ # [J1.7.1] Fixed styling issue
+
+21-Sep-2011 : v1.10.1
+ ^ Moved status link and submenu styling to NoNumber Framework
+ # Fixed issue with non-translated strings showing on non-English setups
+ # Fixed issue with text showing when the admin module is set to show only the icon
+ # Fixed styling for admin template Mission Control
+
+16-Sep-2011 : v1.10.0
+ + Added extra dropdown with purge cache and global check-in
+ ^ Changed NoNumber Elements plugin to NoNumber Framework
+ ^ Moved common language strings to NoNumber Framework files
+
+21-Jul-2011 : v1.9.4
+ # [J1.5] Argh, now fixed issue with install problems
+
+21-Jul-2011 : v1.9.3
+ # [J1.7] Fixed issue with install problems
+
+14-Jul-2011 : v1.9.2
+ # Fixed more issues with new NoNumber Elements files causing problems with Advanced Module Manager (sorry)
+
+13-Jul-2011 : v1.9.1
+ # Fixed issue with new NoNumber Elements files causing problems with Advanced Module Manager
+
+13-Jul-2011 : v1.9.0
+ + Added option to clean custom defined database tables
+ ^ Changed layout of options
+ ^ Changed use of elements
+ # Fixed issue with JEventHandler error on some setups
+ # [J1.7] Fixed issue with install problems
+
+23-May-2011 : v1.8.0
+ + Joomla 1.7 compatible!
+
+12-May-2011 : v1.7.0
+ + Added option to only purge expired cache via ctrl-click
+ ^ Changed way the mootools version is detected
+ # Fixed issue with Turkish language file error on installation
+
+06-Apr-2011 : v1.6.4
+ + Added option to define the path of the log file
+ # Fixed issue with missing language strings
+ # Fixed issue with stat errors on some setups
+
+29-Mar-2011 : v1.6.3
+ + Added option to define tasks to consider as a save (save,apply,...)
+ ^ Changed language files to be J1.6 ready
+ ^ Changed option to clean tmp folder to be switched on by default
+
+18-Feb-2011 : v1.6.2
+ + Added option to ignore certain folders/files when cleaning cache
+
+10-Feb-2011 : v1.6.1
+ ^ Changed extension icon / logo
+
+13-Dec-2010 : v1.6.0
+ + Added display of size of cleaned cache (and option to turn it off)
+ # Cleaned up some code
+ # Fixed issues with document being called to early
+ # Fixed some issues with loading of language strings
+
+25-Nov-2010 : v1.5.1
+ # Fixed the main language string CLEAN_CACHE
+
+25-Nov-2010 : v1.5.0
+ + Added checks to see if NoNumber Elements plugin is installed/enabled
+ ^ Fixed and updated all language strings
+
+12-Nov-2010 : v1.4.0
+ ^ Made MooTools 1.2 compatible
+ ^ Moved some styling to global plugin
+
+28-Jul-2010 : v1.3.0
+ + Added ability to clean custom defined folders
+ + Added ability to overrule interval/automatic settings for cleaning of folders
+ ^ Changed settings layout a bit
+
+24-Jul-2010 : v1.2.5
+ + Added tooltip to the clean cache link
+ ^ Changed way version and license information are displayed (now via ajax)
+ ^ Changed way versions and licenses are checked (no more base64)
+
+07-Jul-2010 : v1.2.4
+ + Added ability to change the text shown as link in the status bar
+ + Added option to also clean the tmp folder when cache is cleaned
+
+23-Jun-2010 : v1.2.3
+ # Fixed issue with code looping, causing page timeouts
+
+22-Jun-2010 : v1.2.2
+ ^ Improved code (=faster)
+ # Fixed issue with auto cleaning on interval on admin login screen
+
+18-May-2010 : v1.2.1
+ # Fixed issue with auto cleaning on interval
+
+17-May-2010 : v1.2.0
+ + Added check to see if system plugin is enabled (graceful fail)
+ + Added options to clean cache automatically on interval (so many seconds)
+ + Added options to clean cache on save/apply
+ ^ Improved check to see if cleaning has been successful
+
+20-Feb-2010 : v1.1.3
+ + Added ability to clean cache from cmslib cache folder
+ + Added extra info in tooltip (on hover over icon) and option to turn that off
+ + Added option to turn of 3rd party cache cleaning (for CMSLib and JRE Cache)
+ # Fixed issue with errors about registry for php 5.0.5
+
+09-Feb-2010 : v1.1.2
+ ^ Changed the License Code check (now controlled by the License Manager)
+ # Fixed issue with database error preventing cache cleaning on some setups
+ # Fixed issue with deprecated syntax for php 5.3
+ # Fixed issue with frontend cache cleaning not working
+ # Fixed location of Joomla! DTD files
+
+20-Jan-2010 : v1.1.1
+ + Added ability to add &cleancache=1 to admin url
+ ^ Change css (to prevent underline on icon only)
+ ^ Moved plugin functions to helper file
+ # Fixed javascript error preventing cache to be cleaned (bug introduced in v1.1.0)
+
+19-Jan-2010 : v1.1.0
+ + Added Commercial License Code support
+ ^ Moved elements to separate global plugin (also used by other extensions)
+
+17-Dec-2009 : v1.0.0
+ + Added message when cache is cleaned on frontend
+ + Added option to hide icon or text in toolbar
+ + Added support for APLite admin template
+ + First stable release
+ ^ Changed file encoding to UTF-8
+ ^ Cleaned up code
+ ^ Improved checks to see if cache cleaning is successful
+ # Fixed issue with error on uninstallation
+ # Fixed issue with problems with paths in some setups (double slash)
+ # Fixed some style issues
+
+10-Aug-2009 : v0.1.0
+ + First release
